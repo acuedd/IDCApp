@@ -6,4 +6,3 @@ README
 * Created by **Acuedd**
 * Thanks to: 
     * Edward Acu 
-    * Nelson Matul 
