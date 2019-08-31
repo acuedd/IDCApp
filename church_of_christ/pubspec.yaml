@@ -1,0 +1,34 @@
+name: church_of_christ
+description: A new application for Church
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  generic_bloc_provider: ^1.0.8
+  firebase_auth:
+  google_sign_in:
+  firebase_storage: ^2.1.0
+  cloud_firestore: ^0.9.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  #assets:
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
