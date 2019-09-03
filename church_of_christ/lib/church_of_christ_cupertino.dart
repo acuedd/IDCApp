@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,18 +38,23 @@ class ChurchOfChristCupertino extends StatelessWidget{
               break;
             case 1:
               return CupertinoTabView(
+                builder: (BuildContext context){
 
+                },
               );
               break;
             case 2:
               return CupertinoTabView(
+                builder: (BuildContext context){
 
+                },
               );
               break;
             case 3:
               return CupertinoTabView(
+                builder: (BuildContext context){
 
-              );
+                });
               break;
           }
         },

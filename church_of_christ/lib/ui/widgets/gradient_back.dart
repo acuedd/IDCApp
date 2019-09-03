@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class GradientBack extends StatelessWidget {
   String title = "Popular";
   double height = 0.0;
+  var colors = [
+    Color(0xFF0A2463),
+    Color(0xFF0a43c9),
+  ];
 
-  GradientBack({Key key, this.height});//height = null full screen
+  GradientBack({Key key, this.height, this.colors});//height = null full screen
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +18,19 @@ class GradientBack extends StatelessWidget {
     if(height == null){
       height = screenHeight;
     }
+    if(colors == null){
+      colors = [
+        Color(0xFF0A2463),
+        Color(0xFF0a43c9),
+      ];
+    }
 
     return Container(
       width: screenWidht,
       height: height,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF4268D3),
-            Color(0xFF584CD1),
-          ],
+          colors: colors,
           begin: FractionalOffset(0.2,0.0),
           end: FractionalOffset(1.0,0.6),
           stops: [0.0,0.6],

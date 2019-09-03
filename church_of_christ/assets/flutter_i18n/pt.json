@@ -1,0 +1,146 @@
+{
+  "app": {
+    "title": "Iglesia de Cristo",
+    "menu": {
+      "settings": "Ajustes",
+      "about": "Información"
+    }
+  },
+  "acuedd": {
+    "churchs": {
+      "title": "Churchs",
+      "icon": "Churchs",
+      "add": {
+        "title": "Add church",
+        "subtitle": "Register your church"
+      }
+    },
+    "events":{
+      "title": "Events",
+      "icon": "Events"
+    },
+    "users": {
+      "title": "Users",
+      "icon": "Login or Register with Google"
+    },
+    "other": {
+      "unknown": "Desconocido",
+      "block": "Bloque {block}",
+      "no_data": "No hay datos",
+      "more_details": "Más detalles",
+      "less_details": "Menos detalles",
+      "all_payload": "MOSTRAR TODA LA CARGA",
+      "date": {
+        "time": "{date}, {hour}",
+        "upcoming": "Previsto para {date}"
+      },
+      "menu": {
+        "wikipedia": "Página de Wikipedia",
+        "marine_traffic": "Página de MarineTraffic",
+        "share": "Compartir"
+      },
+      "tooltip": {
+        "watch_replay": "Ver lanzamiento",
+        "add_event": "Añadir evento",
+        "search": "Buscar"
+      },
+      "loading_error": {
+        "message": "No se han podido cargar los datos.",
+        "reload": "RECARGAR"
+      },
+      "share": {
+        "capsule": {
+          "body": "La cápsula {name} puede transportar hasta {launch_payload} a la ISS, y regresar con {return_payload} a la Tierra. {people} {details}",
+          "people": "Puede transportar hasta {people} personas.",
+          "no_people": "Sólo puede transportar carga."
+        },
+        "launch": {
+          "future": "La misión nº{number}, {name}, será lanzada desde {launchpad}, preparada para {date}. {details}",
+          "past": "La misión nº{number}, {name}, fue lanzada desde {launchpad}, el {date}."
+        },
+        "roadster": "El Tesla Roadster de Elon Musk, lanzado el {date}, viaja actualmente a {speed}, alejado {earth_distance} de la Tierra. {details}",
+        "rocket": "{name} es un cohete de {height} de altura. Posee {engines} {type} motores, que producen {thrust} de potencia. Puede lanzar {payload} a una órbita '{orbit}'. {details}",
+        "ship": {
+          "body": "Construido en {date}, el principal papel de {name} es '{role}'. Está atracado en '{port}'. {missions} {details}",
+          "missions": "Hasta el día de hoy, ha participado en {missions} misiones.",
+          "any_missions": "Hasta el día de hoy, no ha participado en ninguna misión."
+        }
+      }
+    }
+  },
+  "about": {
+    "headers": {
+      "about": "Sobre la app",
+      "author": "Autor",
+      "credits": "Créditos"
+    },
+    "version": {
+      "title": "Versión {version}",
+      "body": "Eche un vistazo a los nuevos cambios",
+      "changelog": "Lista de cambios"
+    },
+    "author": {
+      "title": "Creada por Edward Acu",
+      "body": "Aplicaciones libres bien diseñadas"
+    },
+    "review": {
+      "title": "¿Disfrutando de la app?",
+      "body": "Deja tu experiencia en la Play Store"
+    },
+    "patreon": {
+      "title": "Ayúdame con Patreon",
+      "body": "Apóyame visitando mi página en Patreon",
+      "body_dialog": "Apoya esta app visitando mi Patreon. ¡Muchas gracias a todos mis Patreons!",
+      "dismiss": "MÁS TARDE"
+    },
+    "email": {
+      "title": "Envíame un correo",
+      "body": "Reporta fallos o solicita nuevas funciones"
+    },
+    "translations": {
+      "title": "Traducciones",
+      "body": "¡Gracias a todos los contribuidores!"
+    },
+    "free_software": {
+      "title": "Esto es software libre",
+      "body": "El código fuente es libre para todos"
+    },
+    "flutter": {
+      "title": "Construida con Flutter",
+      "body": "Aplicaciones nativas en tiempo record"
+    },
+    "credits": {
+      "title": "Créditos",
+      "body": "Usando la API gratuita de r/SpaceX"
+    }
+  },
+  "settings": {
+    "headers": {
+      "general": "General",
+      "services": "Servicios"
+    },
+    "theme": {
+      "title": "Apariencia",
+      "body": "Elige entre luz y oscuridad",
+      "theme": {
+        "dark": "Tema oscuro",
+        "black": "Tema negro",
+        "light": "Tema claro",
+        "system": "Tema del sistema"
+      }
+    },
+    "image_quality": {
+      "title": "Calidad de imagen",
+      "body": "Ajustar resolución de imagen",
+      "quality": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta"
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "body": "Configura avisos de lanzamientos"
+    }
+  }
+}

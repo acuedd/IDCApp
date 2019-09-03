@@ -1,0 +1,151 @@
+{
+  "app": {
+    "title": "Church of Christ",
+    "menu": {
+      "settings": "Settings",
+      "about": "About"
+    }
+  },
+  "acuedd": {
+    "churchs": {
+      "title": "Churchs",
+      "icon": "Churchs",
+      "add": {
+        "title": "Add church",
+        "subtitle": "Register your church"
+      }
+    },
+    "events":{
+      "title": "Events",
+      "icon": "Events",
+      "add": {
+        "title": "Events",
+        "subtitle": "Register your event"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "icon": "Login or Register with Google"
+
+    },
+    "other": {
+      "unknown": "Unknown",
+      "block": "Block {block}",
+      "no_data": "No data",
+      "more_details": "More details",
+      "less_details": "Less details",
+      "all_payload": "SHOW ALL PAYLOAD",
+      "date": {
+        "time": "{date} · {hour}",
+        "upcoming": "NET {date}"
+      },
+      "menu": {
+        "wikipedia": "Wikipedia page",
+        "marine_traffic": "MarineTraffic page",
+        "share": "Share"
+      },
+      "tooltip": {
+        "watch_replay": "Watch launch",
+        "add_event": "Add event",
+        "search": "Search"
+      },
+      "loading_error": {
+        "message": "No internet connection. Try reloading.",
+        "reload": "RELOAD"
+      },
+      "share": {
+        "capsule": {
+          "body": "SpaceX's {name} capsule can carry up to {launch_payload} to the ISS, and return {return_payload} down to Earth. {people} {details}",
+          "people": "It can also carry up to {people} people.",
+          "no_people": "It's an 'only-cargo' capsule."
+        },
+        "launch": {
+          "future": "SpaceX's #{number} mission, '{name}', will launch from {launchpad}, scheduled for {date}. {details}",
+          "past": "SpaceX's #{number} mission, '{name}', launched from {launchpad}, on {date}."
+        },
+        "roadster": "Elon Musk's Tesla Roadster, launched on {date}, is now travelling at {speed}, distanced {earth_distance} from Earth. {details}",
+        "rocket": "{name} is a {height} tall rocket. It has {engines} {type} engines, which produces {thrust} of thrust. It can carry up to {payload} to {orbit}. {details}",
+        "ship": {
+          "body": "Built in {date}, {name}'s primary role is '{role}'. It's docked in '{port}'. {missions}",
+          "missions": "Up to this day, it has participated in {missions} missions.",
+          "any_missions": "Up to this day, it hasn't participated in any missions."
+        }
+      }
+    }
+  },
+  "about": {
+    "headers": {
+      "about": "About app",
+      "author": "Author",
+      "credits": "Credits"
+    },
+    "version": {
+      "title": "Version {version}",
+      "body": "Take a look at the new changes",
+      "changelog": "Changelog"
+    },
+    "author": {
+      "title": "Created by Edward Acu",
+      "body": "Well designed, open-source apps"
+    },
+    "review": {
+      "title": "Enjoying the app?",
+      "body": "Leave your experience in the Play Store"
+    },
+    "patreon": {
+      "title": "Support me on Patreon",
+      "body": "Help me by checking out my Patreon page",
+      "body_dialog": "Support this app by check out my Patreon page. Special thanks to all my supporters!",
+      "dismiss": "SEE LATER"
+    },
+    "email": {
+      "title": "Send me an email",
+      "body": "Report bugs or request new features"
+    },
+    "translations": {
+      "title": "Translations",
+      "body": "Thanks to everyone who contributed!"
+    },
+    "free_software": {
+      "title": "This is free software",
+      "body": "Source code is available for everyone"
+    },
+    "flutter": {
+      "title": "Built with Flutter",
+      "body": "Beautiful native apps in record time"
+    },
+    "credits": {
+      "title": "App credits",
+      "body": "Using the open-source r/SpaceX API"
+    }
+  },
+  "settings": {
+    "headers": {
+      "services": "Services",
+      "general": "General"
+    },
+    "theme": {
+      "title": "Appearance",
+      "body": "Choose between light or dark",
+      "theme": {
+        "dark": "Dark theme",
+        "black": "Black theme",
+        "light": "Light theme",
+        "system": "System theme"
+      }
+    },
+    "image_quality": {
+      "title": "Image quality",
+      "body": "Adjust image resolution",
+      "quality": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "body": "Adjust launch announcements"
+    }
+  }
+}
