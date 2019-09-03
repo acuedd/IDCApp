@@ -61,7 +61,6 @@ class ProfileHeader extends StatelessWidget{
       child: Column(
         children: <Widget>[
           UserInfo(),
-          ButtonsBar,
           Stack(
             children: <Widget>[
               GradientBack(height: 275,colors: [
@@ -78,6 +77,9 @@ class ProfileHeader extends StatelessWidget{
 
     return BlanckPage(
       title: FlutterI18n.translate(context, 'Profile'),
+      actions: <Widget>[
+        PopupSettins(context)
+      ],
       body: ListView(children: <Widget>[
           Cont
         ]
@@ -85,5 +87,21 @@ class ProfileHeader extends StatelessWidget{
     );
   }
 
+  Widget PopupSettins(BuildContext myContext){
+    return PopupMenuButton<String>(
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        const PopupMenuItem<String>(
+          value: "closeSession",
+          child: Text('Cerrar sesión'),
+        )
+      ],
+      onSelected: (text){
+        print(text);
+        if(text == "closeSession"){
+          Provider.of<UserRepository>(myContext).signOut();
+        }
+      },
+    );
+  }
 
 }
