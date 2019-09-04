@@ -56,18 +56,23 @@ class _LoginPageState extends State<LoginPage> {
                   user.signOut();
                   if (await user.signInWithGoogle()){
                     final dbUser = UserDB();
-                    dbUser.updateUserData(
-                      User(
-                        uid: user.  user.uid,
-                        name: user.user.displayName,
-                        email: user.user.email,
-                        photoURL: user.user.photoUrl,
-                        isAdmin: false,
-                        baptismDate: DateTime.now(),
-                        baptized: false,
-                        birthday: DateTime.now(),
-                      )
-                    );
+
+                    dbUser.getUser(user.user.uid).then((User user){
+
+                    }).catchError((error){
+                      dbUser.updateUserData(
+                          User(
+                            uid: user.  user.uid,
+                            name: user.user.displayName,
+                            email: user.user.email,
+                            photoURL: user.user.photoUrl,
+                            isAdmin: false,
+                            baptismDate: DateTime.now(),
+                            baptized: false,
+                            birthday: DateTime.now(),
+                          )
+                      );
+                    });
                   }
                   else{
                     print("SOMETHINGS WRONG!!");

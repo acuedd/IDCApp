@@ -12,11 +12,11 @@ import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart' as prefix0;
 
 class AddEventScreen extends StatefulWidget {
-  User user;
+  //User user;
 
   AddEventScreen({
     Key key,
-    this.user,
+    //this.user,
   });
 
   @override
@@ -34,40 +34,36 @@ class _AddEventScreen extends State<AddEventScreen> {
   }
 
   Widget _handleCurrentSession(){
-    //final user = Provider.of<UserRepository>(context);
-    //print(user.status);
-    print(widget.user.name);
     return Consumer(
-      builder: (context, EventModel user, _) {
-        return EventScreen();
-        /*switch(user.status){
+      builder: (context, UserRepository user, _) {
+        switch(user.status){
 
           case Status.Uninitialized:
             return Splash();
             break;
           case Status.Authenticated:
             return
-            EventScreen();
+              EditEventScreen();
             break;
           case Status.Authenticating:
           case Status.Unauthenticated:
             return LoginPage();
             break;
-        }*/
+        }
       },
     );
   }
 }
 
-class EventScreen extends StatefulWidget{
+class EditEventScreen extends StatefulWidget{
 
   @override
   State createState() {
-    return _EventScreen();
+    return _EditEventScreen();
   }
 }
 
-class _EventScreen extends State<EventScreen>{
+class _EditEventScreen extends State<EditEventScreen>{
 
   @override
   Widget build(BuildContext context) {

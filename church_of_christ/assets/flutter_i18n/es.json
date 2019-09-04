@@ -4,7 +4,8 @@
     "menu": {
       "settings": "Ajustes",
       "about": "Información"
-    }
+    },
+    "search": "Buscar"
   },
   "acuedd": {
     "churchs": {
@@ -21,6 +22,9 @@
       "add": {
         "title": "Eventos",
         "subtitle": "Registra tu evento"
+      },
+      "search": {
+        "events": "Busca tus eventos aquí"
       }
     },
     "users": {

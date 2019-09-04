@@ -10,6 +10,7 @@ import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/dialog_round.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
+import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/radio_cell.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:church_of_christ/util/menu.dart';
@@ -35,7 +36,6 @@ class SettingsScreen extends StatefulWidget{
 class _SettingsScreenState extends State<SettingsScreen>{
 
   Themes _themeIndex;
-  Map<String, String> popupMenu = Menu.home;
   final dbUser = UserDB();
 
   @override
@@ -65,12 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen>{
       body: Consumer<AppModel>(
         builder: (context, model, child) => Container(
           child:
-            StreamBuilder<User>(
-              stream: dbUser.streamUser(user.user.uid),
-              builder: (context, snapshot){
-                var myUser = snapshot.data;
-                if(myUser != null){
-                   return ListView(
+                   ListView(
                      children: <Widget>[
                        HeaderText(text:FlutterI18n.translate(
                          context,
@@ -127,8 +122,8 @@ class _SettingsScreenState extends State<SettingsScreen>{
                              context,
                              MaterialPageRoute(
                                builder: (context) => ChangeNotifierProvider.value(
-                                 value: EventModel(),
-                                 child: AddEventScreen(user: myUser,),
+                                 value: UserRepository.instance(),
+                                 child: AddEventScreen(),
                                ),
                              ),
                            );
@@ -193,29 +188,10 @@ class _SettingsScreenState extends State<SettingsScreen>{
                          ),
                        ),
                      ],
-                   );
-                }
-                else
-                  return CircularProgressIndicator();
-              },
-            ),
+                   ),
         ),
       ),
     );
-  }
-
-  Widget PopupSettins(){
-    return PopupMenuButton<String>(
-          itemBuilder: (context) => popupMenu.keys
-              .map((string) => PopupMenuItem(
-            value: string,
-            child:
-            Text(FlutterI18n.translate(context, string)),
-          ))
-              .toList(),
-          onSelected: (text) =>
-              Navigator.pushNamed(context, popupMenu[text]),
-        );
   }
 
 

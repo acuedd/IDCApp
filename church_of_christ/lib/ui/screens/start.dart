@@ -1,7 +1,9 @@
 
 
+import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/settings.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
+import 'package:church_of_christ/ui/tabs/events.dart';
 import 'package:church_of_christ/ui/tabs/settings.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -58,16 +60,8 @@ class _StartScreenState extends State<StartScreen> {
   Widget build(BuildContext context) {
     final List<SingleChildCloneableWidget> _models = [
       ChangeNotifierProvider(
-        builder: (context) => UserRepository.instance(),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "events",
-              style: TextStyle(fontFamily: 'Lato'),
-            ),
-          ),
-          body: Container(child: Text("Eventos we"),),
-        ),
+        builder: (context) => EventModel(),
+        child: EventsScreen(),
       ),
       ChangeNotifierProvider(
         builder: (context)=> UserRepository.instance(),
