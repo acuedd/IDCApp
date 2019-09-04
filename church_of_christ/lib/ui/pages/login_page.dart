@@ -62,7 +62,10 @@ class _LoginPageState extends State<LoginPage> {
                         name: user.user.displayName,
                         email: user.user.email,
                         photoURL: user.user.photoUrl,
-                        isAdmin: false
+                        isAdmin: false,
+                        baptismDate: DateTime.now(),
+                        baptized: false,
+                        birthday: DateTime.now(),
                       )
                     );
                   }

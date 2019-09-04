@@ -17,11 +17,20 @@
     },
     "events":{
       "title": "Eventos",
-      "icon": "Eventos"
+      "icon": "Eventos",
+      "add": {
+        "title": "Eventos",
+        "subtitle": "Registra tu evento"
+      }
     },
     "users": {
       "title": "Usuarios",
-      "icon": "Inicia sesión o registrate con Google"
+      "icon": "Inicia sesión o registrate con Google",
+      "spiritual":{
+        "baptism_date": "Bautismo",
+        "birthday": "Cumpleaños",
+        "baptized": "Bautizado"
+      }
     },
     "other": {
       "unknown": "Desconocido",

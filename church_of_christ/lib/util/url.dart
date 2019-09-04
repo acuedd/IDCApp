@@ -13,7 +13,7 @@ class Url {
 
   // About page
   static const String changelog =
-      'https://raw.githubusercontent.com/acuedd/chuchofChrist/master/README.md';
+      'https://raw.githubusercontent.com/acuedd/chuchofChrist/master/CHANGELOG.md';
   static const String authorStore =
       'https://play.google.com/store/apps/developer?id=acuedd';
   static const String appStore =

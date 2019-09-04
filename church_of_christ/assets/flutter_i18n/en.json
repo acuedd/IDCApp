@@ -25,8 +25,12 @@
     },
     "users": {
       "title": "Users",
-      "icon": "Login or Register with Google"
-
+      "icon": "Login or Register with Google",
+      "spiritual":{
+        "baptism_date": "Baptism date",
+        "birthday": "Birthdate",
+        "baptized": "Baptized"
+      }
     },
     "other": {
       "unknown": "Unknown",

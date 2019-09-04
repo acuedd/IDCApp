@@ -1,3 +1,5 @@
+import 'package:church_of_christ/data/models/changelog.dart';
+import 'package:church_of_christ/ui/screens/changelog.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
@@ -45,7 +47,7 @@ class _AboutScreenState extends State<AboutScreen> {
         )),
         ListCell.icon(
           icon: Icons.info_outline,
-          //trailing: Icon(Icons.chevron_right),
+          trailing: Icon(Icons.chevron_right),
           title: FlutterI18n.translate(
             context,
             'about.version.title',
@@ -55,6 +57,15 @@ class _AboutScreenState extends State<AboutScreen> {
             context,
             'about.version.body'
           ),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider.value(
+                  value: ChangelogModel(),
+                  child: ChangelogScreen(),
+                ),
+              ),
+            ),
         ),
         Separator.divider(indent: 72),
         ListCell.icon(

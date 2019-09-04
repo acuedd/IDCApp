@@ -51,7 +51,7 @@ class AppModel with ChangeNotifier {
 
   FlutterLocalNotificationsPlugin get notifications => _notifications;
 
-  Themes _theme = Themes.dark;
+  Themes _theme = Themes.system;
 
   ThemeData _themeData = _themes[1];
 

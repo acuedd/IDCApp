@@ -70,6 +70,37 @@ class BlanckPage extends StatelessWidget {
   }
 }
 
+/// Basic page which has reloading properties. Used for [QueryModel] models.
+/// It uses the [BlanckPage] widget inside it.
+class ReloadablePage<T extends QueryModel> extends StatelessWidget {
+  final String title;
+  final Widget body;
+  final List<Widget> actions;
+
+  const ReloadablePage({
+    @required this.title,
+    @required this.body,
+    this.actions,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlanckPage(
+      title: title,
+      body: Consumer<T>(
+        builder: (context, model, child) => RefreshIndicator(
+          onRefresh: () => _onRefresh(context, model),
+          child: model.isLoading
+              ? _loadingIndicator()
+              : model.loadingFailed && model.items.isEmpty
+              ? ConnectionError(model)
+              : body,
+        ),
+      ),
+    );
+  }
+}
+
 /// This widget is used for all tabs inside the app.
 /// Its main features are connection error handeling,
 /// pull to refresh, as well as working as a sliver list.
@@ -202,7 +233,6 @@ class SliverPage<T extends QueryModel> extends StatelessWidget {
     );
   }
 }
-
 
 /// This widget is used for all tabs inside the app.
 /// Its main features are connection error handeling,
