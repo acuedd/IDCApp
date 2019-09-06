@@ -1,32 +1,31 @@
 
-import 'dart:io';
+
+
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/login_page.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/loading_splash.dart';
-import 'package:church_of_christ/ui/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:row_collection/row_collection.dart' as prefix0;
 
-class AddEventScreen extends StatefulWidget {
-    User user;
+class MyEvents extends StatefulWidget {
+  User user;
 
-  AddEventScreen({
+  MyEvents({
     Key key,
     this.user,
   });
 
   @override
   State createState() {
-    return _AddEventScreen();
+    return _MyEvents();
   }
 }
 
-class _AddEventScreen extends State<AddEventScreen> {
+class _MyEvents extends State<MyEvents> {
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _AddEventScreen extends State<AddEventScreen> {
             break;
           case Status.Authenticated:
             return
-              EditEventScreen();
+              MyEventScreen();
             break;
           case Status.Authenticating:
           case Status.Unauthenticated:
@@ -56,26 +55,27 @@ class _AddEventScreen extends State<AddEventScreen> {
   }
 }
 
-class EditEventScreen extends StatefulWidget{
+
+class MyEventScreen extends StatefulWidget{
 
   @override
   State createState() {
-    return _EditEventScreen();
+    return _MyEventScreen();
   }
 }
 
-class _EditEventScreen extends State<EditEventScreen>{
+class _MyEventScreen extends State<MyEventScreen>{
 
   Widget _getBodyMyEvent(){
     return Consumer<EventModel>(
-        builder: (context, model, child) => Scaffold(
+      builder: (context, model, child) => Scaffold(
         body:
         SliverPage<EventModel>.slide(
           title: FlutterI18n.translate(context, 'acuedd.events.add.title'),
           slides: model.photos,
-            body: <Widget>[
-              Text("Holiii")
-            ],
+          body: <Widget>[
+            Text("Holiii")
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           heroTag: null,

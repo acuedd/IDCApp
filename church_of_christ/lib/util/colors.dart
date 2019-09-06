@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 /// Contains app colors to used them all around the app
 
 /// LIGHT THEME
-const lightPrimaryColor = const Color(0xFF1E1E1E);
-const lightAccentColor = const Color(0xFF3F51B5);
+const lightPrimaryColor = const Color(0xFF1E1E1E); //const Color(0xFF1E1E1E);
+const lightAccentColor = const Color(0xFF2566C7);//const Color(0xFF3F51B5);
 
 /// DARK THEME
 const darkPrimaryColor = const Color(0xFF151515);

@@ -11,23 +11,23 @@ class EventModel extends QueryModel{
   }
 }
 
-class Event{
+class myEvent{
   String id;
-  String name;
+  String title;
   String description;
   String urlImage;
   int likes;
   bool liked;
   //User userOwner;
-  DateTime date;
+  String date;
   double price;
   String address;
   String urlFb;
   String urlTwitter;
 
-  Event({
+  myEvent({
     this.id,
-    this.name,
+    this.title,
     this.description,
     this.urlImage,
     this.liked,

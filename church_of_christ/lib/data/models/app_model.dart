@@ -17,6 +17,7 @@ class AppModel with ChangeNotifier {
       brightness: Brightness.light,
       primaryColor: lightPrimaryColor,
       accentColor: lightAccentColor,
+      primarySwatch: Colors.blue,
     ),
     ThemeData(
       brightness: Brightness.dark,
@@ -51,7 +52,7 @@ class AppModel with ChangeNotifier {
 
   FlutterLocalNotificationsPlugin get notifications => _notifications;
 
-  Themes _theme = Themes.system;
+  Themes _theme = Themes.light;
 
   ThemeData _themeData = _themes[1];
 

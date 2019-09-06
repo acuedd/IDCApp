@@ -5,14 +5,16 @@
       "settings": "Ajustes",
       "about": "Información"
     },
-    "search": "Buscar"
+    "search": "Buscar",
+    "description": "DESCRIPCION",
+    "no_description": "Esta misión actualmente no tiene detalles"
   },
   "acuedd": {
     "churchs": {
       "title": "Iglesias",
       "icon": "Iglesias",
       "add": {
-        "title": "Add church",
+        "title": "Agrega una congregación",
         "subtitle": "Register your church"
       }
     },
@@ -20,11 +22,16 @@
       "title": "Eventos",
       "icon": "Eventos",
       "add": {
-        "title": "Eventos",
+        "title": "Agrega un eventos",
         "subtitle": "Registra tu evento"
       },
       "search": {
-        "events": "Busca tus eventos aquí"
+        "events": "Search for your events here",
+        "comingsoon": "Próximamente",
+        "now": "Este mes",
+        "previously" : "Anteriores",
+        "memories": "Memorias",
+        "date": "Fecha"
       }
     },
     "users": {

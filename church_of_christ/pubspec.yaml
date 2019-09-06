@@ -70,3 +70,6 @@ flutter:
   assets:
     - assets/flutter_i18n/
     - assets/icons/
+    - assets/images/place_holder.jpg
+    - assets/images/place_holder_2.jpg
+    - assets/images/place_holder_3.jpg

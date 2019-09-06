@@ -5,7 +5,9 @@
       "settings": "Settings",
       "about": "About"
     },
-    "search": "Search"
+    "search": "Search",
+    "description": "DESCRIPTION",
+    "no_description": "This mission has currently no details"
   },
   "acuedd": {
     "churchs": {
@@ -20,11 +22,16 @@
       "title": "Events",
       "icon": "Events",
       "add": {
-        "title": "Events",
+        "title": "Add events",
         "subtitle": "Register your event"
       },
       "search": {
-        "events": "Search for your events here"
+        "events": "Search for your events here",
+        "comingsoon": "Coming soon",
+        "now": "This month",
+        "previously" : "Previously",
+        "memories": "Memories",
+        "date": "Date"
       }
     },
     "users": {
