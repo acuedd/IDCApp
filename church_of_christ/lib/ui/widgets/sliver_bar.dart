@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SliverBar extends StatelessWidget{
@@ -17,6 +18,10 @@ class SliverBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    return _getSliverBar(context);
+  }
+
+  Widget _getSliverBar(BuildContext context){
     return SliverAppBar(
       expandedHeight:  MediaQuery.of(context).size.height * height,
       actions: actions,
@@ -37,7 +42,7 @@ class SliverBar extends StatelessWidget{
                   offset: Offset(0,0),
                   blurRadius: 4,
                   color: Theme.of(context).primaryColor,
-                ),
+                  ),
               ],
             ),
           ),

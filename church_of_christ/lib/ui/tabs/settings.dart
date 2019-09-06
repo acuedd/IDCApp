@@ -58,8 +58,8 @@ class _SettingsScreenState extends State<SettingsScreen>{
     //print(user.status);
 
 
-    return BlanckPage(
-      title: FlutterI18n.translate(context, 'app.menu.settings'),
+    return BlanckPage.offTitle(
+      //title: FlutterI18n.translate(context, 'app.menu.settings'),
       actions: <Widget>[
         PopupSettins()
       ],

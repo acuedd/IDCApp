@@ -49,10 +49,21 @@ class BlanckPage extends StatelessWidget {
   final List<Widget> actions;
 
   const BlanckPage({
-    @required this.title,
+    this.title,
     @required this.body,
     this.actions,
   });
+
+  factory BlanckPage.offTitle({
+    @required Widget body,
+    List<Widget> actions,
+}){
+    return BlanckPage(
+      title: "",
+      actions: actions,
+      body: body,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +71,7 @@ class BlanckPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: TextStyle(fontFamily: 'ProductSans'),
+          style: TextStyle(fontFamily: 'Lato'),
         ),
         centerTitle: true,
         actions: actions,
@@ -69,6 +80,7 @@ class BlanckPage extends StatelessWidget {
     );
   }
 }
+
 
 /// Basic page which has reloading properties. Used for [QueryModel] models.
 /// It uses the [BlanckPage] widget inside it.

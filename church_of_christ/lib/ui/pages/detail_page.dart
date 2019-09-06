@@ -31,6 +31,7 @@ class DetailPage extends StatelessWidget{
   bool _hasVideo = true;
   String _getVideo = "";
 
+
   DetailPage(this._img,this._title,this._date,this._description,this._category,this._link,this._origin);
 
   @override
@@ -100,10 +101,12 @@ class DetailPage extends StatelessWidget{
       title: _title,
       header: SwiperHeader(
         list: list,
-        builder: (context, index){
+        /*builder: (context, index){
           final CacheImage photo = CacheImage(_img);
+          print("index");
+          print(index);
           return index == 0 ? Hero(tag: 1, child: photo,) : photo;
-        },
+        },*/
       ),
       actions: <Widget>[
         SharedContent( onPressedFabIcon: () {

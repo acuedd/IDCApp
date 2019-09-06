@@ -1,6 +1,7 @@
 import 'package:church_of_christ/data/models/changelog.dart';
 import 'package:church_of_christ/ui/screens/changelog.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
+import 'package:church_of_christ/ui/widgets/dialog_round.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
 import 'package:church_of_christ/util/url.dart';
@@ -11,6 +12,12 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
+
+const List<Map<String, String>> _translators = [
+  {'name': 'Edward Acu', 'language': 'English'},
+  {'name': 'Edward Acu', 'language': 'Español'},
+  {'name': 'Google translate', 'language': 'Portugues'},
+];
 
 class AboutScreen extends StatefulWidget {
   @override
@@ -122,7 +129,43 @@ class _AboutScreenState extends State<AboutScreen> {
             recipients: [Url.authorEmail['address']],
           )),
         ),
-      ],),
+        HeaderText(text:FlutterI18n.translate(
+          context,
+          'about.headers.credits',
+        )),
+        ListCell.icon(
+          icon: Icons.translate,
+          trailing: Icon(Icons.chevron_right),
+          title: FlutterI18n.translate(
+            context,
+            'about.translations.title',
+          ),
+          subtitle: FlutterI18n.translate(
+            context,
+            'about.translations.body',
+          ),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => RoundDialog(
+              title: FlutterI18n.translate(
+                context,
+                'about.translations.title',
+              ),
+              children: _translators
+                  .map((translation) => ListCell(
+                title: translation['name'],
+                subtitle: translation['language'],
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 0,
+                  horizontal: 24,
+                ),
+              ))
+                  .toList(),
+            ),
+          ),
+        ),
+        Separator.divider(indent: 72),
+      ]),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:church_of_christ/ui/widgets/intro_page_item.dart';
 import 'package:church_of_christ/ui/widgets/page_transformer.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/search.dart';
+import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -28,28 +29,50 @@ class _EventsScreen extends State<EventsScreen>{
 
   @override
   Widget build(BuildContext context) {
-    return BlanckPage(
-      title: FlutterI18n.translate(context, 'acuedd.events.title'),
+    return _getScaffoldBlanckPage(context);
+  }
+
+  Widget _getScaffoldBlanckPage(BuildContext context){
+    return BlanckPage.offTitle(
+      //title: FlutterI18n.translate(context, 'acuedd.events.title'),
       actions: <Widget>[
         PopupSettins()
       ],
       body: Container(
         //color: Colors.grey[200],
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
-              child: SearchWidget(),
-            ),
-            _getFiltersDate(),
-            Expanded(
-              child: _buildFeatureds(),
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                child: SearchWidget(),
+              ),
+              _getFiltersDate(),
+              Expanded(
+                child: _buildFeatureds(),
+              ),
 
-          ],
-        )
+            ],
+          )
       ),
+    );
+  }
+
+  Widget _getScaffoldSliverBar(BuildContext context){
+    return Scaffold(
+      body: CustomScrollView(slivers: <Widget>[
+        _getSliverBar(context),
+
+      ]),
+    );
+  }
+
+  Widget _getSliverBar(BuildContext context){
+    return SliverBar(
+      title: FlutterI18n.translate(context, 'acuedd.events.title'),
+      actions: <Widget>[
+        PopupSettins()
+      ],
     );
   }
 
