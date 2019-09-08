@@ -60,7 +60,7 @@ class _StartScreenState extends State<StartScreen> {
   Widget build(BuildContext context) {
     final List<SingleChildCloneableWidget> _models = [
       ChangeNotifierProvider(
-        builder: (context) => EventModel(),
+        builder: (context) => EventModelProvider(),
         child: EventsScreen(),
       ),
       ChangeNotifierProvider(

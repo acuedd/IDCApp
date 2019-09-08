@@ -1,22 +1,26 @@
 
 
 
+import 'dart:io';
+
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
+import 'package:church_of_christ/ui/pages/add_event.dart';
 import 'package:church_of_christ/ui/pages/login_page.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/loading_splash.dart';
+import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:church_of_christ/data/models/user.dart';
 
 class MyEvents extends StatefulWidget {
-  User user;
 
   MyEvents({
     Key key,
-    this.user,
   });
 
   @override
@@ -43,7 +47,7 @@ class _MyEvents extends State<MyEvents> {
             break;
           case Status.Authenticated:
             return
-              MyEventScreen();
+              MyEventScreen(uid:user.user.uid);
             break;
           case Status.Authenticating:
           case Status.Unauthenticated:
@@ -58,6 +62,12 @@ class _MyEvents extends State<MyEvents> {
 
 class MyEventScreen extends StatefulWidget{
 
+  final String uid;
+
+  MyEventScreen({
+    this.uid
+  });
+
   @override
   State createState() {
     return _MyEventScreen();
@@ -67,10 +77,12 @@ class MyEventScreen extends StatefulWidget{
 class _MyEventScreen extends State<MyEventScreen>{
 
   Widget _getBodyMyEvent(){
-    return Consumer<EventModel>(
+    var dbUser = UserDB();
+
+    return Consumer<EventModelProvider>(
       builder: (context, model, child) => Scaffold(
         body:
-        SliverPage<EventModel>.slide(
+        SliverPage<EventModelProvider>.slide(
           title: FlutterI18n.translate(context, 'acuedd.events.add.title'),
           slides: model.photos,
           body: <Widget>[
@@ -82,7 +94,11 @@ class _MyEventScreen extends State<MyEventScreen>{
           child: Icon(Icons.add),
           tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
           onPressed: (){
-
+            dbUser.getUser(widget.uid).then((User user){
+              ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
+                Navigator.of(context).push(FadeRoute(AddEventScreen(user: user,image: image)));
+              }).catchError((onError) => print(onError));
+            });
           },
         ),
       ),
@@ -93,7 +109,7 @@ class _MyEventScreen extends State<MyEventScreen>{
   Widget build(BuildContext context) {
 
     return ChangeNotifierProvider(
-      builder: (context) => EventModel(),
+      builder: (context) => EventModelProvider(),
       child: _getBodyMyEvent(),
     );
   }

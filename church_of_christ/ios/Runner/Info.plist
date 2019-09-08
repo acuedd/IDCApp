@@ -57,5 +57,7 @@
     	</dict>
     </array>
     <!-- End of the Google Sign-in Section -->
+    <key>NSCalendarsUsageDescription</key>
+    <string>Usage for add events from Church to your calendar</string>
 </dict>
 </plist>

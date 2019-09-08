@@ -1,6 +1,7 @@
 
-import 'package:church_of_christ/data/models/news.dart';
+import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/ui/pages/detail_page.dart';
+import 'package:church_of_christ/ui/pages/my_events.dart';
 import 'package:church_of_christ/ui/widgets/fade_in_route.dart';
 import 'package:church_of_christ/ui/widgets/page_transformer.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ class IntroNewsItem extends StatelessWidget {
   IntroNewsItem({
     @required this.item,
     @required this.pageVisibility,
+    this.category,
   });
 
-  final IntroNews item;
+  final String category;
+  final EventModel item;
   final PageVisibility pageVisibility;
 
   Widget _applyTextEffects({
@@ -39,7 +42,7 @@ class IntroNewsItem extends StatelessWidget {
     final categoryText = _applyTextEffects(
       translationFactor: 300.0,
       child: new Text(
-        item.category,
+        (category != null)? category: "",
         style: textTheme.caption.copyWith(
           color: Colors.white70,
           fontWeight: FontWeight.bold,
@@ -139,7 +142,7 @@ class IntroNewsItem extends StatelessWidget {
           child: new Stack(
             fit: StackFit.expand,
             children: [
-              new Hero(tag: item.title,child: _getImageNetwork(_getImageUrl(item.imageUrl, 400, ''))),
+              new Hero(tag: item.title,child: _getImageNetwork(_getImageUrl(item.urlImage, 400, ''))),
               _getOverlayGradient(),
               _buildTextContainer(context),
             ],
@@ -172,14 +175,7 @@ class IntroNewsItem extends StatelessWidget {
   void openDetail(BuildContext context) {
     Navigator.of(context).push(FadeInRoute(
         widget:Container(
-          child: DetailPage(
-              item.imageUrl,
-              item.title,
-              item.date,
-              item.description,
-              item.category,
-              item.link,
-              item.origin)
+          child: DetailPage(myEvent: item,)
         )
     ));
   }

@@ -6,7 +6,6 @@
       "about": "About"
     },
     "search": "Search",
-    "description": "DESCRIPTION",
     "no_description": "This mission has currently no details"
   },
   "acuedd": {
@@ -32,7 +31,12 @@
         "previously" : "Previously",
         "memories": "Memories",
         "date": "Date"
-      }
+      },
+      "description": "DESCRIPTION",
+      "location": "VENUE",
+      "address": "Address",
+      "schedule": "Schedule",
+      "speakers": "Speakers"
     },
     "users": {
       "title": "Users",

@@ -3,7 +3,7 @@
 import 'package:church_of_christ/data/classes/abstract/query_model.dart';
 import 'package:flutter/material.dart';
 
-class EventModel extends QueryModel{
+class EventModelProvider extends QueryModel{
 
   @override
   Future loadData([BuildContext context]) {
@@ -11,31 +11,45 @@ class EventModel extends QueryModel{
   }
 }
 
-class myEvent{
-  String id;
-  String title;
-  String description;
-  String urlImage;
-  int likes;
-  bool liked;
+class EventModel{
+  final String id;
+  final String title;
+  final String urlImage;
+  final String description;
+  final DateTime dateTime;
+
+  final int likes;
+  final bool liked;
   //User userOwner;
   String date;
-  double price;
-  String address;
-  String urlFb;
-  String urlTwitter;
+  final double price;
+  final String address;
+  final String urlFb;
+  final String urlTwitter;
+  String urlVideo;
+  final String location;
+  List<String> listImages;
 
-  myEvent({
-    this.id,
-    this.title,
-    this.description,
-    this.urlImage,
-    this.liked,
+  EventModel({
+    @required this.id,
+    @required this.title,
+    @required this.urlImage,
+    @required this.dateTime,
+    @required this.description,
+    @required this.price,
+    @required this.address,
+    this.urlVideo,
+    this.listImages,
     this.likes,
-    this.date,
-    this.price,
-    this.address,
+    this.liked,
+    this.location,
     this.urlFb,
     this.urlTwitter,
-  });
+  }){
+    this.date = this.dateTime.toString();
+    if(this.urlVideo == null)
+      this.urlVideo = "";
+    if(this.listImages == null)
+      this.listImages = [this.urlImage];
+  }
 }

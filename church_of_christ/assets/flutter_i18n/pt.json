@@ -32,7 +32,12 @@
         "previously" : "Anteriores",
         "memories": "Memorias",
         "date": "Fecha"
-      }
+      },
+      "description": "DESCRIPCION",
+      "location": "LUGAR DE ENCUENTRO",
+      "address": "Dirección",
+      "schedule": "Programación",
+      "speakers": "Expositores"
     },
     "users": {
       "title": "Users",
