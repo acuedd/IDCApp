@@ -34,8 +34,8 @@
       },
       "description": "DESCRIPCION",
       "location": "LUGAR DE ENCUENTRO",
-      ,"address": "Dirección",
-      "schedule": "Programación",
+      "address": "Dirección",
+      "schedule": "Programa",
       "speakers": "Expositores"
     },
     "users": {

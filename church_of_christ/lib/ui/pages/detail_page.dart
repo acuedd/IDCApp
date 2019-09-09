@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:row_collection/row_collection.dart';
+import 'package:share/share.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:intl/intl.dart';
 
@@ -121,9 +122,7 @@ class DetailPage extends StatelessWidget{
         },*/
       ),
       actions: <Widget>[
-        SharedContent( onPressedFabIcon: () {
-          print("share");
-        }),
+        SharedContent(text: myEvent.title),
         PopupSettins(),
       ],
     );
@@ -133,9 +132,7 @@ class DetailPage extends StatelessWidget{
     return BlanckPage(
       title: myEvent.title,//FlutterI18n.translate(context, 'Profile'),
       actions: <Widget>[
-        SharedContent( onPressedFabIcon: () {
-          print("share");
-        }),
+        SharedContent(text: myEvent.title),
         PopupSettins(),
       ],
       body: new Container(
@@ -261,7 +258,7 @@ class DetailPage extends StatelessWidget{
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: EdgeInsets.only(left: 40.0),
+                padding: EdgeInsets.only(left: 30.0),
                 child: RaisedButton.icon(
                   icon: Icon(Icons.schedule),
                   label: Text(FlutterI18n.translate(
@@ -278,7 +275,7 @@ class DetailPage extends StatelessWidget{
               Align(
                 alignment: Alignment.centerRight,
                 child:Container(
-                  padding: EdgeInsets.only(right: 40.0),
+                  padding: EdgeInsets.only(right: 30.0),
                   child: RaisedButton.icon(
                     icon: Icon(Icons.person),
                     label: Text(FlutterI18n.translate(

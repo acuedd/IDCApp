@@ -5,6 +5,7 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/login_page.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
+import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/loading_splash.dart';
@@ -34,10 +35,20 @@ class AddEventScreen extends StatefulWidget {
 
 class _AddEventScreen extends State<AddEventScreen> {
 
-  TextStyle style = TextStyle(fontFamily: 'Lato', fontSize: 12.0);
+  TextStyle style = TextStyle(fontFamily: 'Lato', fontSize: 15.0);
 
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
+
+  String currencyValue = 'GTQ';
+  String currencySymbol = '';
+
+  _onCurrencyChanged(val, symbol) {
+    setState(() {
+      currencyValue = val;
+      currencySymbol = symbol;
+    });
+  }
 
   @override
   void initState() {
@@ -72,7 +83,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                   child: TextFormField(
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Nombre del evento",
+                      labelText: "Nombre del evento",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -84,7 +95,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                     style: style,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
-                      hintText: "Descripcion",
+                      labelText: "Descripcion",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -95,7 +106,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                     maxLines: 1,
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Dirección",
+                      labelText: "Dirección",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -104,12 +115,22 @@ class _AddEventScreen extends State<AddEventScreen> {
                 HeaderText(text: "Entradas"),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Moneda'),
+                      CurrencyDropDown(currencyValue: currencyValue, onChanged: _onCurrencyChanged),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
                     maxLines: 1,
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Coto de entradas",
+                      labelText: "Coto de entradas",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -121,7 +142,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                     maxLines: 1,
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Url de video",
+                      labelText: "Url de video",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -132,7 +153,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                     maxLines: 1,
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Url facebook",
+                      labelText: "Url facebook",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -143,12 +164,13 @@ class _AddEventScreen extends State<AddEventScreen> {
                     maxLines: 1,
                     style: style,
                     decoration: InputDecoration(
-                      hintText: "Url twiter",
+                      labelText: "Url twiter",
                       //border: OutlineInputBorder()
                     ),
                   ),
                 ),
-              ])
+
+              ]),
           ),
         ),
     );

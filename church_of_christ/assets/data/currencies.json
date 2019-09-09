@@ -1,0 +1,18 @@
+[
+{"cc":"GTQ","symbol":"Q","name":"Guatemalan quetzal"},
+{"cc":"ARS","symbol":"$","name":"Argentine peso"},
+{"cc":"AUD","symbol":"$","name":"Australian dollar"},
+{"cc":"BOB","symbol":"Bs.","name":"Bolivian boliviano"},
+{"cc":"BZD","symbol":"BZ$","name":"Belize dollar"},
+{"cc":"CAD","symbol":"$","name":"Canadian dollar"},
+{"cc":"CLP","symbol":"$","name":"Chilean peso"},
+{"cc":"COP","symbol":"Col$","name":"Colombian peso"},
+{"cc":"CRC","symbol":"\u20a1","name":"Costa Rican colon"},
+{"cc":"DOP","symbol":"RD$","name":"Dominican peso"},
+{"cc":"HNL","symbol":"L","name":"Honduran lempira"},
+{"cc":"MXN","symbol":"$","name":"Mexican peso"},
+{"cc":"NIO","symbol":"C$","name":"Nicaraguan c\u00f3rdoba"},
+{"cc":"PEN","symbol":"S/.","name":"Peruvian nuevo sol"},
+{"cc":"UYU","symbol":"$U","name":"Uruguayan peso"},
+{"cc":"VEB","symbol":"Bs","name":"Venezuelan bolivar"}
+]

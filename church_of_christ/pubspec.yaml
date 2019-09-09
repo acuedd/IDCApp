@@ -55,6 +55,9 @@ dependencies:
   qr_flutter: ^3.0.1
   date_format: ^1.0.6
   json_serializable: ^2.0.0
+  #geoflutterfire:
+  #location:
+  #google_maps_flutter:
 
 
 dev_dependencies:
@@ -80,3 +83,4 @@ flutter:
     - assets/images/place_holder_2.jpg
     - assets/images/place_holder_3.jpg
     - assets/images/
+    - assets/data/currencies.json
