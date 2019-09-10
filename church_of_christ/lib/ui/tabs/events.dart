@@ -32,28 +32,26 @@ class _EventsScreen extends State<EventsScreen>{
   }
 
   Widget _getScaffoldBlanckPage(BuildContext context){
-    return BlanckPage(
-      title: "",//FlutterI18n.translate(context, 'acuedd.events.title'),
-      actions: <Widget>[
-        PopupSettins()
-      ],
-      body: Container(
-        //color: Colors.grey[200],
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: SearchWidget(),
-              ),
-              _getFiltersDate(),
-              Expanded(
-                child: _buildFeatureds(),
-              ),
+    return Scaffold(
+      body: SafeArea(child:
+        Container(
+          //color: Colors.grey[200],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  child: SearchWidget(),
+                ),
+                _getFiltersDate(),
+                Expanded(
+                  child: _buildFeatureds(),
+                ),
 
-            ],
-          )
-      ),
+              ],
+            )
+        ),
+      )
     );
   }
 

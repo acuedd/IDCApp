@@ -59,12 +59,8 @@ class _SettingsScreenState extends State<SettingsScreen>{
     //print(user.status);
 
 
-    return BlanckPage.offTitle(
-      //title: FlutterI18n.translate(context, 'app.menu.settings'),
-      actions: <Widget>[
-        PopupSettins()
-      ],
-      body: Consumer<AppModel>(
+    return Scaffold(
+      body: SafeArea( child: Consumer<AppModel>(
         builder: (context, model, child) => Container(
           child: ListView(
              children: <Widget>[
@@ -188,10 +184,20 @@ class _SettingsScreenState extends State<SettingsScreen>{
                    ),
                  ),
                ),
+               ListCell.icon(
+                 icon: Icons.info,
+                 title: FlutterI18n.translate(context, 'app.menu.about'),
+                 subtitle: FlutterI18n.translate(context, 'about.headers.about'),
+                 trailing: Icon(Icons.chevron_right),
+                 onTap: (){
+                   Navigator.pushNamed(context, '/about');
+                 },
+               )
              ],
            ),
         ),
       ),
+    )
     );
   }
 
