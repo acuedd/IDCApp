@@ -1,5 +1,6 @@
 
 import 'package:church_of_christ/data/models/app_model.dart';
+import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/settings.dart';
 import 'package:church_of_christ/data/models/user.dart';
@@ -37,7 +38,7 @@ class SettingsScreen extends StatefulWidget{
 class _SettingsScreenState extends State<SettingsScreen>{
 
   Themes _themeIndex;
-  final dbUser = UserDB();
+  final dbUser = DbChurch();
 
   @override
   void initState() {

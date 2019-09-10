@@ -43,6 +43,7 @@ dependencies:
   material_search: ^0.2.8
   row_collection: ^0.2.3+1
   sliver_fab: ^1.0.0
+  flutter_datetime_picker: 1.2.5
 
   ##Tools
   flutter_i18n: ^0.6.4

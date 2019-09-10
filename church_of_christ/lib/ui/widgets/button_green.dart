@@ -1,6 +1,8 @@
 
+import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ButtonGreen extends StatefulWidget{
 
@@ -8,11 +10,13 @@ class ButtonGreen extends StatefulWidget{
   double width = 0.0;
   double height = 0.0;
   final VoidCallback onPressed;
+  final List<Color> colors;
 
   ButtonGreen({
     Key key,
     @required this.text,
     @required this.onPressed,
+    @required this.colors,
     this.height,
     this.width,
   });
@@ -40,10 +44,7 @@ class _ButtonGreen extends State<ButtonGreen>{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           gradient: LinearGradient(
-            colors: [
-              Color(0xFFa7ff84),//arriba
-              Color(0xFF1cbb78)//bajo
-            ],
+            colors: widget.colors,
             begin: FractionalOffset(0.2,0.0),
             end: FractionalOffset(1.0,0.6),
             stops: [0.0,0.6],
@@ -56,7 +57,7 @@ class _ButtonGreen extends State<ButtonGreen>{
             style: TextStyle(
               fontSize: 18.0,
               fontFamily: "Lato",
-              color: Colors.white,
+              color: (Provider.of<AppModel>(context).theme == Themes.black)? Theme.of(context).primaryColor : Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

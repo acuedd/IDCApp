@@ -1,3 +1,4 @@
+import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/widgets/button_green.dart';
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   user.signOut();
                   if (await user.signInWithGoogle()){
-                    final dbUser = UserDB();
+                    final dbUser = DbChurch();
 
                     dbUser.getUser(user.user.uid).then((User user){
 
@@ -80,6 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 width: 300.0,
                 height: 50.0,
+                colors: [
+                  Color(0xFFa7ff84),//arriba
+                  Color(0xFF1cbb78)//bajo
+                ],
               )
 
             ],

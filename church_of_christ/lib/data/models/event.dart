@@ -22,6 +22,7 @@ class EventModel{
   final bool liked;
   //User userOwner;
   String date;
+  final String currency;
   final double price;
   final String address;
   final String urlFb;
@@ -38,6 +39,7 @@ class EventModel{
     @required this.description,
     @required this.price,
     @required this.address,
+    @required this.currency,
     this.urlVideo,
     this.listImages,
     this.likes,

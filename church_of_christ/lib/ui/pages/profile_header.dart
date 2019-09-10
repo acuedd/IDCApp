@@ -1,4 +1,5 @@
 
+import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/user_info.dart';
@@ -23,7 +24,7 @@ class _ProfileHeader extends State<ProfileHeader> {
   double _kPickerSheetHeight = 216.0;
   DateTime date = DateTime.now();
   DateTime birth = DateTime.now();
-  final dbUser = UserDB();
+  final dbUser = DbChurch();
 
   @override
   Widget build(BuildContext context) {

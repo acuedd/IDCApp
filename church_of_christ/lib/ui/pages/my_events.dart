@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
@@ -10,6 +11,7 @@ import 'package:church_of_christ/ui/pages/add_event.dart';
 import 'package:church_of_christ/ui/pages/login_page.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/loading_splash.dart';
+import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -76,32 +78,35 @@ class MyEventScreen extends StatefulWidget{
 
 class _MyEventScreen extends State<MyEventScreen>{
 
-  Widget _getBodyMyEvent(){
-    var dbUser = UserDB();
+  Widget _getBodyBlanckPage(){
+    var dbUser = DbChurch();
 
     return Consumer<EventModelProvider>(
-      builder: (context, model, child) => Scaffold(
-        body:
-        SliverPage<EventModelProvider>.slide(
-          title: FlutterI18n.translate(context, 'acuedd.events.add.title'),
-          slides: model.photos,
-          body: <Widget>[
-            Text("Holiii")
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          heroTag: null,
-          child: Icon(Icons.add),
-          tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
-          onPressed: (){
-            dbUser.getUser(widget.uid).then((User user){
-              ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
-                Navigator.of(context).push(FadeRoute(AddEventScreen(user: user,image: image)));
-              }).catchError((onError) => print(onError));
-            });
-          },
-        ),
-      ),
+        builder: (context, model, child) => Scaffold(
+          body: BlanckPage(
+            title: FlutterI18n.translate(context, 'acuedd.events.add.subtitle'),
+            actions: <Widget>[
+              PopupSettins()
+            ],
+            body: ListView(
+              children: <Widget>[
+                Text("Holiii")
+              ],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            heroTag: null,
+            child: Icon(Icons.add),
+            tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
+            onPressed: (){
+              dbUser.getUser(widget.uid).then((User user){
+                ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
+                  Navigator.of(context).push(FadeRoute(AddEventScreen(user: user,image: image)));
+                }).catchError((onError) => print(onError));
+              });
+            },
+          ),
+        )
     );
   }
 
@@ -110,7 +115,7 @@ class _MyEventScreen extends State<MyEventScreen>{
 
     return ChangeNotifierProvider(
       builder: (context) => EventModelProvider(),
-      child: _getBodyMyEvent(),
+      child: _getBodyBlanckPage(),
     );
   }
 }
