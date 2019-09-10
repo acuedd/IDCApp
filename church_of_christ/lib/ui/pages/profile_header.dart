@@ -69,7 +69,7 @@ class _ProfileHeader extends State<ProfileHeader> {
     );
 
     return BlanckPage(
-        title: FlutterI18n.translate(context, 'Profile'),
+        title: FlutterI18n.translate(context, 'app.profile'),
         actions: <Widget>[
           PopupSettins(context)
         ],
