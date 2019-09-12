@@ -48,9 +48,4 @@ class User{
     );
   }
 
-  void convertDateFromString(String strDate){
-    DateTime todayDate = DateTime.parse(strDate);
-    print(todayDate);
-    print(formatDate(todayDate, [yyyy, '/', mm, '/', dd, ' ', hh, ':', nn, ':', ss, ' ', am]));
-  }
 }

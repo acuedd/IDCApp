@@ -136,7 +136,9 @@ class _ProfileHeader extends State<ProfileHeader> {
                       );
                     }
                     else {
-                      return CircularProgressIndicator();
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   },
                 ),

@@ -33,6 +33,9 @@
         "memories": "Memories",
         "date": "Date"
       },
+      "myevents": {
+        "title": "My events"
+      },
       "description": "DESCRIPTION",
       "location": "VENUE",
       "address": "Address",

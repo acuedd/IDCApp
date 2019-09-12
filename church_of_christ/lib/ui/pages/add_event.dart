@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:io';
 import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:church_of_christ/data/models/database.dart';
@@ -12,6 +13,7 @@ import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +23,13 @@ import 'package:intl/intl.dart';
 class AddEventScreen extends StatefulWidget {
   User user;
   File image;
+  EventModel eventEditing;
 
   AddEventScreen({
     Key key,
     this.user,
     this.image,
+    this.eventEditing,
   });
 
   @override
@@ -69,9 +73,25 @@ class _AddEventScreen extends State<AddEventScreen> {
   void initState() {
     super.initState();
 
+    if(widget.eventEditing != null){
+
+      _textTitleController.text = widget.eventEditing.title;
+      _textDescriptionController.text = widget.eventEditing.description;
+      _textAddressController.text = widget.eventEditing.address;
+      _textCostController.text = widget.eventEditing.price.toString();
+      _textVideoController.text = widget.eventEditing.urlVideo;
+      _textURlFbController.text = widget.eventEditing.urlFb;
+      _textURLTwitterController.text = widget.eventEditing.urlTwitter;
+      currencyValue = widget.eventEditing.currency;
+      _dateRaw = widget.eventEditing.dateTime;
+      _timeRaw = widget.eventEditing.dateTime;
+      _date = '${_dateRaw.year}-${_dateRaw.month.toString().padLeft(2,'0')}-${_dateRaw.day.toString().padLeft(2,'0')}';
+      _time = '${_timeRaw.hour.toString().padLeft(2,'0')}:${_timeRaw.minute.toString().padLeft(2,'0')}:${_timeRaw.second.toString().padLeft(2,'0')}';
+
+    }
   }
 
-
+  /*
   @override
   void dispose() {
     super.dispose();
@@ -82,7 +102,7 @@ class _AddEventScreen extends State<AddEventScreen> {
     _textVideoController.dispose();
     _textURlFbController.dispose();
     _textURLTwitterController.dispose();
-  }
+  }*/
 
   void save(){
     final FormState form = _formKey.currentState;
@@ -92,53 +112,96 @@ class _AddEventScreen extends State<AddEventScreen> {
 
       Scaffold
           .of(_scaffoldContext)
-          .showSnackBar(SnackBar(content: Text('Processing Data')));
+          .showSnackBar(SnackBar(content: Text('Processing Data'),duration: Duration(minutes: 4),));
 
-      final stringDate = "${_date} ${_time}";
-      String path = "${widget.user.uid}/${DateTime.now().toString()}.jpg";
+      print("eventediting");
+      print(widget.eventEditing);
+      if(widget.eventEditing != null){
+        final stringDate = "${_date} ${_time}";
 
-      db.uploadFile(path, widget.image)
-          .then((StorageUploadTask storageUploadTask){
-            print(storageUploadTask);
-            storageUploadTask.onComplete.then((StorageTaskSnapshot snapshot){
-              snapshot.ref.getDownloadURL().then((urlImage){
-                print("URLIMAGE: ${urlImage}");
-                String stringDateFilter = stringDate.replaceAll(RegExp(' +'), ' ');
-                print(stringDate);
-                var mydate = DateTime.parse(stringDateFilter);
-                print(mydate);
+        db.updateEvent(EventModel(
+          id: widget.eventEditing.id,
+          title: _textTitleController.text,
+          //urlImage: urlImage,
+          dateTime: DateTime.parse(stringDate),
+          description: _textDescriptionController.text,
+          currency: currencyValue,
+          price: (_textCostController.text.isEmpty)?0:double.parse(_textCostController.text),
+          address: _textAddressController.text,
+          urlVideo: _textVideoController.text,
+          urlFb: _textURlFbController.text,
+          urlTwitter: _textURLTwitterController.text,
+        ));
 
-                final EventModel model = new EventModel(
-                  id: null,
-                  title: _textTitleController.text,
-                  urlImage: urlImage,
-                  dateTime: DateTime.parse(stringDate),
-                  description: _textDescriptionController.text,
-                  currency: currencyValue,
-                  price: double.parse(_textCostController.text),
-                  address: _textAddressController.text,
-                  urlVideo: _textVideoController.text,
-                  urlFb: _textURlFbController.text,
-                  urlTwitter: _textURLTwitterController.text,
-                );
+        print("UPDATE EL EVENTO");
+        Scaffold.of(_scaffoldContext).removeCurrentSnackBar();
+        Scaffold
+            .of(_scaffoldContext)
+            .showSnackBar(SnackBar(content: Text('Se ha guardado la información del evento.')));
 
-                db.updateEvent(model).whenComplete((){
-                  print("GUARDO EL EVENTO");
-                  Scaffold
-                      .of(_scaffoldContext)
-                      .showSnackBar(SnackBar(content: Text('Se ha guardado la información del evento.')));
+      }
+      else{
+        final stringDate = "${_date} ${_time}";
+        String path = "${widget.user.uid}/${DateTime.now().toString()}.jpg";
+        bool boolLoading = true;
+        db.uploadFile(path, widget.image)
+            .then((StorageUploadTask storageUploadTask){
+          //print(storageUploadTask);
+          storageUploadTask.onComplete.then((StorageTaskSnapshot snapshot){
+            snapshot.ref.getDownloadURL().then((urlImage){
+              print("URLIMAGE: ${urlImage}");
+              String stringDateFilter = stringDate.replaceAll(RegExp(' +'), ' ');
+              print(stringDate);
+
+              final EventModel model = new EventModel(
+                id: null,
+                title: _textTitleController.text,
+                urlImage: urlImage,
+                dateTime: DateTime.parse(stringDate),
+                description: _textDescriptionController.text,
+                currency: currencyValue,
+                price: (_textCostController.text.isEmpty)?0:double.parse(_textCostController.text),
+                address: _textAddressController.text,
+                urlVideo: _textVideoController.text,
+                urlFb: _textURlFbController.text,
+                urlTwitter: _textURLTwitterController.text,
+              );
+
+              db.addEvent(model).whenComplete((){
+                print("GUARDO EL EVENTO");
+                Scaffold.of(_scaffoldContext).removeCurrentSnackBar();
+                Scaffold
+                    .of(_scaffoldContext)
+                    .showSnackBar(
+                      SnackBar(
+                        content: Text('Se ha guardado la información del evento. '
+                            'Ahora vuelve a ingresar para poner el horario'),
+                      )
+                    );
+                const timeOut = const Duration(seconds: 4);
+                new Timer(timeOut, (){
+                  Navigator.pop(_scaffoldContext);
                 });
-
               });
-            }).catchError((error){
-              print("ERROR\n");
-              print(error);
+
             });
-      });
+          }).catchError((error){
+            print("ERROR\n");
+            print(error);
+          });
+        });
+
+      }
     }
   }
 
+  void delete(){
+    db.deleteEvent(widget.eventEditing);
+    Navigator.pop(_scaffoldContext);
+  }
+
   Widget _getBodyMyEvent(BuildContext content){
+
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -157,6 +220,13 @@ class _AddEventScreen extends State<AddEventScreen> {
               child: Text("Save"),
               shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
+            if(widget.eventEditing != null)
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: (){
+                  delete();
+                },
+              ),
           ],
         ),
         body: new Builder(
@@ -170,18 +240,18 @@ class _AddEventScreen extends State<AddEventScreen> {
                       Container(
                         alignment: Alignment.center,
                         child: CardImageWithFabIcon(
-                          imageFile: widget.image,//"assets/img/sunset.jpeg",
+                          imageFile: (widget.eventEditing != null)?widget.eventEditing.urlImage :widget.image,//"assets/img/sunset.jpeg",
                           iconData: Icons.camera_alt,
                           width: 350.0,
                           height: 250.0,left: 0,
-                          internet: false,
+                          internet: (widget.eventEditing != null)?true:false,
                         ),
                       ), //Foto
                       Separator.divider(indent: 72),
                       HeaderText(text: "Basicos"),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
+                        child: TextField(
                           controller: _textTitleController,
                           style: style,
                           decoration: InputDecoration(
@@ -192,7 +262,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
+                        child: TextField(
                           controller: _textDescriptionController,
                           maxLines: 4,
                           style: style,
@@ -205,7 +275,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
+                        child: TextField(
                           controller: _textAddressController,
                           maxLines: 1,
                           style: style,
@@ -241,7 +311,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                                       _date = '${date.year}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';
                                       _dateRaw = date;
                                       setState(() {});
-                                    }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    }, currentTime: _dateRaw, locale: LocaleType.en);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -304,8 +374,10 @@ class _AddEventScreen extends State<AddEventScreen> {
                                       _time = '${time.hour.toString().padLeft(2,'0')}:${time.minute.toString().padLeft(2,'0')}:${time.second.toString().padLeft(2,'0')}';
                                       _timeRaw = time;
                                       setState(() {});
-                                    }, currentTime: DateTime.now(), locale: LocaleType.en);
-                                setState(() {});
+                                    }, currentTime: _timeRaw, locale: LocaleType.en);
+                                setState(() {
+
+                                });
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -358,7 +430,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
+                        child: TextField(
                           controller: _textCostController,
                           maxLines: 1,
                           keyboardType: TextInputType.numberWithOptions(decimal: true),

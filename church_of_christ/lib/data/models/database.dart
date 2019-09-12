@@ -2,13 +2,15 @@
 import 'dart:io';
 
 import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/ui/pages/my_events.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 import 'event.dart';
 
-class DbChurch {
+class DbChurch with ChangeNotifier {
   final String USERS = "users";
   final String EVENTSCHURCH = "events";
 
@@ -67,7 +69,7 @@ class DbChurch {
         .map((snap) => User.fromMap(snap.data));
   }
 
-  Future<void> updateEvent(EventModel myEvent) async{
+  Future<void> addEvent(EventModel myEvent) async{
     CollectionReference refEvents = _db.collection(EVENTSCHURCH);
 
     await _auth.currentUser().then((FirebaseUser user){
@@ -87,7 +89,77 @@ class DbChurch {
     });
   }
 
+  void updateEvent(EventModel myEvent) async{
+    DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
+
+    return await refEvents.setData({
+      //'id': myEvent.id,
+      //'urlImage': myEvent.urlImage,
+      'title': myEvent.title,
+      'description': myEvent.description,
+      'address': myEvent.address,
+      'currency': myEvent.currency,
+      'price': myEvent.price,
+      'urlVideo': myEvent.urlVideo,
+      'urlTwitter': myEvent.urlTwitter,
+      'urlFb': myEvent.urlFb,
+      'dateTime': myEvent.dateTime,
+    }, merge: true);
+  }
+
+  void deleteEvent(EventModel myEvent) async{
+    DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
+    refEvents.delete();
+  }
+
   Future<StorageUploadTask> uploadFile(String path, File image) async{
     return _storageReference.child(path).putFile(image);
   }
+
+  Stream<QuerySnapshot> streamEventsPerUser(String uid){
+    return _db.collection(EVENTSCHURCH).where("userOwner",isEqualTo: _db.document("${USERS}/${uid}"))
+              .snapshots();
+  }
+
+  List<ItemEventsSearch> buildEvents(List<DocumentSnapshot> eventsListSnapshot, User user){
+    List<ItemEventsSearch> myEvents = List<ItemEventsSearch>();
+
+    eventsListSnapshot.forEach((p){
+      myEvents.add(ItemEventsSearch(myEvent: EventModel.fromFirestore(p), myUser: user,));
+    });
+
+    return myEvents;
+  }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

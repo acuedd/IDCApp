@@ -1,6 +1,7 @@
 
 
 import 'package:church_of_christ/data/classes/abstract/query_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EventModelProvider extends QueryModel{
@@ -54,4 +55,25 @@ class EventModel{
     if(this.listImages == null)
       this.listImages = [this.urlImage];
   }
+
+  factory EventModel.fromFirestore(DocumentSnapshot doc){
+    Map data = doc.data;
+    String date = data["dateTime"].toDate().toString();
+    DateTime secondDate = DateTime.parse(date);
+
+    return EventModel(
+      id: doc.documentID,
+      title: data["title"] ?? "",
+      urlImage: data["urlImage"] ?? "",
+      description: data["description"] ?? "",
+      dateTime: secondDate,
+      currency: data["currency"] ?? "",
+      price: data["price"] ?? 0.0,
+      address: data["address"] ?? "",
+      urlVideo: data["urlVideo"] ?? "",
+      urlTwitter: data["urlTwitter"] ?? "",
+      urlFb: data["urlFb"] ?? ""
+    );
+  }
+
 }
