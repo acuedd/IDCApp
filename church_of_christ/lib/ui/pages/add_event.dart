@@ -104,7 +104,7 @@ class _AddEventScreen extends State<AddEventScreen> {
     _textURLTwitterController.dispose();
   }*/
 
-  void save(){
+  void save(BuildContext context){
     final FormState form = _formKey.currentState;
 
     if(form.validate()){
@@ -112,7 +112,7 @@ class _AddEventScreen extends State<AddEventScreen> {
 
       Scaffold
           .of(_scaffoldContext)
-          .showSnackBar(SnackBar(content: Text('Processing Data'),duration: Duration(minutes: 4),));
+          .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.processing')),duration: Duration(minutes: 4),));
 
       print("eventediting");
       print(widget.eventEditing);
@@ -137,7 +137,7 @@ class _AddEventScreen extends State<AddEventScreen> {
         Scaffold.of(_scaffoldContext).removeCurrentSnackBar();
         Scaffold
             .of(_scaffoldContext)
-            .showSnackBar(SnackBar(content: Text('Se ha guardado la información del evento.')));
+            .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.updatedata'))));
 
       }
       else{
@@ -174,8 +174,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                     .of(_scaffoldContext)
                     .showSnackBar(
                       SnackBar(
-                        content: Text('Se ha guardado la información del evento. '
-                            'Ahora vuelve a ingresar para poner el horario'),
+                        content: Text(FlutterI18n.translate(context, 'acuedd.events.saveData')),
                       )
                     );
                 const timeOut = const Duration(seconds: 4);
@@ -215,9 +214,9 @@ class _AddEventScreen extends State<AddEventScreen> {
             FlatButton(
               textColor: Colors.white,
               onPressed: () {
-                save();
+                save(content);
               },
-              child: Text("Save"),
+              child: Text(FlutterI18n.translate(content, 'app.save')),
               shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
             if(widget.eventEditing != null)
@@ -240,22 +239,22 @@ class _AddEventScreen extends State<AddEventScreen> {
                       Container(
                         alignment: Alignment.center,
                         child: CardImageWithFabIcon(
-                          imageFile: (widget.eventEditing != null)?widget.eventEditing.urlImage :widget.image,//"assets/img/sunset.jpeg",
-                          iconData: Icons.camera_alt,
-                          width: 350.0,
-                          height: 250.0,left: 0,
-                          internet: (widget.eventEditing != null)?true:false,
-                        ),
+                              imageFile: (widget.eventEditing != null)?widget.eventEditing.urlImage :widget.image,//"assets/img/sunset.jpeg",
+                              iconData: Icons.camera_alt,
+                              width: 350.0,
+                              height: 250.0,left: 0,
+                              internet: (widget.eventEditing != null)?true:false,
+                            ),
                       ), //Foto
                       Separator.divider(indent: 72),
-                      HeaderText(text: "Basicos"),
+                      HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.basics.title')),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextField(
                           controller: _textTitleController,
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Nombre del evento",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.basics.name'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -268,7 +267,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           style: style,
                           keyboardType: TextInputType.multiline,
                           decoration: InputDecoration(
-                            labelText: "Descripcion",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.basics.description'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -280,7 +279,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           maxLines: 1,
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Dirección",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.address'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -291,7 +290,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           //mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Fecha del evento', style: TextStyle(
+                            Text(FlutterI18n.translate(context, 'acuedd.events.basics.date'), style: TextStyle(
                                 color: Colors.grey
                             ),),
                             RaisedButton(
@@ -356,7 +355,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Hora inicio', style: TextStyle(
+                            Text(FlutterI18n.translate(context, 'acuedd.events.basics.time'), style: TextStyle(
                                 color: Colors.grey
                             ),),
                             RaisedButton(
@@ -417,13 +416,13 @@ class _AddEventScreen extends State<AddEventScreen> {
                         ),
                       ),
                       Separator.divider(indent: 72),
-                      HeaderText(text: "Entradas (opcional)"),
+                      HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.tickets.name')),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Moneda'),
+                            Text(FlutterI18n.translate(context, 'acuedd.events.tickets.currency')),
                             CurrencyDropDown(currencyValue: currencyValue, onChanged: _onCurrencyChanged),
                           ],
                         ),
@@ -436,12 +435,12 @@ class _AddEventScreen extends State<AddEventScreen> {
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Costo de entradas",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.tickets.cost'),
                             //border: OutlineInputBorder()
                           ),
                         ),
                       ),
-                      HeaderText(text: "Social Media"),
+                      HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.socialMedia.name')  ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextFormField(
@@ -449,7 +448,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           maxLines: 1,
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Url de video",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.socialMedia.urlVideo'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -461,7 +460,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           maxLines: 1,
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Url facebook",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.socialMedia.facebook'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -473,7 +472,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           maxLines: 1,
                           style: style,
                           decoration: InputDecoration(
-                            labelText: "Url twiter",
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.socialMedia.twitter'),
                             //border: OutlineInputBorder()
                           ),
                         ),
@@ -490,6 +489,10 @@ class _AddEventScreen extends State<AddEventScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.image == null && widget.eventEditing == null){
+      Navigator.pop(context);
+    }
+
     return _getBodyMyEvent(context);
   }
 }

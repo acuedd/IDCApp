@@ -4,16 +4,11 @@ import 'dart:io';
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
-import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/add_event.dart';
-import 'package:church_of_christ/ui/pages/login_page.dart';
 import 'package:church_of_christ/ui/widgets/animated_content.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
-import 'package:church_of_christ/ui/widgets/loading_splash.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
-import 'package:church_of_christ/ui/widgets/search.dart';
 import 'package:church_of_christ/util/functions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image_picker/image_picker.dart';
@@ -93,7 +88,7 @@ class _MyEventScreen extends State<MyEventScreen>{
                     children: db.buildEvents(snapshot.data.documents, myUser),
                   );
                 }
-                return Text("Ocurrió un error al cargar");
+                return CircularProgressIndicator();
               },
             ),
           ),
@@ -276,7 +271,7 @@ class CustomSearchDelegate extends SearchDelegate{
         children: <Widget>[
           Center(
             child: Text(
-              "Search term must be longer than two letters."
+              FlutterI18n.translate(context, 'acuedd.events.search.searchMin')
             ),
           ),
         ],

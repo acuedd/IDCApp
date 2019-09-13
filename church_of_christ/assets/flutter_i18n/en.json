@@ -7,7 +7,9 @@
     },
     "search": "Search",
     "no_description": "This mission has currently no details",
-    "profile": "Profile"
+    "profile": "Profile",
+    "save":"Save",
+    "errorOnLoad": "Error on load"
   },
   "acuedd": {
     "churchs": {
@@ -31,7 +33,8 @@
         "now": "This month",
         "previously" : "Previously",
         "memories": "Memories",
-        "date": "Date"
+        "date": "Date",
+        "searchMin": "Search term must be longer than two letters."
       },
       "myevents": {
         "title": "My events"
@@ -40,7 +43,28 @@
       "location": "VENUE",
       "address": "Address",
       "schedule": "Schedule",
-      "speakers": "Speakers"
+      "speakers": "Speakers",
+      "processing" : "Processing Data",
+      "saveData": "The event info has been saved. Now re-enter to set the schedule",
+      "updatedata": "The event info has been saved.",
+      "basics": {
+        "title": "Basics",
+        "name": "Event's name",
+        "description": "Description",
+        "date": "Event's date",
+        "time": "Event's time"
+      },
+      "tickets": {
+        "name": "Tickets",
+        "currency": "Currency",
+        "cost": "Ticket cost"
+      },
+      "socialMedia": {
+        "name": "Redes sociales",
+        "urlVideo": "Video link",
+        "facebook": "Facebook link",
+        "twitter": "Twitter link"
+      }
     },
     "users": {
       "title": "Users",

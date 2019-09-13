@@ -8,7 +8,9 @@
     "search": "Search",
     "description": "DESCRIPCION",
     "no_description": "Esta misión actualmente no tiene detalles",
-    "profile": "perfil"
+    "profile": "perfil",
+    "save":"Guardar",
+    "errorOnLoad": "Ha ocurrido un error al cargar"
   },
   "acuedd": {
     "churchs": {
@@ -32,7 +34,8 @@
         "now": "Este mes",
         "previously" : "Anteriores",
         "memories": "Memorias",
-        "date": "Fecha"
+        "date": "Fecha",
+        "searchMin": "Tu búsqueda debe ser mayor a dos letras."
       },
       "myevents": {
         "title": "Mis eventos"
@@ -41,7 +44,28 @@
       "location": "LUGAR DE ENCUENTRO",
       "address": "Dirección",
       "schedule": "Programación",
-      "speakers": "Expositores"
+      "speakers": "Expositores",
+      "processing" : "Procesando datos",
+      "saveData": "Se ha guardado la información del evento. Ahora vuelve a ingresar para poner el horario",
+      "updatedata": "Se ha guardado la información del evento.",
+      "basics": {
+        "title": "Básicos",
+        "name": "Nombre del evento",
+        "description": "Descripción",
+        "date": "Fecha del evento",
+        "time": "Hora del evento"
+      },
+      "tickets": {
+        "name": "Tickets",
+        "currency": "Moneda",
+        "cost": "Costo de entreda"
+      },
+      "socialMedia": {
+        "name": "Redes sociales",
+        "urlVideo": "Link del video",
+        "facebook": "Facebook link",
+        "twitter": "Twitter link"
+      }
     },
     "users": {
       "title": "Users",
