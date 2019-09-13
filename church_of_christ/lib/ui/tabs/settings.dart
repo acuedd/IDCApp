@@ -115,15 +115,25 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  subtitle: FlutterI18n.translate(context, 'acuedd.events.add.subtitle'),
                  trailing: Icon(Icons.chevron_right),
                  onTap:(){
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(
-                       builder: (context) => ChangeNotifierProvider.value(
-                         value: UserRepository.instance(),
-                         child: MyEvents(),
+                   if(user.status == Status.Authenticated){
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) => MyEvents(userid: user.user.uid)
                        ),
-                     ),
-                   );
+                     );
+                   }
+                   else{
+                     Navigator.push(
+                         context,
+                         MaterialPageRoute(
+                           builder: (context) => ChangeNotifierProvider.value(
+                             value: UserRepository.instance(),
+                             child: SignInScreen(),
+                           ),
+                         )
+                     );
+                   }
                  },
                ),
                Separator.divider(indent: 72),

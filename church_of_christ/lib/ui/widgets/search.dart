@@ -10,10 +10,14 @@ class SearchWidget extends StatelessWidget{
   String textHint = 'app.search';
   final TextEditingController editingController = new TextEditingController();
   BuildContext _context;
+  final VoidCallback Function(String) onSubmited;
+  final VoidCallback Function(String) onChanged;
 
   SearchWidget({
     Key key,
-    @required this.textHint
+    @required this.textHint,
+    this.onSubmited,
+    this.onChanged,
   });
 
   @override
@@ -37,11 +41,12 @@ class SearchWidget extends StatelessWidget{
                     maxLines: 1,
                     decoration: new InputDecoration(
                       icon: Icon(Icons.search, color: Theme.of(context).accentColor,),
-                      hintText: FlutterI18n.translate(context, ''),
+                      hintText: textHint,
                       border: InputBorder.none,
                     ),
-                    onSubmitted: onSubmitted,
+                    //onSubmitted: onSubmitted,
                     controller: editingController,
+                    //onChanged: onChangged,
                   )
               )
             ],
@@ -52,10 +57,14 @@ class SearchWidget extends StatelessWidget{
   }
 
   onSubmitted(query){
-    Navigator.of(_context).push(
-      new MaterialPageRoute(builder: (BuildContext context){
-        return SearchView(query);
-      }
-    ));
+    print("from search wid");
+    print(query);
+    onSubmited(query);
+  }
+
+  onChangged(query){
+    print("from search wid change");
+    print(query);
+    onChanged(query);
   }
 }

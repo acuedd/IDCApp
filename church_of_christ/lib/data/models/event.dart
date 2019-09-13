@@ -76,4 +76,23 @@ class EventModel{
     );
   }
 
+  factory EventModel.fromMap(Map data){
+    String date = data["dateTime"].toDate().toString();
+    DateTime secondDate = DateTime.parse(date);
+
+    return EventModel(
+        id: data["docID"],
+        title: data["title"] ?? "",
+        urlImage: data["urlImage"] ?? "",
+        description: data["description"] ?? "",
+        dateTime: secondDate,
+        currency: data["currency"] ?? "",
+        price: data["price"] ?? 0.0,
+        address: data["address"] ?? "",
+        urlVideo: data["urlVideo"] ?? "",
+        urlTwitter: data["urlTwitter"] ?? "",
+        urlFb: data["urlFb"] ?? ""
+    );
+  }
+
 }

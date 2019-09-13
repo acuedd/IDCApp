@@ -27,7 +27,7 @@ class CardImageWithFabIcon  extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    
+    print(imageFile);
     final card = Container(
       height: height, 
       width: width,

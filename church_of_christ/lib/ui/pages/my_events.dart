@@ -7,10 +7,13 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/add_event.dart';
 import 'package:church_of_christ/ui/pages/login_page.dart';
+import 'package:church_of_christ/ui/widgets/animated_content.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/loading_splash.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
+import 'package:church_of_christ/ui/widgets/search.dart';
 import 'package:church_of_christ/util/functions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,9 +21,10 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class MyEvents extends StatefulWidget {
-
+  String userid;
   MyEvents({
     Key key,
+    @required this.userid
   });
 
   @override
@@ -38,24 +42,7 @@ class _MyEvents extends State<MyEvents> {
   }
 
   Widget _handleCurrentSession(){
-    return Consumer(
-      builder: (context, UserRepository user, _) {
-        switch(user.status){
-
-          case Status.Uninitialized:
-            return Splash();
-            break;
-          case Status.Authenticated:
-            return
-              MyEventScreen(uid:user.user.uid);
-            break;
-          case Status.Authenticating:
-          case Status.Unauthenticated:
-            return LoginPage();
-            break;
-        }
-      },
-    );
+    return MyEventScreen(uid:widget.userid);
   }
 }
 
@@ -85,11 +72,16 @@ class _MyEventScreen extends State<MyEventScreen>{
       });
     }).catchError((onError) => print(onError));
 
-    return Consumer<DbChurch>(
-        builder: (context, model, child) => Scaffold(
+    return Scaffold(
           body: BlanckPage(
             title: FlutterI18n.translate(context, 'acuedd.events.myevents.title'),
             actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: (){
+                  showSearch(context: context, delegate: CustomSearchDelegate(myUser));
+                },
+              ),
               PopupSettins()
             ],
             body: StreamBuilder(
@@ -115,8 +107,7 @@ class _MyEventScreen extends State<MyEventScreen>{
               }).catchError((onError) => print(onError));
             },
           ),
-        )
-    );
+      );
   }
 
   @override
@@ -246,5 +237,104 @@ class ItemEventsSearch extends StatelessWidget {
       return new Image.asset('assets/images/place_holder.jpg');
     }
 
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate{
+  User user;
+  var db = DbChurch();
+
+  CustomSearchDelegate(this.user);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: (){
+          query = "";
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: (){
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    if(query.length < 3 ){
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Text(
+              "Search term must be longer than two letters."
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      children: <Widget>[
+        StreamBuilder(
+          stream: db.streamEventsPerUser(user.uid),
+          builder: (context, AsyncSnapshot snapshot){
+            if(!snapshot.hasData){
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(child: CircularProgressIndicator(),)
+                ],
+              );
+            }
+            else{
+              var queryResultSet = [];
+              var tmpSearchStore = [];
+              var eventsListSnapshot = snapshot.data.documents;
+
+              eventsListSnapshot.forEach((p){
+                queryResultSet.add(EventModel.fromFirestore(p));
+              });
+
+              queryResultSet.forEach((q){
+                String searchValue = query.toLowerCase();
+                if(q.title.toString().toLowerCase().contains(searchValue) || q.description.toString().toLowerCase().contains(searchValue) ){
+                  tmpSearchStore.add(q);
+                }
+              });
+              
+              print(tmpSearchStore.length);
+              print(tmpSearchStore);
+
+              return Expanded(
+                child: AnimatedContent(
+                  show: snapshot.data.documents.length > 0,
+                  child: ListView(
+                  padding: EdgeInsets.only(top: 20.0),
+                    children: db.buildEventsFromMap(tmpSearchStore, user),
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    //this method
+    return Column();
   }
 }

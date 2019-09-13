@@ -93,7 +93,7 @@ class DbChurch with ChangeNotifier {
     DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
 
     return await refEvents.setData({
-      //'id': myEvent.id,
+      'id': refEvents.documentID,
       //'urlImage': myEvent.urlImage,
       'title': myEvent.title,
       'description': myEvent.description,
@@ -131,6 +131,34 @@ class DbChurch with ChangeNotifier {
     return myEvents;
   }
 
+  List<ItemEventsSearch> buildEventsFromMap(List results, User user){
+    List<ItemEventsSearch> myEvents = List<ItemEventsSearch>();
+
+    results.forEach((q){
+      myEvents.add(ItemEventsSearch(myEvent: q, myUser: user,));
+    });
+    return myEvents;
+  }
+
+  getEventsByUser(String uid){
+    return _db.collection(EVENTSCHURCH).where("userOwner", isEqualTo: _db.document("${USERS}/${uid}")).getDocuments();
+  }
+
+  List<EventModel> getMapEvents(QuerySnapshot docs){
+    List<EventModel> mapEvents = List<EventModel>();
+
+    for(int i=0; i< docs.documents.length; ++i){
+      var mymap = docs.documents[i].data;
+      mymap["docID"] = docs.documents[i].documentID;
+      mapEvents.add(EventModel.fromMap(mymap));
+    }
+
+    return mapEvents;
+  }
+
+  getSearchEvent(String searchField){
+    return _db.collection(EVENTSCHURCH).where("title", isEqualTo: searchField).getDocuments();
+  }
 
 }
 
