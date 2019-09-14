@@ -51,24 +51,25 @@ class _ShowSpeakers extends State<ShowSpeakers>{
                 context,
                 orientation,
                 onTapCallback: (context, TalkBoss boss) {
-                  if(widget.user.isAdmin){
-                    Navigator.of(context).push(
-                        FadeRoute(
-                            AddSpeaker(
-                              speakerLoad: Speaker(
-                                id: boss.speaker.id,
-                                name: boss.speaker.name,
-                                bio: boss.speaker.bio,
-                                company: boss.speaker.company,
-                                twitter: boss.speaker.twitter,
-                                fb: boss.speaker.fb,
-                                imagePath: boss.speaker.imagePath,
-                              ),
-                              user: widget.user,
-                            )
-                        )
-                    );
-                  }
+                  if(widget.user != null)
+                    if(widget.user.isAdmin){
+                      Navigator.of(context).push(
+                          FadeRoute(
+                              AddSpeaker(
+                                speakerLoad: Speaker(
+                                  id: boss.speaker.id,
+                                  name: boss.speaker.name,
+                                  bio: boss.speaker.bio,
+                                  company: boss.speaker.company,
+                                  twitter: boss.speaker.twitter,
+                                  fb: boss.speaker.fb,
+                                  imagePath: boss.speaker.imagePath,
+                                ),
+                                user: widget.user,
+                              )
+                          )
+                      );
+                    }
                 }
             );
           }

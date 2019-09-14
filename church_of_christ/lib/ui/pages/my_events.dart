@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class MyEvents extends StatefulWidget {
-  String userid;
+  User userid;
   MyEvents({
     Key key,
     @required this.userid
@@ -37,17 +37,17 @@ class _MyEvents extends State<MyEvents> {
   }
 
   Widget _handleCurrentSession(){
-    return MyEventScreen(uid:widget.userid);
+    return MyEventScreen(myUser:widget.userid);
   }
 }
 
 
 class MyEventScreen extends StatefulWidget{
 
-  final String uid;
+  final User myUser;
 
   MyEventScreen({
-    this.uid
+    this.myUser
   });
 
   @override
@@ -57,15 +57,14 @@ class MyEventScreen extends StatefulWidget{
 }
 
 class _MyEventScreen extends State<MyEventScreen>{
-  User myUser;
+  var db = DbChurch();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Widget _getBodyBlanckPage(BuildContext context){
-    var db = DbChurch();
-    db.getUser(widget.uid).then((User user){
-      setState(() {
-        myUser = user;
-      });
-    }).catchError((onError) => print(onError));
 
     return Scaffold(
           body: BlanckPage(
@@ -74,18 +73,18 @@ class _MyEventScreen extends State<MyEventScreen>{
               IconButton(
                 icon: Icon(Icons.search),
                 onPressed: (){
-                  showSearch(context: context, delegate: CustomSearchDelegate(myUser));
+                  showSearch(context: context, delegate: CustomSearchDelegate(widget.myUser));
                 },
               ),
               PopupSettins()
             ],
             body: StreamBuilder(
-              stream: (myUser.isAdmin)?db.streamEvents():db.streamEventsPerUser(widget.uid),
+              stream: (widget.myUser != null && widget.myUser.isAdmin)?db.streamEvents():db.streamEventsPerUser(widget.myUser.uid),
               builder: (context, AsyncSnapshot snapshot){
                 if(snapshot.hasData){
                   return ListView(
                     padding: EdgeInsets.only(top: 20.0),
-                    children: db.buildEvents(snapshot.data.documents, myUser),
+                    children: db.buildEvents(snapshot.data.documents, widget.myUser),
                   );
                 }
                 return CircularProgressIndicator();
@@ -98,7 +97,7 @@ class _MyEventScreen extends State<MyEventScreen>{
             tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
             onPressed: (){
               ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
-                Navigator.of(context).push(FadeRoute(AddEventScreen(user: myUser,image: image, eventEditing: null,)));
+                Navigator.of(context).push(FadeRoute(AddEventScreen(user: widget.myUser,image: image, eventEditing: null,)));
               }).catchError((onError) => print(onError));
             },
           ),
