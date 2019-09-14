@@ -11,36 +11,10 @@ import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-
-class MyEvents extends StatefulWidget {
-  User userid;
-  MyEvents({
-    Key key,
-    @required this.userid
-  });
-
-  @override
-  State createState() {
-    return _MyEvents();
-  }
-}
-
-class _MyEvents extends State<MyEvents> {
-
-  @override
-  Widget build(BuildContext context) {
-
-    return _handleCurrentSession();
-  }
-
-  Widget _handleCurrentSession(){
-    return MyEventScreen(myUser:widget.userid);
-  }
-}
-
 
 class MyEventScreen extends StatefulWidget{
 
@@ -125,19 +99,51 @@ class ItemEventsSearch extends StatelessWidget {
     this.myUser,
   });
 
+  var db = DbChurch();
+
   @override
   Widget build(BuildContext context) {
     this._context = context;
+    return new Slidable(
+      actionPane: new SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      child: _getMainContainer(context),
+      actions: <Widget>[
 
+      ],
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'Edit',
+          //color: Colors.black45,
+          icon: Icons.edit,
+          onTap: () => _handleTapUp(),
+        ),
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: (){
+            _delteEvent();
+          },
+        ),
+      ]
+    );
+  }
+
+  Widget _getGestureBuild(BuildContext context){
     return new GestureDetector(
       onTap: _handleTapUp,
-      child: new Container(
-        margin: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0,top: 0.0),
-        child:  new Material(
-          borderRadius: new BorderRadius.circular(6.0),
-          elevation: 2.0,
-          child: _getListTitle(),
-        ),
+      child: _getMainContainer(context),
+    );
+  }
+
+  Widget _getMainContainer(BuildContext context){
+    return new Container(
+      margin: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0,top: 0.0),
+      child:  new Material(
+        borderRadius: new BorderRadius.circular(6.0),
+        elevation: 2.0,
+        child: _getListTitle(),
       ),
     );
   }
@@ -146,6 +152,14 @@ class ItemEventsSearch extends StatelessWidget {
     print(myUser.uid);
     print(myEvent.title);
     Navigator.of(_context).push(FadeRoute(AddEventScreen(user: myUser, eventEditing: myEvent,)));
+  }
+
+  _delteEvent(){
+    db.deleteEvent(myEvent);
+    Scaffold
+        .of(_context)
+        .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(_context, 'acuedd.events.deleteData')),));
+    //Navigator.pop(_scaffoldContext);
   }
 
   Widget _getListTitle(){

@@ -44,6 +44,7 @@ dependencies:
   row_collection: ^0.2.3+1
   sliver_fab: ^1.0.0
   flutter_datetime_picker: 1.2.5
+  flutter_slidable:
 
   ##Tools
   flutter_i18n: ^0.6.4

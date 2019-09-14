@@ -247,6 +247,11 @@ class _AddEventScreen extends State<AddEventScreen> {
                             ),
                       ), //Foto
                       Separator.divider(indent: 72),
+
+                      if(widget.eventEditing != null)
+                        _getButtonsAddInfo(context),
+
+                      Separator.divider(indent: 72),
                       HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.basics.title')),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -485,6 +490,47 @@ class _AddEventScreen extends State<AddEventScreen> {
 
 
     );
+  }
+
+  _getButtonsAddInfo(BuildContext context){
+    return RowLayout.cards(children: <Widget>[
+      SizedBox(height: 10.0,),
+      Stack(children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              padding: EdgeInsets.only(left: 30.0),
+              child: RaisedButton.icon(
+                icon: Icon(Icons.schedule),
+                label: Text(FlutterI18n.translate(
+                    context,
+                    'acuedd.events.schedule')
+                ),
+                onPressed: (){
+
+                },
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child:Container(
+              padding: EdgeInsets.only(right: 30.0),
+              child: RaisedButton.icon(
+                icon: Icon(Icons.person),
+                label: Text(FlutterI18n.translate(
+                  context,
+                  'acuedd.events.speakers')
+                ),
+                onPressed: (){
+
+                },
+              ),
+            ),
+          ),
+      ]),
+      SizedBox(height: 10.0,),
+    ]);
   }
 
   @override

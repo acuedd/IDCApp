@@ -144,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen>{
                      Navigator.push(
                        context,
                        MaterialPageRoute(
-                         builder: (context) => MyEvents(userid: userLogged)
+                         builder: (context) => MyEventScreen(myUser: userLogged)
                        ),
                      );
                    }

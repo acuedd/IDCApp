@@ -9,7 +9,9 @@
     "no_description": "Esta misión actualmente no tiene detalles",
     "profile": "Perfil",
     "save":"Guardar",
-    "errorOnLoad": "Ha ocurrido un error al cargar"
+    "errorOnLoad": "Ha ocurrido un error al cargar",
+    "edit": "Editar",
+    "delete": "Eliminar"
   },
   "acuedd": {
     "churchs": {
@@ -58,6 +60,7 @@
       "processing" : "Procesando datos",
       "saveData": "Se ha guardado la información del evento. Ahora vuelve a ingresar para poner el horario",
       "updatedata": "Se ha guardado la información del evento.",
+      "deleteData": "Se ha elimado el evento",
       "basics": {
         "title": "Básicos",
         "name": "Nombre del evento",

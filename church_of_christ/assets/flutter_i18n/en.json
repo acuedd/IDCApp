@@ -9,7 +9,9 @@
     "no_description": "This mission has currently no details",
     "profile": "Profile",
     "save":"Save",
-    "errorOnLoad": "Error on load"
+    "errorOnLoad": "Error on load",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "acuedd": {
     "churchs": {
@@ -58,6 +60,7 @@
       "processing" : "Processing Data",
       "saveData": "The event info has been saved. Now re-enter to set the schedule",
       "updatedata": "The event info has been saved.",
+      "deleteData": "The event has been deleted",
       "basics": {
         "title": "Basics",
         "name": "Event's name",
