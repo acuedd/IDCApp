@@ -7,9 +7,11 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/add_event.dart';
 import 'package:church_of_christ/ui/pages/my_events.dart';
+import 'package:church_of_christ/ui/pages/show_speakers.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/dialog_round.dart';
+import 'package:church_of_christ/ui/widgets/fade_in_route.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
@@ -39,6 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen>{
 
   Themes _themeIndex;
   final dbUser = DbChurch();
+  User userLogged;
 
   @override
   void initState() {
@@ -57,7 +60,16 @@ class _SettingsScreenState extends State<SettingsScreen>{
   Widget _handleConsumeSettings(BuildContext context){
     final user = Provider.of<UserRepository>(context);
     //print(user.status);
-
+    if(user.status == Status.Authenticated){
+      dbUser.getUser(user.user.uid).then((User user){
+        setState(() {
+          userLogged = user;
+        });
+      });
+    }
+    else {
+      userLogged = null;
+    }
 
     return Scaffold(
       body: SafeArea( child: Consumer<AppModel>(
@@ -102,6 +114,19 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  trailing: Icon(Icons.chevron_right),
                  onTap:(){
 
+                 },
+               ),
+               ListCell.icon(
+                 icon: Icons.person_pin_circle,
+                 title: FlutterI18n.translate(context, 'acuedd.speakers.title'), 
+                 subtitle: FlutterI18n.translate(context, 'acuedd.speakers.subtitle'),
+                 trailing: Icon(Icons.chevron_right),
+                 onTap: (){
+                   Navigator.of(context).push(
+                     MaterialPageRoute(
+                      builder: (context) => ShowSpeakers(userLogged),
+                    )
+                  );
                  },
                ),
                Separator.divider(indent: 72),

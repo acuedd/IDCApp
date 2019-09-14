@@ -47,7 +47,7 @@ class SpeakerItem implements ListItem{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Hero(
-                    tag: "name${boss.speaker.id}",
+                    tag: "name${boss.speaker.name}",
                     child: Text(
                       "${boss.speaker.name}",
                       style: TextStyle(fontSize: 22.0),
@@ -66,7 +66,7 @@ class SpeakerItem implements ListItem{
               bottom: 26.0
             ),
             child: Hero(
-              tag: "avatar${boss.speaker.id}",
+              tag: "avatar${boss.speaker.name}",
               child: CircleAvatar(
                 backgroundImage: Utils.imageP(boss.speaker.imagePath),
                 maxRadius: 46.0,

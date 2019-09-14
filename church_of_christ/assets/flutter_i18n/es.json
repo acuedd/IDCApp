@@ -20,6 +20,17 @@
         "subtitle": "Register your church"
       }
     },
+    "speakers": {
+      "title": "Expositores",
+      "subtitle": "Ver a expositores de la iglesia",
+      "access": "Tu debes ser administrador",
+      "name": "Nombre",
+      "bio": "Biografía",
+      "company": "Asiste en...",
+      "twitter": "Link de Twitter",
+      "facebook": "Link de Facebook",
+      "saveData": "La información del expositor fue guardada."
+    },
     "events":{
       "title": "Eventos",
       "icon": "Eventos",

@@ -20,6 +20,17 @@
         "subtitle": "Register your church"
       }
     },
+    "speakers": {
+      "title": "Speakers",
+      "subtitle": "Show the church's speakers",
+      "access": "Your should be a admin",
+      "name": "Name",
+      "bio": "Biography",
+      "company": "Assist in",
+      "twitter": "Twitter link",
+      "facebook": "Facebook link",
+      "saveData": "The speaker info has been saved."
+    },
     "events":{
       "title": "Events",
       "icon": "Events",

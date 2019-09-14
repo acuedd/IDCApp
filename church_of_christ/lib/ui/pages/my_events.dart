@@ -80,7 +80,7 @@ class _MyEventScreen extends State<MyEventScreen>{
               PopupSettins()
             ],
             body: StreamBuilder(
-              stream: db.streamEventsPerUser(widget.uid),
+              stream: (myUser.isAdmin)?db.streamEvents():db.streamEventsPerUser(widget.uid),
               builder: (context, AsyncSnapshot snapshot){
                 if(snapshot.hasData){
                   return ListView(
@@ -281,7 +281,7 @@ class CustomSearchDelegate extends SearchDelegate{
     return Column(
       children: <Widget>[
         StreamBuilder(
-          stream: db.streamEventsPerUser(user.uid),
+          stream: (user.isAdmin)? db.streamEvents() : db.streamEventsPerUser(user.uid),
           builder: (context, AsyncSnapshot snapshot){
             if(!snapshot.hasData){
               return Column(

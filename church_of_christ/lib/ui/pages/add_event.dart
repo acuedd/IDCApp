@@ -173,10 +173,10 @@ class _AddEventScreen extends State<AddEventScreen> {
                 Scaffold
                     .of(_scaffoldContext)
                     .showSnackBar(
-                      SnackBar(
-                        content: Text(FlutterI18n.translate(context, 'acuedd.events.saveData')),
-                      )
-                    );
+                    SnackBar(
+                      content: Text(FlutterI18n.translate(context, 'acuedd.events.saveData')),
+                    )
+                );
                 const timeOut = const Duration(seconds: 4);
                 new Timer(timeOut, (){
                   Navigator.pop(_scaffoldContext);

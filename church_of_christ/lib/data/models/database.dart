@@ -1,8 +1,10 @@
 
 import 'dart:io';
 
+import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/my_events.dart';
+import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,6 +15,7 @@ import 'event.dart';
 class DbChurch with ChangeNotifier {
   final String USERS = "users";
   final String EVENTSCHURCH = "events";
+  final String SPEAKERS = "speakers";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,7 +34,7 @@ class DbChurch with ChangeNotifier {
       'lastSignIn': DateTime.now(),
       'birthday': user.birthday,
       'baptized': user.baptized,
-      'baptismDate': user.baptismDate
+      'baptismDate': user.baptismDate,
     }, merge: true);
   }
 
@@ -121,6 +124,10 @@ class DbChurch with ChangeNotifier {
               .snapshots();
   }
 
+  Stream<QuerySnapshot> streamEvents(){
+    return _db.collection(EVENTSCHURCH).snapshots();
+  }
+
   List<ItemEventsSearch> buildEvents(List<DocumentSnapshot> eventsListSnapshot, User user){
     List<ItemEventsSearch> myEvents = List<ItemEventsSearch>();
 
@@ -158,6 +165,56 @@ class DbChurch with ChangeNotifier {
 
   getSearchEvent(String searchField){
     return _db.collection(EVENTSCHURCH).where("title", isEqualTo: searchField).getDocuments();
+  }
+
+  Future<void> addSpeaker(Speaker speaker, User userLoad) async{
+    CollectionReference reference = _db.collection(SPEAKERS);
+    await _auth.currentUser().then((FirebaseUser user){
+      reference.add({
+        "imagePath": speaker.imagePath,
+        "name": speaker.name,
+        "bio": speaker.bio,
+        "company": speaker.company,
+         "twitter": speaker.twitter,
+        "fb": speaker.fb,
+        "userReference": _db.document("${USERS}/${userLoad.uid}"),
+        'regBy': _db.document("${USERS}/${user.uid}"),
+      });
+    });
+  }
+
+  void updateSpeaker(Speaker speaker) async{
+    DocumentReference reference = _db.collection(SPEAKERS).document(speaker.id);
+    return await reference.setData({
+      "id": reference.documentID,
+      "imagePath": speaker.imagePath,
+      "name": speaker.name,
+      "bio": speaker.bio,
+      "company": speaker.company,
+      "twitter": speaker.twitter,
+      "fb": speaker.fb,
+    }, merge: true);
+  }
+
+  void deleteSpeaker(Speaker speaker) async{
+    DocumentReference reference = _db.collection(SPEAKERS).document(speaker.id);
+    reference.delete();
+  }
+
+  Stream<QuerySnapshot> streamSpeakers(){
+    return _db.collection(SPEAKERS).snapshots();
+  }
+
+  List<SpeakerItem> buildSpeakers(List<DocumentSnapshot> speakerListSnapshot){
+    List<SpeakerItem> speakerList = List<SpeakerItem>();
+
+    speakerListSnapshot.forEach((p){
+      var mydata = p.data;
+      mydata["docID"] = p.documentID;
+      var myTalkboss = TalkBoss.fromMap(mydata);
+      speakerList.add(SpeakerItem(myTalkboss));
+    });
+    return speakerList;
   }
 
 }

@@ -33,6 +33,7 @@ class AugmentedSpeaker {
   final String github;
   final String linkedIn;
   final String imagePath;
+  final String fb;
 
   AugmentedSpeaker({
     this.id,
@@ -42,7 +43,8 @@ class AugmentedSpeaker {
     this.company,
     this.twitter,
     this.linkedIn,
-    this.github
+    this.github,
+    this.fb
   });
 }
 
@@ -53,4 +55,18 @@ class TalkBoss {
 
 
   TalkBoss(this.speaker);
+
+  factory TalkBoss.fromMap(Map data){
+    return TalkBoss(
+      AugmentedSpeaker(
+        id: data["docID"] ?? null,
+        name: data["name"] ?? "",
+        bio: data["bio"] ?? "",
+        company: data["company"] ?? "",
+        twitter: data["twitter"] ?? "",
+        fb: data["fb"] ?? "",
+        imagePath: data["imagePath"] ?? "",
+      )
+    );
+  }
 }
