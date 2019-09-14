@@ -92,11 +92,11 @@ class _MyEventScreen extends State<MyEventScreen>{
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            heroTag: null,
+            heroTag: "btnAddEvents",
             child: Icon(Icons.add),
             tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
             onPressed: (){
-              ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
+              ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 480, maxWidth: 640).then((File image){
                 Navigator.of(context).push(FadeRoute(AddEventScreen(user: widget.myUser,image: image, eventEditing: null,)));
               }).catchError((onError) => print(onError));
             },

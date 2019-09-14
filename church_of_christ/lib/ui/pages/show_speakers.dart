@@ -117,7 +117,7 @@ class _ShowSpeakers extends State<ShowSpeakers>{
             child: Icon(Icons.add),
             tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
             onPressed: (){
-              ImagePicker.pickImage(source: ImageSource.gallery).then((File image){
+              ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 640, maxHeight: 480).then((File image){
                 Navigator.of(context).push(FadeRoute(AddSpeaker( speakerLoad: null, user: widget.user, image: image
 
                 )));

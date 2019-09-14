@@ -50,7 +50,7 @@ class DetailPage extends StatelessWidget{
         expandedHeight: MediaQuery.of(context).size.height * 0.3,
         floatingWidget: _haVideo
             ? FloatingActionButton(
-                heroTag:  null,
+                heroTag:  "btnVideo${myEvent.title}",
                 child: Icon(Icons.ondemand_video),
                 tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
                 onPressed: () async => await FlutterWebBrowser.openWebPage(
@@ -59,7 +59,7 @@ class DetailPage extends StatelessWidget{
                 ),
               )
             : FloatingActionButton(
-                heroTag: null,
+                heroTag: "btnCalendar${myEvent.title}",
                 child: Icon(Icons.event),
                 backgroundColor: Theme.of(context).accentColor,
                 tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
