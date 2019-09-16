@@ -113,13 +113,13 @@ class ItemEventsSearch extends StatelessWidget {
       ],
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: 'Edit',
+          caption: FlutterI18n.translate(context, 'app.edit'),
           //color: Colors.black45,
           icon: Icons.edit,
           onTap: () => _handleTapUp(),
         ),
         IconSlideAction(
-          caption: 'Delete',
+          caption: FlutterI18n.translate(context, 'app.delete'),
           color: Colors.red,
           icon: Icons.delete,
           onTap: (){
@@ -149,8 +149,8 @@ class ItemEventsSearch extends StatelessWidget {
   }
 
   _handleTapUp(){
-    print(myUser.uid);
-    print(myEvent.title);
+    //print(myUser.uid);
+    //print(myEvent.title);
     Navigator.of(_context).push(FadeRoute(AddEventScreen(user: myUser, eventEditing: myEvent,)));
   }
 

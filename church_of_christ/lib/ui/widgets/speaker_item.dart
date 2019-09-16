@@ -36,7 +36,7 @@ class SpeakerItem implements ListItem{
             margin: EdgeInsets.only(
               left: 46.0 + Utils.getOrientationSideMargin(orientation),
               right: Utils.getOrientationSideMargin(orientation),
-              bottom: 26.0
+              //bottom: 26.0
             ),
             child: Padding(
               padding: EdgeInsets.only(

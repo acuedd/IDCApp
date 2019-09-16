@@ -1,6 +1,7 @@
 
 
 import 'package:church_of_christ/data/classes/abstract/query_model.dart';
+import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class EventModel{
   String urlVideo;
   final String location;
   List<String> listImages;
+  List<String> spearkers;
 
   EventModel({
     @required this.id,
@@ -48,6 +50,7 @@ class EventModel{
     this.location,
     this.urlFb,
     this.urlTwitter,
+    this.spearkers
   }){
     this.date = this.dateTime.toString();
     if(this.urlVideo == null)
@@ -56,11 +59,33 @@ class EventModel{
       this.listImages = [this.urlImage];
   }
 
+
   factory EventModel.fromFirestore(DocumentSnapshot doc){
     Map data = doc.data;
     String date = data["dateTime"].toDate().toString();
     DateTime secondDate = DateTime.parse(date);
+    List<String> speakers = [];
 
+    if(data["speakers"] != null){
+      var speakerList = data["speakers"];
+
+      for(var item in speakerList){
+        speakers.add(item.documentID);
+      }
+
+      /*for(var item in speakerList){
+        var test = item.get();
+        AugmentedSpeaker tempo;
+        test.then((snap){
+          tempo = AugmentedSpeaker.fromFireStore(snap);
+          //print(speakers);
+        });
+        //speakers.add(tempo);
+      }*/
+
+
+    }
+    //print(speakers.length);
     return EventModel(
       id: doc.documentID,
       title: data["title"] ?? "",
@@ -72,27 +97,8 @@ class EventModel{
       address: data["address"] ?? "",
       urlVideo: data["urlVideo"] ?? "",
       urlTwitter: data["urlTwitter"] ?? "",
-      urlFb: data["urlFb"] ?? ""
+      urlFb: data["urlFb"] ?? "",
+      spearkers: speakers ?? [],
     );
   }
-
-  factory EventModel.fromMap(Map data){
-    String date = data["dateTime"].toDate().toString();
-    DateTime secondDate = DateTime.parse(date);
-
-    return EventModel(
-        id: data["docID"],
-        title: data["title"] ?? "",
-        urlImage: data["urlImage"] ?? "",
-        description: data["description"] ?? "",
-        dateTime: secondDate,
-        currency: data["currency"] ?? "",
-        price: data["price"] ?? 0.0,
-        address: data["address"] ?? "",
-        urlVideo: data["urlVideo"] ?? "",
-        urlTwitter: data["urlTwitter"] ?? "",
-        urlFb: data["urlFb"] ?? ""
-    );
-  }
-
 }

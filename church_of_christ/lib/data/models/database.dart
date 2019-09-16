@@ -88,6 +88,7 @@ class DbChurch with ChangeNotifier {
         'urlFb': myEvent.urlFb,
         'dateTime': myEvent.dateTime,
         'userOwner': _db.document("${USERS}/${user.uid}"), //reference
+        'speakers': myEvent.spearkers
       });
     });
   }
@@ -132,7 +133,8 @@ class DbChurch with ChangeNotifier {
     List<ItemEventsSearch> myEvents = List<ItemEventsSearch>();
 
     eventsListSnapshot.forEach((p){
-      myEvents.add(ItemEventsSearch(myEvent: EventModel.fromFirestore(p), myUser: user,));
+      EventModel event = EventModel.fromFirestore(p);
+      myEvents.add(ItemEventsSearch(myEvent: event, myUser: user,));
     });
 
     return myEvents;
@@ -149,18 +151,6 @@ class DbChurch with ChangeNotifier {
 
   getEventsByUser(String uid){
     return _db.collection(EVENTSCHURCH).where("userOwner", isEqualTo: _db.document("${USERS}/${uid}")).getDocuments();
-  }
-
-  List<EventModel> getMapEvents(QuerySnapshot docs){
-    List<EventModel> mapEvents = List<EventModel>();
-
-    for(int i=0; i< docs.documents.length; ++i){
-      var mymap = docs.documents[i].data;
-      mymap["docID"] = docs.documents[i].documentID;
-      mapEvents.add(EventModel.fromMap(mymap));
-    }
-
-    return mapEvents;
   }
 
   getSearchEvent(String searchField){
@@ -217,6 +207,38 @@ class DbChurch with ChangeNotifier {
     return speakerList;
   }
 
+  Future<void> addSpeakerToEvent(AugmentedSpeaker speaker, EventModel eventModel) async{
+    DocumentReference reference = _db.collection(EVENTSCHURCH).document(eventModel.id);
+    reference.updateData({
+      'speakers': FieldValue.arrayUnion([_db.document("${SPEAKERS}/${speaker.id}")])
+    });
+  }
+
+  Future<void> removeSpeakerToEvent(AugmentedSpeaker speaker, EventModel eventModel) async{
+    DocumentReference reference = _db.collection(EVENTSCHURCH).document(eventModel.id);
+    reference.updateData({
+      'speakers': FieldValue.arrayRemove([_db.document("${SPEAKERS}/${speaker.id}")])
+    });
+  }
+
+  Stream streamEventbyId(EventModel eventModel){
+    return _db.collection(EVENTSCHURCH).document(eventModel.id).snapshots();
+  }
+
+  Future<AugmentedSpeaker> getSpeaker(String id) async{
+    var snap = await _db.collection(SPEAKERS).document(id).get();
+    return AugmentedSpeaker.fromFireStore(snap);
+  }
+
+  Future<EventModel> getEventData(String id) async{
+    var snap = await _db.collection(EVENTSCHURCH).document(id).get();
+    return EventModel.fromFirestore(snap);
+  }
+
+  Stream getSpeakerList(EventModel eventModel){
+    return _db.collection(EVENTSCHURCH).document(eventModel.id).collection("speakers").snapshots();
+
+  }
 }
 
 

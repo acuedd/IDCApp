@@ -112,7 +112,7 @@ class _ShowSpeakers extends State<ShowSpeakers>{
               );
             }),
         ),
-          floatingActionButton: (widget.user != null)? FloatingActionButton(
+          floatingActionButton: (widget.user != null && widget.user.isAdmin)? FloatingActionButton(
             heroTag: "btnShowSpeak",
             child: Icon(Icons.add),
             tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),

@@ -5,12 +5,14 @@ import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/ui/pages/add_event_speaker.dart';
 import 'package:church_of_christ/ui/widgets/button_green.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
+import 'package:church_of_christ/util/functions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
@@ -523,7 +525,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                   'acuedd.events.speakers')
                 ),
                 onPressed: (){
-
+                  Navigator.of(_scaffoldContext).push(FadeRoute(AssignSpeakerEvent(user: widget.user, eventModel: widget.eventEditing,)));
                 },
               ),
             ),

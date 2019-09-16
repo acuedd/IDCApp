@@ -11,7 +11,8 @@
     "save":"Guardar",
     "errorOnLoad": "Ha ocurrido un error al cargar",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "add":"Agregar"
   },
   "acuedd": {
     "churchs": {
@@ -31,7 +32,8 @@
       "company": "Asiste en...",
       "twitter": "Link de Twitter",
       "facebook": "Link de Facebook",
-      "saveData": "La información del expositor fue guardada."
+      "saveData": "La información del expositor fue guardada.",
+      "assign": "The speaker has been assign"
     },
     "events":{
       "title": "Eventos",

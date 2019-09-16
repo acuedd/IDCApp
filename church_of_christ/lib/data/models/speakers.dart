@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -46,6 +47,32 @@ class AugmentedSpeaker {
     this.github,
     this.fb
   });
+
+  factory AugmentedSpeaker.fromFireStore(DocumentSnapshot doc){
+    Map data = doc.data;
+
+    return AugmentedSpeaker(
+      id: doc.documentID,
+      name: data["name"] ?? "",
+      bio: data["bio"] ?? "",
+      company: data["company"] ?? "",
+      twitter: data["twitter"] ?? "",
+      fb: data["fb"] ?? "",
+      imagePath: data["imagePath"] ?? "",
+    );
+  }
+
+  factory AugmentedSpeaker.fromMap(Map data){
+    return AugmentedSpeaker(
+      id: data["docID"] ?? null,
+      name: data["name"] ?? "",
+      bio: data["bio"] ?? "",
+      company: data["company"] ?? "",
+      twitter: data["twitter"] ?? "",
+      fb: data["fb"] ?? "",
+      imagePath: data["imagePath"] ?? "",
+    );
+  }
 }
 
 
@@ -58,15 +85,7 @@ class TalkBoss {
 
   factory TalkBoss.fromMap(Map data){
     return TalkBoss(
-      AugmentedSpeaker(
-        id: data["docID"] ?? null,
-        name: data["name"] ?? "",
-        bio: data["bio"] ?? "",
-        company: data["company"] ?? "",
-        twitter: data["twitter"] ?? "",
-        fb: data["fb"] ?? "",
-        imagePath: data["imagePath"] ?? "",
-      )
+      AugmentedSpeaker.fromMap(data)
     );
   }
 }
