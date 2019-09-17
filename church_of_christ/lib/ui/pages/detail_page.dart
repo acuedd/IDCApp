@@ -269,7 +269,6 @@ class DetailPage extends StatelessWidget{
   }
 
   _getMoreInfo(BuildContext context){
-    var listSpeaker = _generateSpeakerList();
 
     return Stack(
       children: [
@@ -289,7 +288,7 @@ class DetailPage extends StatelessWidget{
                 ),
               ),
             ),
-            if(listSpeaker.length > 0)
+            if(myEvent.spearkers.length > 0)
               Align(
                 alignment: Alignment.centerRight,
                 child:Container(
@@ -303,7 +302,7 @@ class DetailPage extends StatelessWidget{
                     onPressed: (){
                       Navigator.of(context).push(FadeInRoute(
                           widget:Container(
-                              child: DetailSpeakers(speakerList: listSpeaker,)
+                              child: DetailSpeakers(eventModel: myEvent,)
                           )
                       ));
                     },
@@ -312,57 +311,6 @@ class DetailPage extends StatelessWidget{
               )
       ],
     );
-  }
-
-  _generateSpeakerList(){
-    List<SpeakerItem> _speakerList = [];
-
-    _speakerList.add(SpeakerItem(TalkBoss(
-        AugmentedSpeaker(
-            id: "bojack",
-            name: "BoJack Horseman",
-            bio: "BoJack Horseman is a self-loathing 52-year-old alcoholic horse whose acting career peaked when he starred in a successful family sitcom called Horsin' Around in the late 1980s and later 'The Bojack Horseman Show' which was cancelled after one season, in 2007.\n\nThough he began as a young bright-eyed actor, he has since grown bitter, deeply depressed, and jaded towards Hollywood and who he has become post-fame. BoJack has been shown to be caring and insightful, but his insecurities, loneliness, and desperate need for approval often result in self-destructive actions that devastate those around him.\n\nMany of his issues stem from his childhood and issues with his unhappy parents, which the audience is shown through flashbacks.",
-            imagePath: "http://jeff.mimic.ca/p/androidto/bojack.jpg",
-            company: "Horsin' Around",
-            twitter: "https://twitter.com/BoJackHorseman",
-            github: "https://github.com/mimicmobile/flutter-conference-app"
-        )
-    )));
-
-    _speakerList.add(SpeakerItem(TalkBoss(
-        AugmentedSpeaker(
-            id: "peanutbutter",
-            name:  "Mr. Peanutbutter",
-            bio: "asdklfjadklsjfkladsfjkladsjlfkadjslfajsdklfas",
-            company: "aksdjfkl;adsjfkl;sadjlk;fdsajklfas",
-            twitter: "",
-            imagePath: "http://jeff.mimic.ca/p/androidto/mr_peanutbutter.jpg"
-        )
-    )));
-
-    _speakerList.add(SpeakerItem(TalkBoss(
-        AugmentedSpeaker(
-            id: "3",
-            name:  "Todd Chavez",
-            bio: "asdklfjadklsjfkladsfjkladsjlfkadjslfajsdklfas",
-            company: "aksdjfkl;adsjfkl;sadjlk;fdsajklfas",
-            twitter: "",
-            imagePath: "http://jeff.mimic.ca/p/androidto/todd.jpg"
-        )
-    )));
-
-    _speakerList.add(SpeakerItem(TalkBoss(
-        AugmentedSpeaker(
-            id: "diane",
-            name:  "Diane Nguyen",
-            bio: "asdklfjadklsjfkladsfjkladsjlfkadjslfajsdklfas",
-            company: "aksdjfkl;adsjfkl;sadjlk;fdsajklfas",
-            twitter: "",
-            imagePath: "http://jeff.mimic.ca/p/androidto/diane.jpg"
-        )
-    )));
-
-    return _speakerList;
   }
 
 }

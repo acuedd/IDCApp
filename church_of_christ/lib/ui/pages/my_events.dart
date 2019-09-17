@@ -70,7 +70,7 @@ class _MyEventScreen extends State<MyEventScreen>{
             child: Icon(Icons.add),
             tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
             onPressed: (){
-              ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 480, maxWidth: 640).then((File image){
+              ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 760, maxWidth: 1024).then((File image){
                 Navigator.of(context).push(FadeRoute(AddEventScreen(user: widget.myUser,image: image, eventEditing: null,)));
               }).catchError((onError) => print(onError));
             },
@@ -123,7 +123,7 @@ class ItemEventsSearch extends StatelessWidget {
           color: Colors.red,
           icon: Icons.delete,
           onTap: (){
-            _delteEvent();
+            _deleteEvent();
           },
         ),
       ]
@@ -154,7 +154,7 @@ class ItemEventsSearch extends StatelessWidget {
     Navigator.of(_context).push(FadeRoute(AddEventScreen(user: myUser, eventEditing: myEvent,)));
   }
 
-  _delteEvent(){
+  _deleteEvent(){
     db.deleteEvent(myEvent);
     Scaffold
         .of(_context)
