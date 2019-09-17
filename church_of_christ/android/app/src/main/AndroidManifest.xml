@@ -13,7 +13,7 @@
         android:label="church_of_christ"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR API KEY HERE"/>
+            android:value="AIzaSyCrPp6dS9aSEHKqnV29a_xNwu78owrt0tU"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -281,18 +281,6 @@ class _AddEventScreen extends State<AddEventScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: TextField(
-                          controller: _textAddressController,
-                          maxLines: 1,
-                          style: style,
-                          decoration: InputDecoration(
-                            labelText: FlutterI18n.translate(context, 'acuedd.events.address'),
-                            //border: OutlineInputBorder()
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           //mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,7 +344,6 @@ class _AddEventScreen extends State<AddEventScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -422,6 +409,20 @@ class _AddEventScreen extends State<AddEventScreen> {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: TextField(
+                          controller: _textAddressController,
+                          maxLines: 1,
+                          style: style,
+                          decoration: InputDecoration(
+                            labelText: FlutterI18n.translate(context, 'acuedd.events.address'),
+                            //border: OutlineInputBorder()
+                          ),
+                        ),
+                      ),
+                      if(widget.eventEditing != null)
+                        _getMyLocation(context),
                       Separator.divider(indent: 72),
                       HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.tickets.name')),
                       Padding(
@@ -492,6 +493,31 @@ class _AddEventScreen extends State<AddEventScreen> {
 
 
     );
+  }
+
+  _getMyLocation(BuildContext context){
+    return RowLayout.cards(children: <Widget>[
+      SizedBox(height: 10.0,),
+      Stack(children: <Widget>[
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.only(left: 30.0),
+            child: RaisedButton.icon(
+              icon: Icon(Icons.map),
+              label: Text(FlutterI18n.translate(
+                  context,
+                  'acuedd.events.basics.location')
+              ),
+              onPressed: (){
+
+              },
+            ),
+          ),
+        ),
+      ]),
+      SizedBox(height: 10.0,),
+    ]);
   }
 
   _getButtonsAddInfo(BuildContext context){
