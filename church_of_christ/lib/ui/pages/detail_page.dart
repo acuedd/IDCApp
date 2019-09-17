@@ -195,6 +195,8 @@ class DetailPage extends StatelessWidget{
       ),
       body: RowLayout(children: <Widget>[
         _getDate(),
+        if(myEvent.price > 0)
+          _getPrice(context),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _getSocialItems(context),
@@ -217,6 +219,22 @@ class DetailPage extends StatelessWidget{
           .add(Reusable.getLinkIcon("facebook", Colors.blue[900], myEvent.urlFb));
     }
     return linkIcons;
+  }
+
+  _getPrice(BuildContext context){
+    return new Container(
+      margin: new EdgeInsets.only(top: 4.0),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost')) + myEvent.price.toString(),
+            style: new TextStyle(
+                fontSize: 15.0,
+                color: Colors.grey
+            ),)
+        ],
+      ),
+    );
   }
 
   _getDate() {
