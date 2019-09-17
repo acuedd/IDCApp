@@ -227,7 +227,7 @@ class DetailPage extends StatelessWidget{
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost')) + myEvent.price.toString(),
+          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost')) + " " + myEvent.price.toString(),
             style: new TextStyle(
                 fontSize: 15.0,
                 color: Colors.grey

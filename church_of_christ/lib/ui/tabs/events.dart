@@ -45,7 +45,7 @@ class _EventsScreen extends State<EventsScreen>{
                 Container(
                   child: SearchWidget(),
                 ),
-                _getFiltersDate(),
+                //_getFiltersDate(),
                 Expanded(
                   child: _buildFeatureds(),
                 ),
