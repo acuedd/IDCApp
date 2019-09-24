@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 import 'event.dart';
 
@@ -20,6 +21,7 @@ class DbChurch with ChangeNotifier {
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final StorageReference _storageReference = FirebaseStorage.instance.ref();
+  Geoflutterfire geo = Geoflutterfire();
 
   Future<void> updateUserData(User user) async{
     DocumentReference ref = _db.collection(USERS).document(user.uid);
@@ -74,6 +76,7 @@ class DbChurch with ChangeNotifier {
 
   Future<void> addEvent(EventModel myEvent) async{
     CollectionReference refEvents = _db.collection(EVENTSCHURCH);
+    //GeoFirePoint point = geo.point(latitude: myEvent.location.latitude, longitude: myEvent.location.longitude);
 
     await _auth.currentUser().then((FirebaseUser user){
       refEvents.add({
@@ -88,13 +91,18 @@ class DbChurch with ChangeNotifier {
         'urlFb': myEvent.urlFb,
         'dateTime': myEvent.dateTime,
         'userOwner': _db.document("${USERS}/${user.uid}"), //reference
-        'speakers': myEvent.spearkers
+        'released': false,
+        'speakers': myEvent.spearkers,
+        //'position': (point!= null)?point.data:null,
+        'latitude': myEvent.latitude,
+        'longitude': myEvent.longitude,
       });
     });
   }
 
   void updateEvent(EventModel myEvent) async{
     DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
+    //GeoFirePoint point = geo.point(latitude: myEvent.location.latitude, longitude: myEvent.location.longitude);
 
     return await refEvents.setData({
       'id': refEvents.documentID,
@@ -108,6 +116,9 @@ class DbChurch with ChangeNotifier {
       'urlTwitter': myEvent.urlTwitter,
       'urlFb': myEvent.urlFb,
       'dateTime': myEvent.dateTime,
+      //'position': (point!= null)?point.data:null,
+      'latitude': myEvent.latitude,
+      'longitude': myEvent.longitude,
     }, merge: true);
   }
 

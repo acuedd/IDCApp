@@ -6,21 +6,30 @@ import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/add_event_speaker.dart';
-import 'package:church_of_christ/ui/widgets/button_green.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
-import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:location/location.dart' as  prefix0;
+
+
+const kGoogleApiKey = "AIzaSyCrPp6dS9aSEHKqnV29a_xNwu78owrt0tU";
+
+// to get places detail (lat/lng)
+GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class AddEventScreen extends StatefulWidget {
   User user;
@@ -53,6 +62,9 @@ class _AddEventScreen extends State<AddEventScreen> {
   DateTime _dateRaw ;
   DateTime _timeRaw ;
   BuildContext _scaffoldContext;
+  prefix0.Location location = new prefix0.Location();
+  LatLng locationToSave;
+
   final db = DbChurch();
 
   //Controllers
@@ -63,6 +75,15 @@ class _AddEventScreen extends State<AddEventScreen> {
   final _textVideoController = TextEditingController();
   final _textURlFbController = TextEditingController();
   final _textURLTwitterController = TextEditingController();
+
+  Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController mapController;
+  CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  MarkerId selectedMarker;
 
   _onCurrencyChanged(val, symbol) {
     setState(() {
@@ -76,7 +97,6 @@ class _AddEventScreen extends State<AddEventScreen> {
     super.initState();
 
     if(widget.eventEditing != null){
-
       _textTitleController.text = widget.eventEditing.title;
       _textDescriptionController.text = widget.eventEditing.description;
       _textAddressController.text = widget.eventEditing.address;
@@ -89,22 +109,8 @@ class _AddEventScreen extends State<AddEventScreen> {
       _timeRaw = widget.eventEditing.dateTime;
       _date = '${_dateRaw.year}-${_dateRaw.month.toString().padLeft(2,'0')}-${_dateRaw.day.toString().padLeft(2,'0')}';
       _time = '${_timeRaw.hour.toString().padLeft(2,'0')}:${_timeRaw.minute.toString().padLeft(2,'0')}:${_timeRaw.second.toString().padLeft(2,'0')}';
-
     }
   }
-
-  /*
-  @override
-  void dispose() {
-    super.dispose();
-    _textTitleController.dispose();
-    _textDescriptionController.dispose();
-    _textAddressController.dispose();
-    _textCostController.dispose();
-    _textVideoController.dispose();
-    _textURlFbController.dispose();
-    _textURLTwitterController.dispose();
-  }*/
 
   void save(BuildContext context){
     final FormState form = _formKey.currentState;
@@ -116,8 +122,6 @@ class _AddEventScreen extends State<AddEventScreen> {
           .of(_scaffoldContext)
           .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.processing')),duration: Duration(minutes: 4),));
 
-      print("eventediting");
-      print(widget.eventEditing);
       if(widget.eventEditing != null){
         final stringDate = "${_date} ${_time}";
 
@@ -133,6 +137,8 @@ class _AddEventScreen extends State<AddEventScreen> {
           urlVideo: _textVideoController.text,
           urlFb: _textURlFbController.text,
           urlTwitter: _textURLTwitterController.text,
+          longitude: (locationToSave != null)?locationToSave.longitude:0,
+          latitude: (locationToSave != null)?locationToSave.latitude:0,
         ));
 
         print("UPDATE EL EVENTO");
@@ -140,7 +146,6 @@ class _AddEventScreen extends State<AddEventScreen> {
         Scaffold
             .of(_scaffoldContext)
             .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.updatedata'))));
-
       }
       else{
         final stringDate = "${_date} ${_time}";
@@ -167,6 +172,9 @@ class _AddEventScreen extends State<AddEventScreen> {
                 urlVideo: _textVideoController.text,
                 urlFb: _textURlFbController.text,
                 urlTwitter: _textURLTwitterController.text,
+                location: (locationToSave != null)?locationToSave:null,
+                longitude: (locationToSave != null)?locationToSave.longitude:0,
+                latitude: (locationToSave != null)?locationToSave.latitude:0,
               );
 
               db.addEvent(model).whenComplete((){
@@ -179,10 +187,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                       content: Text(FlutterI18n.translate(context, 'acuedd.events.saveData')),
                     )
                 );
-                const timeOut = const Duration(seconds: 4);
-                new Timer(timeOut, (){
-                  Navigator.pop(_scaffoldContext);
-                });
+                Navigator.pop(_scaffoldContext);
               });
 
             });
@@ -422,6 +427,8 @@ class _AddEventScreen extends State<AddEventScreen> {
                         ),
                       ),
                       if(widget.eventEditing != null)
+                        _getSearchLocation(),
+                      if(widget.eventEditing != null)
                         _getMyLocation(context),
                       Separator.divider(indent: 72),
                       HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.tickets.name')),
@@ -495,29 +502,63 @@ class _AddEventScreen extends State<AddEventScreen> {
     );
   }
 
-  _getMyLocation(BuildContext context){
-    return RowLayout.cards(children: <Widget>[
-      SizedBox(height: 10.0,),
-      Stack(children: <Widget>[
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            padding: EdgeInsets.only(left: 30.0),
-            child: RaisedButton.icon(
-              icon: Icon(Icons.map),
-              label: Text(FlutterI18n.translate(
-                  context,
-                  'acuedd.events.basics.location')
-              ),
-              onPressed: (){
-
-              },
-            ),
+  _getSearchLocation(){
+    return Row(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(left: 15, bottom: 15),
+          child: RaisedButton.icon(
+            onPressed: _handlePressButton,
+            label: Text("Buscar lugar"),
+            icon: Icon(Icons.search),
           ),
-        ),
-      ]),
-      SizedBox(height: 10.0,),
-    ]);
+        )
+      ],
+    );
+  }
+
+  _getMyLocation(BuildContext context){
+    return Row(
+      children: <Widget>[
+        Expanded(
+            flex: 10,
+            child: Container(
+              padding: EdgeInsets.only(left: 15, right: 15),
+              height: 300,
+              child: GoogleMap(
+                onTap: (LatLng pos) {
+                  _addMarker(pos);
+                },
+                mapType: MapType.normal,
+                myLocationEnabled: true,
+                zoomGesturesEnabled: true,
+                scrollGesturesEnabled: true,
+                myLocationButtonEnabled: true,
+                compassEnabled: true,
+                initialCameraPosition: _kGooglePlex,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                  mapController = controller;
+                  if(widget.eventEditing.longitude != null && widget.eventEditing.latitude != null
+                      || widget.eventEditing.longitude > 0 && widget.eventEditing.latitude > 0){
+                    _animateLocation();
+                  }
+                  else{
+                    _animateMyLocation();
+                  }
+                },
+                markers: Set<Marker>.of(markers.values),
+                gestureRecognizers:
+                <Factory<OneSequenceGestureRecognizer>>[
+                  Factory<OneSequenceGestureRecognizer>(
+                        () => EagerGestureRecognizer(),
+                  ),
+                ].toSet(),
+              ),
+            )
+        )
+      ],
+    );
   }
 
   _getButtonsAddInfo(BuildContext context){
@@ -559,6 +600,82 @@ class _AddEventScreen extends State<AddEventScreen> {
       ]),
       SizedBox(height: 10.0,),
     ]);
+  }
+
+  _animateMyLocation() async{
+    var pos = await location.getLocation();
+    mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(pos.latitude, pos.longitude),
+          zoom: 14.4746,
+        )
+    ));
+  }
+
+  _animateLocation()async{
+    LatLng position = LatLng(widget.eventEditing.latitude, widget.eventEditing.longitude);
+    mapController.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: position,
+        zoom: 16.4746,
+      )
+    ));
+
+    _addMarker(position);
+  }
+
+  void _addMarker(LatLng pos){
+    final String markerIdVal = 'marker_id_0';
+    final MarkerId markerId = MarkerId(markerIdVal);
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: pos,
+    );
+
+    setState(() {
+      //List<String> latlng = this.location.toString().trim().replaceAll('SRID=4326;POINT (', '').replaceAll(')', '').split(' ');
+      //location = "SRID=4326;POINT (" + pos.longitude.toString() + " " + pos.latitude.toString() + ")";
+      markers[markerId] = marker;
+      locationToSave = pos;
+    });
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(response.errorMessage)),
+    );
+  }
+
+  Future<void> _handlePressButton() async{
+    Prediction p = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: kGoogleApiKey,
+      onError: onError,
+      mode: Mode.fullscreen,
+      language: "es",
+      hint: 'Buscar',
+    );
+
+    if (p != null) {
+      // get detail (lat/lng)
+      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+      final lat = detail.result.geometry.location.lat;
+      final lng = detail.result.geometry.location.lng;
+      _addMarker(LatLng(lat, lng));
+      setState(() {
+        mapController.moveCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              bearing: 270.0,
+              target: LatLng(lat, lng),
+              tilt: 30.0,
+              zoom: 17.0,
+            ),
+          ),
+        );
+      });
+    }
+
   }
 
   @override

@@ -4,6 +4,8 @@ import 'package:church_of_christ/data/classes/abstract/query_model.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class EventModelProvider extends QueryModel{
 
@@ -30,7 +32,9 @@ class EventModel{
   final String urlFb;
   final String urlTwitter;
   String urlVideo;
-  final String location;
+  final LatLng location;
+  final double latitude;
+  final double longitude;
   List<String> listImages;
   List<String> spearkers;
 
@@ -48,6 +52,8 @@ class EventModel{
     this.likes,
     this.liked,
     this.location,
+    this.latitude,
+    this.longitude,
     this.urlFb,
     this.urlTwitter,
     this.spearkers
@@ -99,6 +105,8 @@ class EventModel{
       urlTwitter: data["urlTwitter"] ?? "",
       urlFb: data["urlFb"] ?? "",
       spearkers: speakers ?? [],
+      latitude: data["latitude"] ?? 0,
+      longitude: data["longitude"] ?? 0
     );
   }
 }
