@@ -9,6 +9,7 @@ import 'package:church_of_christ/ui/widgets/intro_page_item.dart';
 import 'package:church_of_christ/ui/widgets/page_transformer.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/search.dart';
+import 'package:church_of_christ/ui/widgets/search_result.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,11 @@ class EventsScreen extends StatefulWidget{
 
 class _EventsScreen extends State<EventsScreen>{
   var db = DbChurch();
+  BuildContext _scaffoldContext;
 
   @override
   Widget build(BuildContext context) {
+    _scaffoldContext = context;
     return _getScaffoldBlanckPage(context);
   }
 

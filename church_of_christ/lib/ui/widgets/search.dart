@@ -44,7 +44,7 @@ class SearchWidget extends StatelessWidget{
                       hintText: textHint,
                       border: InputBorder.none,
                     ),
-                    //onSubmitted: onSubmitted,
+                    onSubmitted: onSubmitted,
                     controller: editingController,
                     //onChanged: onChangged,
                   )
@@ -59,7 +59,13 @@ class SearchWidget extends StatelessWidget{
   onSubmitted(query){
     print("from search wid");
     print(query);
-    onSubmited(query);
+    //onSubmited(query);
+
+    Navigator.of(_context).push(
+        new MaterialPageRoute(builder: (BuildContext context){
+          return SearchView(query);
+        }),
+    );
   }
 
   onChangged(query){
