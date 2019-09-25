@@ -139,6 +139,10 @@ class DbChurch with ChangeNotifier {
   Stream<QuerySnapshot> streamEvents(){
     return _db.collection(EVENTSCHURCH).snapshots();
   }
+  
+  Stream<QuerySnapshot> streamEventsCommingSoon(){
+    return _db.collection(EVENTSCHURCH).orderBy("dateTime").snapshots();
+  }
 
   List<ItemEventsSearch> buildEvents(List<DocumentSnapshot> eventsListSnapshot, User user){
     List<ItemEventsSearch> myEvents = List<ItemEventsSearch>();

@@ -1,5 +1,6 @@
 
 
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
@@ -78,14 +79,18 @@ class _EventsScreen extends State<EventsScreen>{
 
   Widget _buildFeatureds(){
     return StreamBuilder(
-      stream: db.streamEvents(),
+      stream: db.streamEventsCommingSoon(),
       builder: (BuildContext context, AsyncSnapshot snapshot){
         if(snapshot.hasData) {
           var eventsListSnapshot = snapshot.data.documents;
           List _destaque = [];
           eventsListSnapshot.forEach((p) {
             EventModel event = EventModel.fromFirestore(p);
-            _destaque.add(event);
+            final dateNow = DateTime.now();
+            final difference = dateNow.difference(event.dateTime).inHours;
+            if(difference < 0){
+              _destaque.add(event);
+            }
           });
           var length = snapshot.hasData ? _destaque.length : 0;
 
