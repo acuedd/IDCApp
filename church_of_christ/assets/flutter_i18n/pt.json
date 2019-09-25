@@ -70,7 +70,8 @@
         "description": "Descripción",
         "date": "Fecha del evento",
         "time": "Hora del evento",
-        "location": "Ubicación"
+        "location": "Ubicación",
+        "openMaps": "Abrir mapa"
       },
       "tickets": {
         "name": "Tickets",

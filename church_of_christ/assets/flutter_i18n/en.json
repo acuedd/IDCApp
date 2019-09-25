@@ -69,7 +69,8 @@
         "description": "Description",
         "date": "Event's date",
         "time": "Event's time",
-        "location": "Put location"
+        "location": "Put location",
+        "openMaps": "Open Maps"
       },
       "tickets": {
         "name": "Tickets",

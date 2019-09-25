@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
@@ -19,27 +21,40 @@ import 'package:church_of_christ/ui/widgets/shared_item.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:church_of_christ/util/functions.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:share/share.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:intl/intl.dart';
 
-class DetailPage extends StatelessWidget{
-
-  final _formKey = GlobalKey<FormState>();
+class DetailPage extends StatefulWidget {
   final EventModel myEvent;
   DetailPage({
     Key key,
     this.myEvent
   });
+
+  @override
+  State createState() {
+    return _DetailPage();
+  }
+
+
+}
+
+
+class _DetailPage extends State<DetailPage> {
+  final _formKey = GlobalKey<FormState>();
   bool _haVideo;
 
   @override
   Widget build(BuildContext context) {
-    _haVideo = (myEvent.urlVideo.isEmpty)?false:true;
+    _haVideo = (widget.myEvent.urlVideo.isEmpty)?false:true;
 
     return _getScaffoldSliverFab(context);
   }
@@ -50,26 +65,26 @@ class DetailPage extends StatelessWidget{
         expandedHeight: MediaQuery.of(context).size.height * 0.3,
         floatingWidget: _haVideo
             ? FloatingActionButton(
-                heroTag:  "btnVideo${myEvent.title}",
+                heroTag:  "btnVideo${widget.myEvent.title}",
                 child: Icon(Icons.ondemand_video),
                 tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
                 onPressed: () async => await FlutterWebBrowser.openWebPage(
-                  url: myEvent.urlVideo,
+                  url: widget.myEvent.urlVideo,
                   androidToolbarColor: Theme.of(context).primaryColor,
                 ),
               )
             : FloatingActionButton(
-                heroTag: "btnCalendar${myEvent.title}",
+                heroTag: "btnCalendar${widget.myEvent.title}",
                 child: Icon(Icons.event),
                 backgroundColor: Theme.of(context).accentColor,
                 tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
                 onPressed: () => Add2Calendar.addEvent2Cal(Event(
-                  title: myEvent.title,
-                  description: myEvent.description ??
+                  title: widget.myEvent.title,
+                  description: widget.myEvent.description ??
                     FlutterI18n.translate(context, 'app.no_description'),
-                  location: myEvent.address,
-                  startDate: myEvent.dateTime,
-                  endDate: myEvent.dateTime.add(Duration(
+                  location: widget.myEvent.address,
+                  startDate: widget.myEvent.dateTime,
+                  endDate: widget.myEvent.dateTime.add(Duration(
                     minutes: 60
                   )),
                 )),
@@ -105,13 +120,13 @@ class DetailPage extends StatelessWidget{
 
   Widget _getSliverBar(BuildContext context){
     List<String> list;
-    if(myEvent.listImages == null)
-      list = [myEvent.urlImage];
+    if(widget.myEvent.listImages == null)
+      list = [widget.myEvent.urlImage];
     else
-      list = myEvent.listImages;
+      list = widget.myEvent.listImages;
 
     return SliverBar(
-      title: myEvent.title,
+      title: widget.myEvent.title,
       header: SwiperHeader(
         list: list,
         /*builder: (context, index){
@@ -122,7 +137,7 @@ class DetailPage extends StatelessWidget{
         },*/
       ),
       actions: <Widget>[
-        SharedContent(text: myEvent.title),
+        SharedContent(text: widget.myEvent.title),
         PopupSettins(),
       ],
     );
@@ -130,9 +145,9 @@ class DetailPage extends StatelessWidget{
 
   Widget _getPageBlanck(BuildContext context){
     return BlanckPage(
-      title: myEvent.title,//FlutterI18n.translate(context, 'Profile'),
+      title: widget.myEvent.title,//FlutterI18n.translate(context, 'Profile'),
       actions: <Widget>[
-        SharedContent(text: myEvent.title),
+        SharedContent(text: widget.myEvent.title),
         PopupSettins(),
       ],
       body: new Container(
@@ -143,8 +158,8 @@ class DetailPage extends StatelessWidget{
           child: new ListView(
             children: <Widget>[
               new Hero(
-                  tag: myEvent.title,
-                  child: _getImageNetwork(Functions.getImgResizeUrl(myEvent.urlImage,250,''))
+                  tag: widget.myEvent.title,
+                  child: _getImageNetwork(Functions.getImgResizeUrl(widget.myEvent.urlImage,250,''))
               ),
               RowLayout.cards(children: <Widget>[
                 _getDescription(context),
@@ -195,14 +210,14 @@ class DetailPage extends StatelessWidget{
       ),
       body: RowLayout(children: <Widget>[
         _getDate(),
-        if(myEvent.price > 0)
+        if(widget.myEvent.price > 0)
           _getPrice(context),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _getSocialItems(context),
         ),
         Separator.divider(),
-        TextExpand(myEvent.description)
+        TextExpand(widget.myEvent.description)
       ]),
 
     );
@@ -210,13 +225,13 @@ class DetailPage extends StatelessWidget{
 
   List<Widget> _getSocialItems(BuildContext context){
     var linkIcons = <Widget>[];
-    if(myEvent.urlTwitter.isNotEmpty){
+    if(widget.myEvent.urlTwitter.isNotEmpty){
       linkIcons
-          .add(Reusable.getLinkIcon("twitter", Colors.blue[300], myEvent.urlTwitter));
+          .add(Reusable.getLinkIcon("twitter", Colors.blue[300], widget.myEvent.urlTwitter));
     }
-    if(myEvent.urlFb.isNotEmpty){
+    if(widget.myEvent.urlFb.isNotEmpty){
       linkIcons
-          .add(Reusable.getLinkIcon("facebook", Colors.blue[900], myEvent.urlFb));
+          .add(Reusable.getLinkIcon("facebook", Colors.blue[900], widget.myEvent.urlFb));
     }
     return linkIcons;
   }
@@ -227,7 +242,7 @@ class DetailPage extends StatelessWidget{
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost')) + " " + myEvent.price.toString(),
+          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost'))+ " " + widget.myEvent.currency.toString() + " " + widget.myEvent.price.toString(),
             style: new TextStyle(
                 fontSize: 15.0,
                 color: Colors.grey
@@ -243,7 +258,7 @@ class DetailPage extends StatelessWidget{
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Text(DateFormat.yMMMd().format(myEvent.dateTime),
+          new Text(DateFormat.yMMMd().format(widget.myEvent.dateTime),
             style: new TextStyle(
                 fontSize: 15.0,
                 color: Colors.grey
@@ -260,11 +275,107 @@ class DetailPage extends StatelessWidget{
       body: RowLayout(children: <Widget>[
         RowText(
           FlutterI18n.translate(context, 'acuedd.events.address'),
-          myEvent.address,
+          widget.myEvent.address,
         ),
         Separator.divider(),
-        Image.asset("assets/images/venue.png"),
+        if(widget.myEvent.longitude != 0.0 && widget.myEvent.latitude != 0.0)
+          _getMapPoint(),
+
+        if(widget.myEvent.longitude != 0.0 && widget.myEvent.latitude != 0.0)
+          _getButtonToMaps(),
       ]),
+    );
+
+    /*return Row(
+      children: <Widget>[
+        if(myEvent.longitude != 0.0 && myEvent.latitude != 0.0)
+          _getMapPoint(),
+    ]);*/
+
+  }
+
+  Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController mapController;
+  CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  MarkerId selectedMarker;
+
+  _getMapPoint(){
+    return Row(
+      children: <Widget>[
+        Expanded(
+        flex: 10,
+        child:
+          Container(
+            height: 200,
+            child: GoogleMap(
+              onTap: (LatLng pos){
+                print("TAP");
+                print(pos);
+                FlutterWebBrowser.openWebPage(
+                  url: "google.navigation:q=${widget.myEvent.latitude},${widget.myEvent.longitude}",
+                  androidToolbarColor: Theme.of(context).primaryColor,
+                );
+              },
+              mapType: MapType.satellite,
+              myLocationEnabled: false,
+              zoomGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              myLocationButtonEnabled: false,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                mapController = controller;
+
+                LatLng position = LatLng(widget.myEvent.latitude, widget.myEvent.longitude);
+                mapController.animateCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: position,
+                      zoom: 16.4746,
+                    )
+                ));
+                _addMarker(position);
+              },
+              compassEnabled: true,
+              markers: Set<Marker>.of(markers.values),
+              gestureRecognizers:
+              <Factory<OneSequenceGestureRecognizer>>[
+                Factory<OneSequenceGestureRecognizer>(
+                      () => EagerGestureRecognizer(),
+                ),
+              ].toSet(),
+            ),
+        ),
+      ),
+    ]);
+  }
+
+  void _addMarker(LatLng pos){
+    final String markerIdVal = 'marker_id_0';
+    final MarkerId markerId = MarkerId(markerIdVal);
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: pos,
+    );
+
+    setState(() {
+      //List<String> latlng = this.location.toString().trim().replaceAll('SRID=4326;POINT (', '').replaceAll(')', '').split(' ');
+      //location = "SRID=4326;POINT (" + pos.longitude.toString() + " " + pos.latitude.toString() + ")";
+      markers[markerId] = marker;
+    });
+  }
+
+  _getButtonToMaps(){
+    return RaisedButton.icon(
+      icon: Icon(Icons.location_on),
+      onPressed: () async => await FlutterWebBrowser.openWebPage(
+        url: "google.navigation:q=${widget.myEvent.latitude},${widget.myEvent.longitude}",
+        androidToolbarColor: Theme.of(context).primaryColor,
+      ),
+      label: Text(FlutterI18n.translate(context, 'acuedd.events.basics.openMaps')),
     );
   }
 
@@ -288,7 +399,7 @@ class DetailPage extends StatelessWidget{
                 ),
               ),
             ),
-            if(myEvent.spearkers.length > 0)
+            if(widget.myEvent.spearkers.length > 0)
               Align(
                 alignment: Alignment.centerRight,
                 child:Container(
@@ -302,7 +413,7 @@ class DetailPage extends StatelessWidget{
                     onPressed: (){
                       Navigator.of(context).push(FadeInRoute(
                           widget:Container(
-                              child: DetailSpeakers(eventModel: myEvent,)
+                              child: DetailSpeakers(eventModel: widget.myEvent,)
                           )
                       ));
                     },
