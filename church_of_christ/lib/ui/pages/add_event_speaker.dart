@@ -56,21 +56,26 @@ class _AssignSpeakerEvent extends State<AssignSpeakerEvent>{
     List<AugmentedSpeaker> oficialList = [];
 
     eventReload.spearkers.forEach((val){
-      promises.add(
-          db.getSpeaker(val)
-              .then((AugmentedSpeaker sp){
-            setState(() {
-              oficialList.add(sp);
-            });
-            return oficialList;
-          }).catchError((error)=>{
-            //print(error)
-          })
-      );
+      //print("ID ALL");
+      //print(val);
+      var promise = db.getSpeaker(val)
+          .then((AugmentedSpeaker sp){
+        //print("im here");
+        //print(sp.id);
+        setState(() {
+          oficialList.add(sp);
+        });
+        return oficialList;
+      }).catchError((error)=>{
+        //print("ERROR"),
+        //print(error),
+      });
+
+      promises.add(promise);
     });
 
     await Future.wait(promises);
-
+/**/
     //print('All the futures has completed');
     //print(oficialList);
     return oficialList;

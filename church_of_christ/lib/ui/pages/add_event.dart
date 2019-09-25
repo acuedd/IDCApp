@@ -539,9 +539,9 @@ class _AddEventScreen extends State<AddEventScreen> {
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                   mapController = controller;
-                  if(widget.eventEditing.longitude != null && widget.eventEditing.latitude != null
-                      || widget.eventEditing.longitude > 0 && widget.eventEditing.latitude > 0){
-                    _animateLocation();
+                  if((widget.eventEditing.longitude != null && widget.eventEditing.latitude != null) &&
+                      (widget.eventEditing.longitude != 0.0 && widget.eventEditing.latitude != 0.0)){
+                      _animateLocation();
                   }
                   else{
                     _animateMyLocation();
