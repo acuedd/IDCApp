@@ -7,9 +7,13 @@ import 'package:share/share.dart';
 class SharedContent extends StatelessWidget{
 
   final String text;
+  final String dateShow;
+  final String myDetail;
   SharedContent({
     Key key,
-    @required this.text
+    @required this.text,
+    this.dateShow,
+    this.myDetail
   });
 
   @override
@@ -17,11 +21,18 @@ class SharedContent extends StatelessWidget{
     return IconButton(
       icon: Icon(Icons.share),
       onPressed: () => Share.share(
-        text
-      ),
-      tooltip: FlutterI18n.translate(
+        FlutterI18n.translate(
           context,
-          'acuedd.other.menu.share'
+          'acuedd.other.share.body',
+          {
+            'name': "${text}",
+            'date': "${dateShow}",
+            'detail': "${myDetail}",
+          }
+      )),
+      tooltip: FlutterI18n.translate(
+        context,
+        'spacex.other.menu.share',
       ),
     );
   }

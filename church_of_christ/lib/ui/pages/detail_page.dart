@@ -19,8 +19,8 @@ import 'package:church_of_christ/ui/widgets/reusable.dart';
 import 'package:church_of_christ/ui/widgets/row_item.dart';
 import 'package:church_of_christ/ui/widgets/shared_item.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
-import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:church_of_christ/util/functions.dart';
+import 'package:church_of_christ/util/url.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:row_collection/row_collection.dart';
-import 'package:share/share.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:intl/intl.dart';
 
@@ -137,7 +136,10 @@ class _DetailPage extends State<DetailPage> {
         },*/
       ),
       actions: <Widget>[
-        SharedContent(text: widget.myEvent.title),
+        SharedContent(
+          text: widget.myEvent.title,
+          dateShow: DateFormat.yMMMd().add_jm().format(widget.myEvent.dateTime),
+          myDetail: Url.shareDetails,),
         PopupSettins(),
       ],
     );
@@ -258,7 +260,7 @@ class _DetailPage extends State<DetailPage> {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Text(DateFormat.yMMMd().format(widget.myEvent.dateTime),
+          new Text(DateFormat.yMMMd().add_jm().format(widget.myEvent.dateTime),
             style: new TextStyle(
                 fontSize: 15.0,
                 color: Colors.grey
