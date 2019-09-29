@@ -9,6 +9,7 @@ import 'package:church_of_christ/ui/widgets/list_cell.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 
 class ShowSchedule extends StatefulWidget{
@@ -35,7 +36,7 @@ class _ShowSchedule extends State<ShowSchedule>{
     _scaffoldContext = context;
 
     return BlanckPage(
-      title: "Horario",
+      title: FlutterI18n.translate(context, 'acuedd.events.schedule'),
       actions: <Widget>[
         PopupSettins(),
       ],

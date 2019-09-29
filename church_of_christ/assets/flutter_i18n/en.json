@@ -58,6 +58,7 @@
       "location": "VENUE",
       "address": "Address",
       "schedule": "Schedule",
+      "schedule_detail": "Schedule detail",
       "speakers": "Speakers",
       "processing" : "Processing Data",
       "saveData": "The event info has been saved. Now re-enter to set the schedule",

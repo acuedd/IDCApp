@@ -28,10 +28,6 @@ class ScheduleWidgetState extends State<ScheduleWidget>{
   @override
   Widget build(BuildContext context) {
 
-
-    print("widget.scheduleList");
-    print(widget.scheduleList);
-
     var dataList = new Map();
     widget.scheduleList.forEach((p){
       String _time = '${p.dateTime.hour.toString().padLeft(2,'0')}:${p.dateTime.minute.toString().padLeft(2,'0')}:${p.dateTime.second.toString().padLeft(2,'0')}';
@@ -40,9 +36,6 @@ class ScheduleWidgetState extends State<ScheduleWidget>{
       }
       dataList[_time].add(p);
     });
-
-    print("dataList");
-    print(dataList);
 
     return BlanckPage(
       title: "Horario detalle",

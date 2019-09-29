@@ -59,6 +59,7 @@
       "location": "LUGAR DE ENCUENTRO",
       "address": "Dirección",
       "schedule": "Programación",
+      "schedule_detail": "Detalle del horario",
       "speakers": "Expositores",
       "processing" : "Procesando datos",
       "saveData": "Se ha guardado la información del evento. Ahora vuelve a ingresar para poner el horario",
