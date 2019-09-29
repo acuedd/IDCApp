@@ -77,7 +77,7 @@ class DetailSpeakers extends StatelessWidget{
     var map = snapshot.data;
     if(map != null){
       for(var i=0; i < map.length; ++i){
-        speakerList.add(SpeakerItem(TalkBoss(map[i])));
+        speakerList.add(SpeakerItem(TalkBoss(map[i], null, null)));
       }
     }
 

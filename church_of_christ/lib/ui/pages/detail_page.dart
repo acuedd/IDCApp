@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
+import 'package:church_of_christ/ui/pages/show_schedule.dart';
 import 'package:church_of_christ/ui/pages/speakers.dart';
 import 'package:church_of_christ/ui/widgets/cache_image.dart';
 import 'package:church_of_christ/ui/widgets/card_page.dart';
@@ -60,40 +61,42 @@ class _DetailPage extends State<DetailPage> {
 
   Widget _getScaffoldSliverFab(BuildContext context){
     return Scaffold(
-      body: SliverFab(
-        expandedHeight: MediaQuery.of(context).size.height * 0.3,
-        floatingWidget: _haVideo
-            ? FloatingActionButton(
-                heroTag:  "btnVideo${widget.myEvent.title}",
-                child: Icon(Icons.ondemand_video),
-                tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
-                onPressed: () async => await FlutterWebBrowser.openWebPage(
-                  url: widget.myEvent.urlVideo,
-                  androidToolbarColor: Theme.of(context).primaryColor,
-                ),
-              )
-            : FloatingActionButton(
-                heroTag: "btnCalendar${widget.myEvent.title}",
-                child: Icon(Icons.event),
-                backgroundColor: Theme.of(context).accentColor,
-                tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
-                onPressed: () => Add2Calendar.addEvent2Cal(Event(
-                  title: widget.myEvent.title,
-                  description: widget.myEvent.description ??
-                    FlutterI18n.translate(context, 'app.no_description'),
-                  location: widget.myEvent.address,
-                  startDate: widget.myEvent.dateTime,
-                  endDate: widget.myEvent.dateTime.add(Duration(
-                    minutes: 60
+      body: SafeArea(child:
+        SliverFab(
+          expandedHeight: MediaQuery.of(context).size.height * 0.3,
+          floatingWidget: _haVideo
+              ? FloatingActionButton(
+                  heroTag:  "btnVideo${widget.myEvent.title}",
+                  child: Icon(Icons.ondemand_video),
+                  tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
+                  onPressed: () async => await FlutterWebBrowser.openWebPage(
+                    url: widget.myEvent.urlVideo,
+                    androidToolbarColor: Theme.of(context).primaryColor,
+                  ),
+                )
+              : FloatingActionButton(
+                  heroTag: "btnCalendar${widget.myEvent.title}",
+                  child: Icon(Icons.event),
+                  backgroundColor: Theme.of(context).accentColor,
+                  tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
+                  onPressed: () => Add2Calendar.addEvent2Cal(Event(
+                    title: widget.myEvent.title,
+                    description: widget.myEvent.description ??
+                      FlutterI18n.translate(context, 'app.no_description'),
+                    location: widget.myEvent.address,
+                    startDate: widget.myEvent.dateTime,
+                    endDate: widget.myEvent.dateTime.add(Duration(
+                      minutes: 60
+                    )),
                   )),
-                )),
-              )
-        ,
-        slivers: <Widget>[
-          _getSliverBar(context),
-          _getSliverToBoxAdapter(context),
-        ],
-      )
+                )
+          ,
+          slivers: <Widget>[
+            _getSliverBar(context),
+            _getSliverToBoxAdapter(context),
+          ],
+        ),
+      ),
     );
   }
 
@@ -325,7 +328,7 @@ class _DetailPage extends State<DetailPage> {
               mapType: MapType.satellite,
               myLocationEnabled: false,
               zoomGesturesEnabled: true,
-              scrollGesturesEnabled: true,
+              scrollGesturesEnabled: false,
               myLocationButtonEnabled: false,
               initialCameraPosition: _kGooglePlex,
               onMapCreated: (GoogleMapController controller) {
@@ -396,7 +399,11 @@ class _DetailPage extends State<DetailPage> {
                       'acuedd.events.schedule')
                   ),
                   onPressed: (){
-
+                    Navigator.of(context).push(FadeInRoute(
+                        widget:Container(
+                            child: ShowSchedule(eventModel: widget.myEvent,)
+                        )
+                    ));
                   },
                 ),
               ),

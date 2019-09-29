@@ -75,17 +75,53 @@ class AugmentedSpeaker {
   }
 }
 
+class Track {
+  final String id;
+  final String name;
+  final String color;
+
+  Track(this.id, this.name, this.color);
+}
+
+class TalkType {
+  final String id;
+  final String name;
+  final String materialIcon;
+
+  final String description;
+
+  TalkType(this.id, this.name, this.materialIcon, this.description);
+}
+
+
+class AugmentedTalk{
+  final String title;
+  final String description;
+  final String speakerId;
+  final Track track;
+  final TalkType talkType;
+  final String time;
+  final int talkHash;
+
+  AugmentedTalk(this.title, this.description, this.speakerId, this.track,
+      this.talkType, this.time, this.talkHash);
+}
 
 class TalkBoss {
+  final List<AugmentedTalk> talks;
   final AugmentedSpeaker speaker;
   int index = 0;
 
 
-  TalkBoss(this.speaker);
+  TalkBoss(this.speaker,this.talks, [this.index]);
+
+  AugmentedTalk get currentTalk{
+    return talks[index];
+  }
 
   factory TalkBoss.fromMap(Map data){
     return TalkBoss(
-      AugmentedSpeaker.fromMap(data)
+      AugmentedSpeaker.fromMap(data), null, null
     );
   }
 }

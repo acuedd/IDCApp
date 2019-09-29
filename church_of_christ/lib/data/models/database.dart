@@ -17,6 +17,7 @@ class DbChurch with ChangeNotifier {
   final String USERS = "users";
   final String EVENTSCHURCH = "events";
   final String SPEAKERS = "speakers";
+  final String SCHEDULE = "schedule";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -253,6 +254,13 @@ class DbChurch with ChangeNotifier {
   Stream getSpeakerList(EventModel eventModel){
     return _db.collection(EVENTSCHURCH).document(eventModel.id).collection("speakers").snapshots();
 
+  }
+  
+  Stream streamSchedule(EventModel eventModel){
+
+    print("EVENT");
+    print(eventModel.id);
+    return _db.collection(SCHEDULE).orderBy("dateTime").where("eventId",isEqualTo: eventModel.id).snapshots();
   }
 }
 
