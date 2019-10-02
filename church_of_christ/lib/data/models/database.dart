@@ -211,6 +211,10 @@ class DbChurch with ChangeNotifier {
     return _db.collection(SPEAKERS).snapshots();
   }
 
+  Stream<QuerySnapshot> streamUsers(){
+    return _db.collection(USERS).snapshots();
+  }
+
   List<SpeakerItem> buildSpeakers(List<DocumentSnapshot> speakerListSnapshot){
     List<SpeakerItem> speakerList = List<SpeakerItem>();
 
@@ -230,10 +234,26 @@ class DbChurch with ChangeNotifier {
     });
   }
 
+  Future<void> addUserToEvent(AugmentedSpeaker speaker, EventModel eventModel) async{
+    DocumentReference reference = _db.collection(EVENTSCHURCH).document(eventModel.id);
+    reference.updateData({
+      'admissions': FieldValue.arrayUnion([_db.document("${USERS}/${speaker.id}")])
+    });
+
+  }
+
   Future<void> removeSpeakerToEvent(AugmentedSpeaker speaker, EventModel eventModel) async{
     DocumentReference reference = _db.collection(EVENTSCHURCH).document(eventModel.id);
     reference.updateData({
       'speakers': FieldValue.arrayRemove([_db.document("${SPEAKERS}/${speaker.id}")])
+    });
+  }
+
+  Future<void> removeAdmissionToEvent(AugmentedSpeaker speaker, EventModel eventModel) async{
+    //Aca uso el AugmentedSpeaker xq cuando obtengo datos casteo un User a un AugmentedSpeaker
+    DocumentReference reference = _db.collection(EVENTSCHURCH).document(eventModel.id);
+    reference.updateData({
+      "admissions": FieldValue.arrayRemove([_db.document("${USERS}/${speaker.id}")])
     });
   }
 

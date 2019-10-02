@@ -6,6 +6,7 @@ import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/add_event_speaker.dart';
+import 'package:church_of_christ/ui/pages/add_user_admission.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
@@ -455,6 +456,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                           ),
                         ),
                       ),
+                      _setUserAdmissions(),
                       HeaderText(text: FlutterI18n.translate(context, 'acuedd.events.socialMedia.name')  ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -502,6 +504,22 @@ class _AddEventScreen extends State<AddEventScreen> {
     );
   }
 
+  _setUserAdmissions(){
+    return RowLayout.cards(children: <Widget>[
+        SizedBox(height: 10.0,),
+        RaisedButton.icon(
+          icon: Icon(Icons.person_add),
+          label: Text(FlutterI18n.translate(
+              context,
+              'acuedd.events.addUserAdmission')
+          ),
+          onPressed: (){
+            Navigator.of(_scaffoldContext).push(FadeRoute(AssignUserEvent(user: widget.user, eventModel: widget.eventEditing,)));
+          },
+        ),
+      ]);
+  }
+
   _getSearchLocation(){
     return Row(
       children: <Widget>[
@@ -509,7 +527,7 @@ class _AddEventScreen extends State<AddEventScreen> {
           padding: EdgeInsets.only(left: 15, bottom: 15),
           child: RaisedButton.icon(
             onPressed: _handlePressButton,
-            label: Text("Buscar lugar"),
+            label: Text(FlutterI18n.translate(context, 'acuedd.events.searchLocation')),
             icon: Icon(Icons.search),
           ),
         )

@@ -37,6 +37,7 @@ class EventModel{
   final double longitude;
   List<String> listImages;
   List<String> spearkers;
+  List<String> admissions;
 
   EventModel({
     @required this.id,
@@ -56,7 +57,8 @@ class EventModel{
     this.longitude,
     this.urlFb,
     this.urlTwitter,
-    this.spearkers
+    this.spearkers,
+    this.admissions
   }){
     this.date = this.dateTime.toString();
     if(this.urlVideo == null)
@@ -71,6 +73,7 @@ class EventModel{
     String date = data["dateTime"].toDate().toString();
     DateTime secondDate = DateTime.parse(date);
     List<String> speakers = [];
+    List<String> users = [];
 
     if(data["speakers"] != null){
       var speakerList = data["speakers"];
@@ -88,9 +91,14 @@ class EventModel{
         });
         //speakers.add(tempo);
       }*/
-
-
     }
+    if(data["admissions"] != null){
+      var userList = data["admissions"];
+      for(var item in userList){
+        users.add(item.documentID);
+      }
+    }
+
     //print(speakers.length);
     return EventModel(
       id: doc.documentID,
@@ -106,7 +114,8 @@ class EventModel{
       urlFb: data["urlFb"] ?? "",
       spearkers: speakers ?? [],
       latitude: data["latitude"] ?? 0,
-      longitude: data["longitude"] ?? 0
+      longitude: data["longitude"] ?? 0,
+      admissions: users ?? []
     );
   }
 }

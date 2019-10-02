@@ -64,6 +64,9 @@
       "saveData": "The event info has been saved. Now re-enter to set the schedule",
       "updatedata": "The event info has been saved.",
       "deleteData": "The event has been deleted",
+      "searchLocation": "Search location",
+      "addUserAdmission": "add user admission",
+      "admissions": "Admissions",
       "basics": {
         "title": "Basics",
         "name": "Event's name",
