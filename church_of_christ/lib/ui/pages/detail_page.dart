@@ -47,7 +47,6 @@ class DetailPage extends StatefulWidget {
 
 }
 
-
 class _DetailPage extends State<DetailPage> {
   final _formKey = GlobalKey<FormState>();
   bool _haVideo;

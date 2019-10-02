@@ -1,8 +1,10 @@
 
 
+import 'package:church_of_christ/data/models/church.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/settings.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
+import 'package:church_of_christ/ui/tabs/churchs.dart';
 import 'package:church_of_christ/ui/tabs/events.dart';
 import 'package:church_of_christ/ui/tabs/settings.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
@@ -28,14 +30,14 @@ class _StartScreenState extends State<StartScreen> {
     final QuickActions quickActions = QuickActions();
     quickActions.initialize((type){
       switch (type){
-        case 'home':
+        case 'events':
+          setState( ()=> _currentIndex = 0);
+          break;
+        case 'churchs':
           setState( ()=> _currentIndex = 1);
           break;
-        case 'events':
-          setState( ()=> _currentIndex = 2);
-          break;
         case 'settings':
-          setState( ()=> _currentIndex = 3);
+          setState( ()=> _currentIndex = 2);
           break;
         default:
           setState( ()=> _currentIndex = 0);
@@ -51,7 +53,13 @@ class _StartScreenState extends State<StartScreen> {
               context,
               'acuedd.events.icon'
           ),
+          icon: 'action_upcoming',
         ),
+        ShortcutItem(
+          type: 'churchs',
+          localizedTitle: FlutterI18n.translate(context, 'acuedd.churchs.icon'),
+          icon: 'action_vehicle',
+        )
       ]);
     });
   }
@@ -65,15 +73,7 @@ class _StartScreenState extends State<StartScreen> {
       ),
       ChangeNotifierProvider(
         builder: (context)=> UserRepository.instance(),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "holi",
-              style: TextStyle(fontFamily: 'Lato'),
-            ),
-          ),
-          body: Container(child: Text("hola"),),
-        ),
+        child: ChurchScreen(),
       ),
       ChangeNotifierProvider(
         builder: (context) => SettingsModel(),

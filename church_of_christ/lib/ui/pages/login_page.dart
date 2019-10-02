@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidht = MediaQuery.of(context).size.width;
+      screenWidht = MediaQuery.of(context).size.width;
     final user = Provider.of<UserRepository>(context);
 
 
@@ -31,26 +31,26 @@ class _LoginPageState extends State<LoginPage> {
         alignment: Alignment.center,
         children: <Widget>[
           GradientBack(height: null),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Flexible(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    left: 50.0,
-                    right: 50.0,
-                  ),
-                  width: screenWidht,
-                  child: Text("Welcome \n This is your Church App",
-                    style: TextStyle(
-                        fontSize: 37.0,
-                        fontFamily: "Lato",
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      left: 50.0,
+                      right: 50.0,
+                    ),
+                    width: screenWidht,
+                    child: Text("Welcome \n This is your Church App",
+                      style: TextStyle(
+                          fontSize: 37.0,
+                          fontFamily: "Lato",
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
                   ),
                 ),
-              ),
 
               ButtonGreen(text: "Login with Gmail",
                 onPressed: () async {

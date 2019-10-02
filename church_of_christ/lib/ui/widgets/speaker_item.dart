@@ -36,11 +36,11 @@ class SpeakerItem implements ListItem{
             margin: EdgeInsets.only(
               left: 46.0 + Utils.getOrientationSideMargin(orientation),
               right: Utils.getOrientationSideMargin(orientation),
-              //bottom: 26.0
+              bottom: 26.0
             ),
             child: Padding(
               padding: EdgeInsets.only(
-                left: 70.0, top: 20.0, bottom: 20.0
+                left: 70.0, top: 20.0, right: 20.0, bottom: 20.0,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class SpeakerItem implements ListItem{
                     tag: "name${boss.speaker.name}",
                     child: Text(
                       "${boss.speaker.name}",
-                      style: TextStyle(fontSize: 22.0),
+                      style: TextStyle(fontSize: 20.0),
                     ),
                   ),
                   Divider(
