@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
+import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/show_schedule.dart';
 import 'package:church_of_christ/ui/pages/speakers.dart';
 import 'package:church_of_christ/ui/widgets/cache_image.dart';
@@ -28,15 +30,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {
   final EventModel myEvent;
+  final User myUserLogged;
   DetailPage({
     Key key,
-    this.myEvent
+    this.myEvent,
+    this.myUserLogged,
   });
 
   @override
@@ -53,6 +58,7 @@ class _DetailPage extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    //final user = Provider.of<UserRepository>(context);
     _haVideo = (widget.myEvent.urlVideo.isEmpty)?false:true;
 
     return _getScaffoldSliverFab(context);
@@ -60,7 +66,7 @@ class _DetailPage extends State<DetailPage> {
 
   Widget _getScaffoldSliverFab(BuildContext context){
     return Scaffold(
-      body: SafeArea(child:
+        body: SafeArea(child:
         SliverFab(
           expandedHeight: MediaQuery.of(context).size.height * 0.3,
           floatingWidget: _haVideo
@@ -115,6 +121,7 @@ class _DetailPage extends State<DetailPage> {
           _getDescription(context),
           _getMoreInfo(context),
           _getLocation(context),
+          _getTiketsApart(context),
         ])
     );
   }
@@ -430,6 +437,44 @@ class _DetailPage extends State<DetailPage> {
               )
       ],
     );
+  }
+
+  _getTiketsApart(BuildContext context){
+    if(widget.myUserLogged != null){
+      if(widget.myEvent.admissions.contains(widget.myUserLogged.uid)){
+        return CardPage.body(
+            title: FlutterI18n.translate(context, 'acuedd.events.tickets.name'),
+            body: RowLayout(
+              children: <Widget>[
+                Stack(
+                  children: [
+                    Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: RaisedButton.icon(
+                        icon: Icon(Icons.schedule),
+                        label: Text(FlutterI18n.translate(
+                            context,
+                            'acuedd.events.schedule')
+                        ),
+                        onPressed: (){
+                          Navigator.of(context).push(FadeInRoute(
+                              widget:Container(
+                                  child: ShowSchedule(eventModel: widget.myEvent,)
+                              )
+                          ));
+                        },
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: 10.0,),
+              ],
+            )
+        );
+      }
+    }
+    return Container();
   }
 
 }

@@ -3,6 +3,8 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
+import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/custom_tab.dart';
 import 'package:church_of_christ/ui/widgets/intro_page_item.dart';
@@ -14,6 +16,7 @@ import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:provider/provider.dart';
 
 class EventsScreen extends StatefulWidget{
 
@@ -28,16 +31,35 @@ class EventsScreen extends StatefulWidget{
 }
 
 class _EventsScreen extends State<EventsScreen>{
+  User userLogged;
   var db = DbChurch();
   BuildContext _scaffoldContext;
 
   @override
   Widget build(BuildContext context) {
     _scaffoldContext = context;
-    return _getScaffoldBlanckPage(context);
+    final user = Provider.of<UserRepository>(context);
+    if(user.status == Status.Authenticated){
+      setState(() {
+        userLogged = User(
+          uid: user.user.uid,
+          name: user.user.displayName,
+          email: user.user.email,
+          photoURL: user.user.photoUrl,
+          //birthday:
+        );
+      });
+    }
+    else {
+      userLogged = null;
+    }
+
+    print("userLogged");
+    print(userLogged);
+    return _getScaffoldBlanckPage(context, userLogged);
   }
 
-  Widget _getScaffoldBlanckPage(BuildContext context){
+  Widget _getScaffoldBlanckPage(BuildContext context, user){
     return Scaffold(
       body: SafeArea(child:
         Container(
@@ -51,7 +73,7 @@ class _EventsScreen extends State<EventsScreen>{
                 ),
                 //_getFiltersDate(),
                 Expanded(
-                  child: _buildFeatureds(),
+                  child: _buildFeatureds(user),
                 ),
 
               ],
@@ -80,7 +102,7 @@ class _EventsScreen extends State<EventsScreen>{
     );
   }
 
-  Widget _buildFeatureds(){
+  Widget _buildFeatureds(user){
     return StreamBuilder(
       stream: db.streamEventsCommingSoon(),
       builder: (BuildContext context, AsyncSnapshot snapshot){
@@ -107,7 +129,7 @@ class _EventsScreen extends State<EventsScreen>{
                       visibilityResolver.resolvePageVisibility(index);
                       return new IntroNewsItem(item: _destaque[index],
                         pageVisibility: pageVisibility,
-                        category: "Comming soon",);
+                        category: "Comming soon", myUser: user, scaffoldContext: _scaffoldContext,);
                     }
                 );
               });

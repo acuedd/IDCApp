@@ -1,5 +1,6 @@
 
 import 'package:church_of_christ/data/models/event.dart';
+import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/detail_page.dart';
 import 'package:church_of_christ/ui/pages/my_events.dart';
 import 'package:church_of_christ/ui/widgets/fade_in_route.dart';
@@ -11,11 +12,15 @@ class IntroNewsItem extends StatelessWidget {
     @required this.item,
     @required this.pageVisibility,
     this.category,
+    this.myUser,
+    this.scaffoldContext,
   });
 
   final String category;
   final EventModel item;
   final PageVisibility pageVisibility;
+  final User myUser;
+  final BuildContext scaffoldContext;
 
   Widget _applyTextEffects({
     @required double translationFactor,
@@ -175,7 +180,7 @@ class IntroNewsItem extends StatelessWidget {
   void openDetail(BuildContext context) {
     Navigator.of(context).push(FadeInRoute(
         widget:Container(
-          child: DetailPage(myEvent: item,)
+          child: DetailPage(myEvent: item, myUserLogged: myUser)
         )
     ));
   }
