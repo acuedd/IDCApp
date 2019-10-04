@@ -302,7 +302,8 @@ class DbChurch with ChangeNotifier {
   }
 
   Stream streamAdmission(EventModel eventModel){
-    return _db.collection(ADMISSIONS).where("eventid", isEqualTo: eventModel.id).snapshots();
+    return _db.collection(ADMISSIONS).orderBy("nameUserReg")
+        .where("eventid", isEqualTo: eventModel.id).snapshots();
   }
 }
 

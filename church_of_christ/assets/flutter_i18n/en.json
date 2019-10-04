@@ -12,7 +12,8 @@
     "errorOnLoad": "Error on load",
     "edit": "Edit",
     "delete": "Delete",
-    "add":"Add"
+    "add":"Add",
+    "regby": "Register by"
   },
   "acuedd": {
     "churchs": {
@@ -72,6 +73,7 @@
       "name": "Name",
       "church": "Church",
       "contribution": "Contribution",
+      "registerAdmission": "Listado de registros en admisiones",
       "basics": {
         "title": "Basics",
         "name": "Event's name",

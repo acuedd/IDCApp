@@ -13,7 +13,8 @@
     "errorOnLoad": "Ha ocurrido un error al cargar",
     "edit": "Editar",
     "delete": "Eliminar",
-    "add":"Agregar"
+    "add":"Agregar",
+    "regby": "Registrado por"
   },
   "acuedd": {
     "churchs": {
@@ -73,6 +74,7 @@
       "name": "Nombre",
       "church": "Congregación",
       "contribution": "Contribución",
+      "registerAdmission": "Listado de registros en admisiones",
       "basics": {
         "title": "Básicos",
         "name": "Nombre del evento",

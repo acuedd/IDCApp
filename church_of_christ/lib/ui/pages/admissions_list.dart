@@ -70,10 +70,10 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                   getResumenWidget(context, myMap),
                   HeaderText(text:FlutterI18n.translate(
                     context,
-                    'acuedd.churchs.title',
+                    'acuedd.events.registerAdmission',
                   )),
                   Expanded(
-                    child: ListAdmission( listAdmissions),
+                    child: ListAdmission( listAdmissions, widget.myUserLogged),
                   )
                 ],
               );
@@ -106,7 +106,8 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
 
 class ListAdmission extends StatelessWidget {
   final List<RegisterEvent> listAdmissions;
-  ListAdmission(this.listAdmissions);
+  final User userlogged;
+  ListAdmission(this.listAdmissions, this.userlogged);
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
@@ -114,17 +115,22 @@ class ListAdmission extends StatelessWidget {
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 25.0, bottom: 25.0),
         children: <Widget>[
           RowText(
-            "Nombre",
+            "${FlutterI18n.translate(context, 'acuedd.events.name')}:",
             listAdmissions[index].name,
           ),
           RowText(
-            "Church",
+            "${FlutterI18n.translate(context, 'acuedd.events.church')}:",
             listAdmissions[index].church,
           ),
           RowText(
-            "Aportación",
-            listAdmissions[index].price.toString(),
+            "${FlutterI18n.translate(context, 'acuedd.events.contribution')}:",
+            "${listAdmissions[index].currency} ${listAdmissions[index].price.toString()}",
           ),
+          if(userlogged == null)
+            RowText(
+              "${FlutterI18n.translate(context, 'app.regby')}:",
+              "${listAdmissions[index].nameUserReg}"
+            )
           //Text(, style: TextStyle(color: Colors.deepPurple))
         ],
       ),
