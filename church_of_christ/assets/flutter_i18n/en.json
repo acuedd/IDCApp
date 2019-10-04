@@ -69,6 +69,9 @@
       "admissions": "Admissions",
       "register": "Register",
       "list": "List",
+      "name": "Name",
+      "church": "Church",
+      "contribution": "Contribution",
       "basics": {
         "title": "Basics",
         "name": "Event's name",

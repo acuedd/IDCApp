@@ -18,6 +18,7 @@ class DbChurch with ChangeNotifier {
   final String EVENTSCHURCH = "events";
   final String SPEAKERS = "speakers";
   final String SCHEDULE = "schedule";
+  final String ADMISSIONS = "admissions";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -173,6 +174,19 @@ class DbChurch with ChangeNotifier {
     return _db.collection(EVENTSCHURCH).where("title", isEqualTo: searchField).getDocuments();
   }
 
+  Future<void> addAdmission( RegisterEvent registerEvent) async{
+    CollectionReference reference = _db.collection(ADMISSIONS);
+    await _auth.currentUser().then((FirebaseUser user){
+      reference.add({
+        "name":registerEvent.name,
+        "church": registerEvent.church,
+        "price": registerEvent.price,
+        "eventid": registerEvent.eventid,
+        "userid": registerEvent.userid
+      });
+    });
+  }
+
   Future<void> addSpeaker(Speaker speaker, User userLoad) async{
     CollectionReference reference = _db.collection(SPEAKERS);
     await _auth.currentUser().then((FirebaseUser user){
@@ -277,9 +291,6 @@ class DbChurch with ChangeNotifier {
   }
   
   Stream streamSchedule(EventModel eventModel){
-
-    print("EVENT");
-    print(eventModel.id);
     return _db.collection(SCHEDULE).orderBy("dateTime").where("eventId",isEqualTo: eventModel.id).snapshots();
   }
 }

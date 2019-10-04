@@ -69,6 +69,9 @@
       "admissions": "Admisiones",
       "register": "Registro",
       "list": "Listado",
+      "name": "Nombre",
+      "church": "Congregación",
+      "contribution": "Contribución",
       "basics": {
         "title": "Básicos",
         "name": "Nombre del evento",

@@ -119,3 +119,19 @@ class EventModel{
     );
   }
 }
+
+class RegisterEvent{
+  final String name;
+  final String church;
+  final double price;
+  final String eventid;
+  final String userid;
+
+  RegisterEvent({
+    this.name,
+    this.church,
+    this.price,
+    this.eventid,
+    this.userid
+  });
+}
