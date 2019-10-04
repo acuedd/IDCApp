@@ -100,7 +100,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                             readOnly: true,
                             keyboardType: TextInputType.numberWithOptions(decimal: true),
                             decoration: InputDecoration(
-                              labelText: FlutterI18n.translate(context, 'acuedd.events.contribution'),
+                              labelText: "${FlutterI18n.translate(context, 'acuedd.events.contribution')} - ${widget.eventModel.currency}",
                               //border: OutlineInputBorder()
                             ),
                           ),
