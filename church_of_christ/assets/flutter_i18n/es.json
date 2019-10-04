@@ -67,6 +67,8 @@
       "searchLocation": "Buscar dirección",
       "addUserAdmission": "Agregar usuario de admisiones",
       "admissions": "Admisiones",
+      "register": "Registro",
+      "list": "Listado",
       "basics": {
         "title": "Básicos",
         "name": "Nombre del evento",

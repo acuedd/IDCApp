@@ -7,6 +7,7 @@ import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
+import 'package:church_of_christ/ui/pages/admissions.dart';
 import 'package:church_of_christ/ui/pages/show_schedule.dart';
 import 'package:church_of_christ/ui/pages/speakers.dart';
 import 'package:church_of_christ/ui/widgets/cache_image.dart';
@@ -449,24 +450,46 @@ class _DetailPage extends State<DetailPage> {
                 Stack(
                   children: [
                     Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      child: RaisedButton.icon(
-                        icon: Icon(Icons.schedule),
-                        label: Text(FlutterI18n.translate(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 30.0),
+                        child: RaisedButton.icon(
+                          icon: Icon(Icons.schedule),
+                          label: Text(FlutterI18n.translate(
                             context,
-                            'acuedd.events.schedule')
+                            'acuedd.events.register')
+                          ),
+                          onPressed: (){
+                            Navigator.of(context).push(FadeInRoute(
+                                widget:Container(
+                                    child: AdmissionsWidget(eventModel: widget.myEvent, userLogged: widget.myUserLogged,)
+                                )
+                            ));
+                          },
                         ),
-                        onPressed: (){
-                          Navigator.of(context).push(FadeInRoute(
-                              widget:Container(
-                                  child: ShowSchedule(eventModel: widget.myEvent,)
-                              )
-                          ));
-                        },
                       ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child:Container(
+                        padding: EdgeInsets.only(right: 30.0),
+                        child: RaisedButton.icon(
+                          icon: Icon(Icons.person),
+                          label: Text(FlutterI18n.translate(
+                              context,
+                              'acuedd.events.list')
+                          ),
+                          onPressed: (){
+                            Navigator.of(context).push(FadeInRoute(
+                                widget:Container(
+                                    child: DetailSpeakers(eventModel: widget.myEvent,)
+                                )
+                            ));
+                          },
+                        ),
+                      ),
+                    )
+
                 ]),
                 SizedBox(height: 10.0,),
               ],

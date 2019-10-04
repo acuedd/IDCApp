@@ -67,6 +67,8 @@
       "searchLocation": "Search location",
       "addUserAdmission": "add user admission",
       "admissions": "Admissions",
+      "register": "Register",
+      "list": "List",
       "basics": {
         "title": "Basics",
         "name": "Event's name",
