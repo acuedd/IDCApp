@@ -180,9 +180,11 @@ class DbChurch with ChangeNotifier {
       reference.add({
         "name":registerEvent.name,
         "church": registerEvent.church,
+        "currency": registerEvent.currency,
         "price": registerEvent.price,
         "eventid": registerEvent.eventid,
-        "userid": registerEvent.userid
+        "userid": registerEvent.userid,
+        "nameUserReg": registerEvent.nameUserReg,
       });
     });
   }
@@ -292,6 +294,15 @@ class DbChurch with ChangeNotifier {
   
   Stream streamSchedule(EventModel eventModel){
     return _db.collection(SCHEDULE).orderBy("dateTime").where("eventId",isEqualTo: eventModel.id).snapshots();
+  }
+  
+  Stream streamAdmisionByUser(EventModel eventModel, User user){
+    return _db.collection(ADMISSIONS).where("eventid", isEqualTo: eventModel.id)
+        .where("userid", isEqualTo: user.uid).snapshots();
+  }
+
+  Stream streamAdmission(EventModel eventModel){
+    return _db.collection(ADMISSIONS).where("eventid", isEqualTo: eventModel.id).snapshots();
   }
 }
 

@@ -125,9 +125,11 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
       RegisterEvent registerEvent = RegisterEvent(
           name: _textNameController.text,
           church: _textChuchController.text,
+          currency: widget.eventModel.currency,
           price: double.parse(_textPriceController.text),
           eventid: widget.eventModel.id,
           userid: widget.userLogged.uid,
+          nameUserReg: widget.userLogged.name
       );
 
       db.addAdmission(registerEvent).whenComplete((){

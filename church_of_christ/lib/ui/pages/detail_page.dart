@@ -8,6 +8,7 @@ import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/pages/admissions.dart';
+import 'package:church_of_christ/ui/pages/admissions_list.dart';
 import 'package:church_of_christ/ui/pages/show_schedule.dart';
 import 'package:church_of_christ/ui/pages/speakers.dart';
 import 'package:church_of_christ/ui/widgets/cache_image.dart';
@@ -103,16 +104,6 @@ class _DetailPage extends State<DetailPage> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _getScaffoldSliverBar(BuildContext context){
-
-    return Scaffold(
-      body: CustomScrollView(slivers: <Widget>[
-        _getSliverBar(context),
-        _getSliverToBoxAdapter(context),
-      ]),
     );
   }
 
@@ -454,7 +445,7 @@ class _DetailPage extends State<DetailPage> {
                       child: Container(
                         padding: EdgeInsets.only(left: 30.0),
                         child: RaisedButton.icon(
-                          icon: Icon(Icons.schedule),
+                          icon: Icon(Icons.recent_actors),
                           label: Text(FlutterI18n.translate(
                             context,
                             'acuedd.events.register')
@@ -474,7 +465,7 @@ class _DetailPage extends State<DetailPage> {
                       child:Container(
                         padding: EdgeInsets.only(right: 30.0),
                         child: RaisedButton.icon(
-                          icon: Icon(Icons.person),
+                          icon: Icon(Icons.list),
                           label: Text(FlutterI18n.translate(
                               context,
                               'acuedd.events.list')
@@ -482,7 +473,7 @@ class _DetailPage extends State<DetailPage> {
                           onPressed: (){
                             Navigator.of(context).push(FadeInRoute(
                                 widget:Container(
-                                    child: DetailSpeakers(eventModel: widget.myEvent,)
+                                    child: AdmissionListWidget(myEvent: widget.myEvent, myUserLogged: widget.myUserLogged,)
                                 )
                             ));
                           },

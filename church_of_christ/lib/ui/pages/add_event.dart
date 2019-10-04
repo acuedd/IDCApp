@@ -7,6 +7,7 @@ import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/add_event_speaker.dart';
 import 'package:church_of_christ/ui/pages/add_user_admission.dart';
+import 'package:church_of_christ/ui/pages/admissions_list.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
@@ -515,6 +516,18 @@ class _AddEventScreen extends State<AddEventScreen> {
           ),
           onPressed: (){
             Navigator.of(_scaffoldContext).push(FadeRoute(AssignUserEvent(user: widget.user, eventModel: widget.eventEditing,)));
+          },
+        ),
+        RaisedButton.icon(
+          icon: Icon(Icons.format_list_numbered),
+          label: Text(FlutterI18n.translate(
+              context,
+              'acuedd.events.addUserAdmission')
+          ),
+          onPressed: (){
+            Navigator.of(_scaffoldContext).push(FadeRoute(AdmissionListWidget(
+              myEvent: widget.eventEditing,
+            )));
           },
         ),
       ]);

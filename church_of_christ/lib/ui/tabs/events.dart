@@ -54,8 +54,6 @@ class _EventsScreen extends State<EventsScreen>{
       userLogged = null;
     }
 
-    print("userLogged");
-    print(userLogged);
     return _getScaffoldBlanckPage(context, userLogged);
   }
 
