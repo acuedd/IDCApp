@@ -48,10 +48,12 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
           PopupSettins()
         ],
         body: StreamBuilder(
-          stream: (widget.myUserLogged != null)
-              ? db.streamAdmisionByUser(widget.myEvent, widget.myUserLogged)
-              : db.streamAdmission(widget.myEvent),
+          stream: (widget.myUserLogged == null)
+              ? db.streamAdmission(widget.myEvent)
+              : db.streamAdmisionByUser(widget.myEvent, widget.myUserLogged),
           builder: (context, AsyncSnapshot snapshot){
+            print("snapshot.hasData");
+            print(widget.myUserLogged);
             if(snapshot.hasData){
               List<DocumentSnapshot> myListaddmission = snapshot.data.documents;
               var myMap = Map();
@@ -77,6 +79,9 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                   )
                 ],
               );
+            }
+            else{
+              print("fuck");
             }
             return Container(child: Center(child: CircularProgressIndicator()));
           },
