@@ -83,6 +83,7 @@ class DbChurch with ChangeNotifier {
     await _auth.currentUser().then((FirebaseUser user){
       refEvents.add({
         'urlImage': myEvent.urlImage,
+        'filename': myEvent.filename,
         'title': myEvent.title,
         'description': myEvent.description,
         'address': myEvent.address,
@@ -124,9 +125,25 @@ class DbChurch with ChangeNotifier {
     }, merge: true);
   }
 
-  void deleteEvent(EventModel myEvent) async{
+  void updateImageEvent(EventModel eventModel, String path, String filename)async{
+    DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(eventModel.id);
+    return await refEvents.setData({
+      'urlImage': path,
+      'filename': filename
+    }, merge: true);
+  }
+
+  void deleteEvent(EventModel myEvent, User user) async{
+    deleteImage(user, myEvent.filename);
     DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
     refEvents.delete();
+  }
+
+
+  Future<void> deleteImage(User user, String filename){
+    String path = "${user.uid}/${filename}";
+    print(path);
+    return _storageReference.child(path).delete();
   }
 
   Future<StorageUploadTask> uploadFile(String path, File image) async{

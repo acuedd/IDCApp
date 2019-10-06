@@ -12,6 +12,7 @@ import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:church_of_christ/ui/widgets/currency_dropdown.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
+import 'package:church_of_christ/ui/widgets/image_capture.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:intl/intl.dart';
@@ -151,7 +153,8 @@ class _AddEventScreen extends State<AddEventScreen> {
       }
       else{
         final stringDate = "${_date} ${_time}";
-        String path = "${widget.user.uid}/${DateTime.now().toString()}.jpg";
+        final strFileName = "${DateTime.now().toString()}.jpg";
+        String path = "${widget.user.uid}/${strFileName}";
         bool boolLoading = true;
         db.uploadFile(path, widget.image)
             .then((StorageUploadTask storageUploadTask){
@@ -166,6 +169,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                 id: null,
                 title: _textTitleController.text,
                 urlImage: urlImage,
+                filename: strFileName,
                 dateTime: DateTime.parse(stringDate),
                 description: _textDescriptionController.text,
                 currency: currencyValue,
@@ -204,7 +208,7 @@ class _AddEventScreen extends State<AddEventScreen> {
   }
 
   void delete(){
-    db.deleteEvent(widget.eventEditing);
+    db.deleteEvent(widget.eventEditing, widget.user);
     Navigator.pop(_scaffoldContext);
   }
 
@@ -253,6 +257,28 @@ class _AddEventScreen extends State<AddEventScreen> {
                               width: 350.0,
                               height: 250.0,left: 0,
                               internet: (widget.eventEditing != null)?true:false,
+                              onPressedFabIcon: (){
+
+                                if(widget.eventEditing != null){
+                                  ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 760, maxWidth: 1024).then((File image){
+                                    db.deleteImage(widget.user, widget.eventEditing.filename).whenComplete((){
+
+                                      final strFileName = "${DateTime.now().toString()}.jpg";
+                                      String path = "${widget.user.uid}/${strFileName}";
+                                      db.uploadFile("${path}", image)
+                                          .then((StorageUploadTask storageUploadTask){
+                                        //print(storageUploadTask);
+                                        storageUploadTask.onComplete.then((StorageTaskSnapshot snapshot){
+                                          snapshot.ref.getDownloadURL().then((urlImage){
+                                            db.updateImageEvent(widget.eventEditing,urlImage, strFileName);
+                                          });
+                                        });
+                                      });
+
+                                    });
+                                  }).catchError((onError) => print(onError));
+                                }
+                              },
                             ),
                       ), //Foto
                       Separator.divider(indent: 72),

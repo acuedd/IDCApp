@@ -19,6 +19,7 @@ class EventModel{
   final String id;
   final String title;
   final String urlImage;
+  final String filename;
   final String description;
   final DateTime dateTime;
 
@@ -42,6 +43,7 @@ class EventModel{
   EventModel({
     @required this.id,
     @required this.title,
+    @required this.filename,
     @required this.urlImage,
     @required this.dateTime,
     @required this.description,
@@ -104,6 +106,7 @@ class EventModel{
       id: doc.documentID,
       title: data["title"] ?? "",
       urlImage: data["urlImage"] ?? "",
+      filename: data["filename"] ?? "",
       description: data["description"] ?? "",
       dateTime: secondDate,
       currency: data["currency"] ?? "",

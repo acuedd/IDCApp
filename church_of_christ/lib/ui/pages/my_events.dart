@@ -155,7 +155,7 @@ class ItemEventsSearch extends StatelessWidget {
   }
 
   _deleteEvent(){
-    db.deleteEvent(myEvent);
+    db.deleteEvent(myEvent, myUser);
     Scaffold
         .of(_context)
         .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(_context, 'acuedd.events.deleteData')),));
