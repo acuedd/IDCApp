@@ -87,7 +87,9 @@
       "tickets": {
         "name": "Tickets",
         "currency": "Moneda",
-        "cost": "Costo de entrada"
+        "cost": "Costo de entrada",
+        "report": "Reporte",
+        "payment": "Pago"
       },
       "socialMedia": {
         "name": "Redes sociales",
@@ -103,7 +105,10 @@
         "baptism_date": "Fecha bautismo",
         "birthday": "Cumpleaños",
         "baptized": "Bautizado"
-      }
+      },
+      "age": "Edad",
+      "civil_status": "Estado civil",
+      "gender": "Género"
     },
     "other": {
       "unknown": "Desconocido",

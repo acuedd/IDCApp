@@ -4,9 +4,11 @@ import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/ui/pages/admissions_list.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
+import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -40,11 +42,11 @@ class _AssignUserEvent extends State<AssignUserEvent>{
     );
   }
 
-  Future<List<AugmentedSpeaker>> _getUsers(EventModel eventModel) async{
+  Future<List<Map>> _getUsers(EventModel eventModel) async{
     var promises = List<Future>();
 
     var eventReload = await db.getEventData(eventModel.id);
-    List<AugmentedSpeaker> oficialList = [];
+    List<Map> oficialList = [];
 
     eventReload.admissions.forEach((val){
       var promise = db.getUser(val)
@@ -57,7 +59,10 @@ class _AssignUserEvent extends State<AssignUserEvent>{
 
           AugmentedSpeaker sp = AugmentedSpeaker.fromMap(myMap);
           setState(() {
-            oficialList.add(sp);
+            var mapData = Map();
+            mapData["speaker"] = sp;
+            mapData["user"] = user;
+            oficialList.add(mapData);
           });
           return oficialList;
         })
@@ -96,9 +101,7 @@ class _AssignUserEvent extends State<AssignUserEvent>{
                     return CircularProgressIndicator();
                   }
                   else {
-                    var spList = _buildUser(snapshot);
-                    //print(spList);
-                    return _getListUser(context,orientation,spList);
+                    return _buildUser(snapshot, orientation);
                   }
                 }
             ),
@@ -107,21 +110,22 @@ class _AssignUserEvent extends State<AssignUserEvent>{
     );
   }
 
-  _buildUser(AsyncSnapshot snapshot){
+  _buildUser(AsyncSnapshot snapshot, Orientation orientation){
 
     List<SpeakerItem> speakerList = List<SpeakerItem>();
+    List<User> userList = List<User>();
     var map = snapshot.data;
     if(map != null){
       for(var i=0; i < map.length; ++i){
-        //print(map[i]);
-        speakerList.add(SpeakerItem(TalkBoss(map[i], null,null)));
+        speakerList.add(SpeakerItem(TalkBoss(map[i]["speaker"], null,null)));
+        userList.add(map[i]["user"]);
       }
     }
 
-    return speakerList;
+    return _getListUser(context,orientation,speakerList, userList);
   }
 
-  _getListUser(BuildContext context, orientation, List<SpeakerItem> speakerlist){
+  _getListUser(BuildContext context, orientation, List<SpeakerItem> speakerlist, List<User> userList){
 
     return Stack(children: <Widget>[
       ListView.builder(
@@ -138,6 +142,27 @@ class _AssignUserEvent extends State<AssignUserEvent>{
                 print("tap boss");
               }
             ),
+            actions: <Widget>[
+              IconSlideAction(
+                caption: FlutterI18n.translate(context, 'acuedd.events.tickets.payment'),
+                color: Colors.blueAccent,
+                icon: Icons.payment,
+                onTap: (){
+                  //TODO ir para registrar pago
+                },
+              ),
+              IconSlideAction(
+                caption: FlutterI18n.translate(context, 'acuedd.events.tickets.report'),
+                color: Colors.grey,
+                icon: Icons.report,
+                onTap: (){
+                  Navigator.of(_scaffoldContext).push(FadeRoute(AdmissionListWidget(
+                    myEvent: widget.eventModel,
+                    myUserLogged: userList[index],
+                  )));
+                },
+              )
+            ],
             secondaryActions: <Widget>[
               IconSlideAction(
                 caption: FlutterI18n.translate(context, 'app.delete'),

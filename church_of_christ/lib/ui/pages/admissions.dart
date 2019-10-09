@@ -3,6 +3,7 @@ import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
+import 'package:church_of_christ/ui/widgets/my_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -32,8 +33,15 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
   final _textNameController = TextEditingController();
   final _textChuchController = TextEditingController();
   final _textPriceController = TextEditingController();
+  final _textAgeController = TextEditingController();
 
   final db = DbChurch();
+
+  String civilStatusValue = 'soltero';
+  String civilStatusSymbol = '';
+
+  String genderValue = 'male';
+  String genderSymbol = '';
 
   @override
   void initState() {
@@ -64,52 +72,98 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
             _scaffoldContext = context;
             return Form(
               key: _formKey,
-              child:Container(
-                  child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: TextField(
-                            controller: _textNameController,
-                            style: style,
-                            decoration: InputDecoration(
-                              labelText: FlutterI18n.translate(context, 'acuedd.events.name'),
-                              //border: OutlineInputBorder()
+              child: Center(
+                    child: ListView(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+                              controller: _textNameController,
+                              style: style,
+                              decoration: InputDecoration(
+                                labelText: FlutterI18n.translate(context, 'acuedd.events.name'),
+                                //border: OutlineInputBorder()
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: TextField(
-                            controller: _textChuchController,
-                            style: style,
-                            decoration: InputDecoration(
-                              labelText: FlutterI18n.translate(context, 'acuedd.events.church'),
-                              //border: OutlineInputBorder()
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+                              controller: _textChuchController,
+                              style: style,
+                              decoration: InputDecoration(
+                                labelText: FlutterI18n.translate(context, 'acuedd.events.church'),
+                                //border: OutlineInputBorder()
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: TextField(
-                            controller: _textPriceController,
-                            style: style,
-                            readOnly: true,
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
-                            decoration: InputDecoration(
-                              labelText: "${FlutterI18n.translate(context, 'acuedd.events.contribution')} - ${widget.eventModel.currency}",
-                              //border: OutlineInputBorder()
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+                              controller: _textAgeController,
+                              style: style,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: FlutterI18n.translate(context, 'acuedd.users.age'),
+                                //border: OutlineInputBorder()
+                              ),
                             ),
                           ),
-                        ),
-                      ])
-              ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(FlutterI18n.translate(context, 'acuedd.users.gender')),
+                                MyDropdown(currencyValue: genderValue, onChanged: _onGenderChanged, assetFile: 'assets/data/gender.json',),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(FlutterI18n.translate(context, 'acuedd.users.civil_status')),
+                                MyDropdown(currencyValue: civilStatusValue, onChanged: _onCivilStatusChanged, assetFile: 'assets/data/civilStatus.json',),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+                              controller: _textPriceController,
+                              style: style,
+                              //readOnly: true,
+                              keyboardType: TextInputType.numberWithOptions(decimal: true),
+                              decoration: InputDecoration(
+                                labelText: "${FlutterI18n.translate(context, 'acuedd.events.contribution')} - ${widget.eventModel.currency}",
+                                //border: OutlineInputBorder()
+                              ),
+                            ),
+                          ),
+                        ])
+                ),
             );
           })
     );
+  }
+
+  _onCivilStatusChanged(val, symbol) {
+    setState(() {
+      civilStatusValue = val;
+      civilStatusSymbol = symbol;
+    });
+  }
+
+  _onGenderChanged(val, symbol) {
+    setState(() {
+      genderValue = val;
+      genderSymbol = symbol;
+    });
   }
 
   void save(BuildContext context){
@@ -129,7 +183,9 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
           price: double.parse(_textPriceController.text),
           eventid: widget.eventModel.id,
           userid: widget.userLogged.uid,
-          nameUserReg: widget.userLogged.name
+          nameUserReg: widget.userLogged.name,
+          age: int.parse( _textAgeController.text ),
+          civilStatus: civilStatusValue
       );
 
       db.addAdmission(registerEvent).whenComplete((){

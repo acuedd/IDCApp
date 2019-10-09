@@ -20,7 +20,7 @@ class Url {
   static const String authorStore =
       'https://play.google.com/store/apps/developer?id=acuedd';
   static const String appStore =
-      'https://play.google.com/store/apps/details?id=com.acuedd.conferenciasquiche';
+      'https://play.google.com/store/apps/details?id=gt.com.acuedd.church_of_christ';
   static const String authorPatreon = 'https://www.patreon.com/acuedd';
   static const Map<String, String> authorEmail = {
     'subject': 'acuedd',

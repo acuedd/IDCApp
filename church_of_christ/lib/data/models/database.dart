@@ -197,6 +197,9 @@ class DbChurch with ChangeNotifier {
       reference.add({
         "name":registerEvent.name,
         "church": registerEvent.church,
+        "age": registerEvent.age,
+        "civilStatus": registerEvent.civilStatus,
+        "gender": registerEvent.gender,
         "currency": registerEvent.currency,
         "price": registerEvent.price,
         "eventid": registerEvent.eventid,

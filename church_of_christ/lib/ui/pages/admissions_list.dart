@@ -12,6 +12,7 @@ import 'package:church_of_christ/ui/widgets/row_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:row_collection/row_collection.dart';
 
@@ -91,6 +92,16 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
   }
 
   Widget getResumenWidget(BuildContext context, myMap){
+
+    MoneyFormatterOutput fo = FlutterMoneyFormatter(
+      amount: double.parse( myMap["sumTotal"].toString() ),
+      settings: MoneyFormatterSettings(
+        symbol: widget.myEvent.currency,
+        thousandSeparator: ',',
+        decimalSeparator: '.',
+      )
+    ).output;
+
     return CardPage.body(
       title: "Resumen de entradas registradas",
       body: RowLayout(
@@ -101,7 +112,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
           ),
           RowText(
             "Total recaudado: ",
-            myMap["sumTotal"].toString()
+            fo.symbolOnLeft
           )
         ],
       ),
@@ -115,6 +126,16 @@ class ListAdmission extends StatelessWidget {
   ListAdmission(this.listAdmissions, this.userlogged);
 
   Widget _buildProductItem(BuildContext context, int index) {
+
+    MoneyFormatterOutput fo = FlutterMoneyFormatter(
+        amount: listAdmissions[index].price,
+        settings: MoneyFormatterSettings(
+          symbol: listAdmissions[index].currency,
+          thousandSeparator: ',',
+          decimalSeparator: '.',
+        )
+    ).output;
+
     return Card(
       child: RowLayout(
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 25.0, bottom: 25.0),
@@ -129,7 +150,7 @@ class ListAdmission extends StatelessWidget {
           ),
           RowText(
             "${FlutterI18n.translate(context, 'acuedd.events.contribution')}:",
-            "${listAdmissions[index].currency} ${listAdmissions[index].price.toString()}",
+            fo.symbolOnLeft,
           ),
           if(userlogged == null)
             RowText(

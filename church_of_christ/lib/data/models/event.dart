@@ -126,20 +126,27 @@ class EventModel{
 class RegisterEvent{
   final String name;
   final String church;
+  final int age;
+  final String civilStatus;
+  final String gender;
   final String currency;
   final double price;
   final String eventid;
   final String userid;
   final String nameUserReg;
 
+
   RegisterEvent({
     this.name,
     this.church,
+    this.age,
+    this.civilStatus,
+    this.gender,
     this.currency,
     this.price,
     this.eventid,
     this.userid,
-    this.nameUserReg
+    this.nameUserReg,
   });
 
   factory RegisterEvent.fromFirestore(DocumentSnapshot doc){
@@ -147,6 +154,9 @@ class RegisterEvent{
     return RegisterEvent(
       name: data["name"] ?? "",
       church: data["church"] ?? "",
+      age: data["age"] ?? 0,
+      civilStatus: data["civilStatus"] ?? "",
+      gender: data["gender"] ?? "",
       currency: data["currency"] ?? "",
       price: data["price"] ?? "",
       eventid: data["eventid"] ?? "",
