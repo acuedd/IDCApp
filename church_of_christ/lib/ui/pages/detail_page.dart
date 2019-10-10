@@ -443,7 +443,7 @@ class _DetailPage extends State<DetailPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: EdgeInsets.only(left: 30.0),
+                        padding: EdgeInsets.only(left: 10.0),
                         child: RaisedButton.icon(
                           icon: Icon(Icons.recent_actors),
                           label: Text(FlutterI18n.translate(
@@ -463,12 +463,12 @@ class _DetailPage extends State<DetailPage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child:Container(
-                        padding: EdgeInsets.only(right: 30.0),
+                        padding: EdgeInsets.only(right: 10.0),
                         child: RaisedButton.icon(
-                          icon: Icon(Icons.list),
+                          icon: Icon(Icons.pie_chart),
                           label: Text(FlutterI18n.translate(
                               context,
-                              'acuedd.events.list')
+                              'acuedd.events.statistics')
                           ),
                           onPressed: (){
                             Navigator.of(context).push(FadeInRoute(

@@ -46,6 +46,7 @@ dependencies:
   sliver_fab: ^1.0.0
   flutter_datetime_picker: 1.2.5
   flutter_slidable:
+  pie_chart: ^1.2.0
 
   ##Tools
   flutter_i18n: ^0.6.4

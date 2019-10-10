@@ -74,7 +74,11 @@
       "name": "Name",
       "church": "Church",
       "contribution": "Contribution",
-      "registerAdmission": "Listado de registros en admisiones",
+      "registerAdmission": "List of admissions records",
+      "statistics": "Statistics",
+      "statisticsCivilStatus": "Statistics of civil status",
+      "statisticsAge": "Statistics of age",
+      "statisticsGender": "Statistics of gender",
       "basics": {
         "title": "Basics",
         "name": "Event's name",
@@ -93,7 +97,11 @@
         "amount": "Amount",
         "obs": "Observations",
         "payment_progress": "Register the payment in progress",
-        "settlement":  "Settlement"
+        "settlement":  "Settlement",
+        "income": "Income",
+        "resume": "Summary of registered entries",
+        "counter": "Total tickets:",
+        "contribution": "Contributions:"
       },
       "socialMedia": {
         "name": "Redes sociales",

@@ -1,4 +1,5 @@
 
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:church_of_christ/data/models/speakers.dart';
@@ -139,7 +140,6 @@ class DbChurch with ChangeNotifier {
     DocumentReference refEvents = _db.collection(EVENTSCHURCH).document(myEvent.id);
     refEvents.delete();
   }
-
 
   Future<void> deleteImage(User user, String filename){
     String path = "${user.uid}/${filename}";
@@ -329,13 +329,28 @@ class DbChurch with ChangeNotifier {
   }
   
   Stream streamAdmisionByUser(EventModel eventModel, User user){
-    return _db.collection(ADMISSIONS).where("eventid", isEqualTo: eventModel.id)
-        .where("userid", isEqualTo: user.uid).snapshots();
+    return _db.collection(ADMISSIONS)
+        .where("eventid", isEqualTo: eventModel.id)
+        .where("userid", isEqualTo: user.uid)
+        .orderBy("age").snapshots();
   }
 
   Stream streamAdmission(EventModel eventModel){
-    return _db.collection(ADMISSIONS).orderBy("nameUserReg")
+    return _db.collection(ADMISSIONS)
+        .orderBy("age")
+        .orderBy("nameUserReg")
         .where("eventid", isEqualTo: eventModel.id).snapshots();
+  }
+
+  Stream streamIncomeAdmissions(PaymentAddmission pay){
+    return _db.collection(PAYMENTS_ADMISSIONS)
+        .where("eventid", isEqualTo: pay.eventid).snapshots();
+  }
+
+  Stream streamIncomeAdmissionsByUser(PaymentAddmission pay){
+    return _db.collection(PAYMENTS_ADMISSIONS)
+        .where("eventid", isEqualTo: pay.eventid)
+        .where("userid", isEqualTo: pay.userid).snapshots();
   }
 }
 

@@ -76,6 +76,10 @@
       "church": "Congregación",
       "contribution": "Contribución",
       "registerAdmission": "Listado de registros en admisiones",
+      "statistics": "Estadísticas",
+      "statisticsCivilStatus": "Estadísticas de estado civil",
+      "statisticsAge": "Estadísticas de edad",
+      "statisticsGender": "Estadísticas de género",
       "basics": {
         "title": "Básicos",
         "name": "Nombre del evento",
@@ -94,7 +98,11 @@
         "amount": "Monto",
         "obs": "Observaciones",
         "payment_progress": "Registro de pago en proceso",
-        "settlement":  "Cierre"
+        "settlement":  "Cierre",
+        "income": "Recaudación",
+        "resume": "Resumen de entradas registradas",
+        "counter": "Total tickets:",
+        "contribution": "Contribuciones:",
       },
       "socialMedia": {
         "name": "Redes sociales",

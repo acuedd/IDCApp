@@ -185,7 +185,8 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
           userid: widget.userLogged.uid,
           nameUserReg: widget.userLogged.name,
           age: int.parse( _textAgeController.text ),
-          civilStatus: civilStatusValue
+          civilStatus: civilStatusValue,
+          gender: genderValue,
       );
 
       db.addAdmission(registerEvent).whenComplete((){
