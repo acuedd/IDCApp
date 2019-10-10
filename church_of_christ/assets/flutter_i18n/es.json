@@ -13,7 +13,8 @@
     "edit": "Editar",
     "delete": "Eliminar",
     "add":"Agregar",
-    "regby": "Registrado por"
+    "regby": "Registrado por",
+    "success": "Information saved success!"
   },
   "acuedd": {
     "churchs": {
@@ -88,7 +89,11 @@
         "currency": "Moneda",
         "cost": "Costo de entrada",
         "report": "Reporte",
-        "payment": "Pago"
+        "payment": "Pago",
+        "amount": "Monto",
+        "obs": "Observaciones",
+        "payment_progress": "Registro de pago en proceso",
+        "settlement":  "Cierre"
       },
       "socialMedia": {
         "name": "Social Media",

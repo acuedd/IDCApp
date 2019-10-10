@@ -19,6 +19,7 @@ class DbChurch with ChangeNotifier {
   final String SPEAKERS = "speakers";
   final String SCHEDULE = "schedule";
   final String ADMISSIONS = "admissions";
+  final String PAYMENTS_ADMISSIONS = "payment_admissions";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -205,6 +206,17 @@ class DbChurch with ChangeNotifier {
         "eventid": registerEvent.eventid,
         "userid": registerEvent.userid,
         "nameUserReg": registerEvent.nameUserReg,
+      });
+    });
+  }
+
+  Future<void> addPaymentAdmission(PaymentAddmission paymentAddmission) async{
+    CollectionReference reference = _db.collection(PAYMENTS_ADMISSIONS);
+    await _auth.currentUser().then((FirebaseUser user){
+      reference.add({
+        "userid": paymentAddmission.userid,
+        "eventid": paymentAddmission.eventid,
+        "amount": paymentAddmission.amount,
       });
     });
   }

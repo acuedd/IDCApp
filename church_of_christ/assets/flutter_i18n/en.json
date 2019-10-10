@@ -13,7 +13,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "add":"Add",
-    "regby": "Register by"
+    "regby": "Register by",
+    "success": "Information saved success!"
   },
   "acuedd": {
     "churchs": {
@@ -88,7 +89,11 @@
         "currency": "Currency",
         "cost": "Ticket cost",
         "report": "Report",
-        "payment": "Payment"
+        "payment": "Payment",
+        "amount": "Amount",
+        "obs": "Observations",
+        "payment_progress": "Register the payment in progress",
+        "settlement":  "Settlement"
       },
       "socialMedia": {
         "name": "Redes sociales",

@@ -165,3 +165,24 @@ class RegisterEvent{
     );
   }
 }
+
+class PaymentAddmission{
+  final String userid;
+  final String eventid;
+  final double amount;
+
+  PaymentAddmission({
+    this.userid,
+    this.eventid,
+    this.amount
+  });
+
+  factory PaymentAddmission.fromFirestore(DocumentSnapshot doc){
+    Map data = doc.data;
+    return PaymentAddmission(
+      userid: data["userid"] ?? "",
+      eventid: data["eventid"] ?? "",
+      amount: data["amount"] ?? 0.0
+    );
+  }
+}

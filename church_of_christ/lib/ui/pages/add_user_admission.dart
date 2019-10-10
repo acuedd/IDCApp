@@ -4,6 +4,7 @@ import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
 import 'package:church_of_christ/data/models/user.dart';
+import 'package:church_of_christ/ui/pages/admissions_deposit.dart';
 import 'package:church_of_christ/ui/pages/admissions_list.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
@@ -148,7 +149,14 @@ class _AssignUserEvent extends State<AssignUserEvent>{
                 color: Colors.blueAccent,
                 icon: Icons.payment,
                 onTap: (){
-                  //TODO ir para registrar pago
+                  Navigator.of(_scaffoldContext).push(
+                      MaterialPageRoute(
+                        builder: (context) => AdmissionsDeposit(
+                          eventModel: widget.eventModel,
+                          userLogged: userList[index],
+                        ),
+                      )
+                  );
                 },
               ),
               IconSlideAction(
