@@ -1,5 +1,11 @@
-## [2.0.3] - October 4th, 2019
-* Fix in userbox for exceed pixel in screen
+## [2.0.5] - October 13th, 2019
+* Adding presentation dialog
+* Adding option in about for display sponsor
+* Adding contact me to whatsapp
+
+## [2.0.4] - October 9th, 2019
+* Fix in colors of charts in admissions statistics
+* Adding detail list of admissions
 
 
 ## [2.0.2] - September 30th, 2019
