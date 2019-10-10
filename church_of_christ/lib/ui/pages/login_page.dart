@@ -5,6 +5,7 @@ import 'package:church_of_christ/ui/widgets/button_green.dart';
 import 'package:church_of_christ/ui/widgets/gradient_back.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -72,7 +73,14 @@ class _LoginPageState extends State<LoginPage> {
                             baptized: false,
                             birthday: DateTime.now(),
                           )
-                      );
+                      ).then(( _ ) async{
+                          final SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setString(
+                            'register_date',
+                            DateTime.now().add(Duration(days: 14)).toIso8601String(),
+                          );
+                          prefs.setBool('register_seen', true);
+                      });
                     });
                   }
                   else{

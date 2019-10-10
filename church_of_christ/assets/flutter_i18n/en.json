@@ -196,6 +196,12 @@
     "credits": {
       "title": "App credits",
       "body": "Using the open-source r/SpaceX API"
+    },
+    "presentation": {
+      "title": "Sign in up for the app",
+      "body": "Support us with new ideas or if you want to be part of the collaborators of the app, send me an mail",
+      "body_dialog": "",
+      "dismiss": "SEE LATER"
     }
   },
   "settings": {

@@ -8,11 +8,13 @@ import 'package:church_of_christ/ui/tabs/churchs.dart';
 import 'package:church_of_christ/ui/tabs/events.dart';
 import 'package:church_of_christ/ui/tabs/settings.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
+import 'package:church_of_christ/ui/widgets/dialog_presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -44,7 +46,52 @@ class _StartScreenState extends State<StartScreen> {
       }
     });
 
+
     Future.delayed(Duration.zero, () async {
+
+      // Show the Register page
+      final SharedPreferences prefs = await SharedPreferences.getInstance();  
+
+      // First time app boots
+      if (prefs.getBool('register_seen') == null)
+        prefs.setBool('register_seen', false);
+      if (prefs.getString('register_date') == null)
+        prefs.setString(
+          'register_date',
+          DateTime.now().toIso8601String(),
+        );
+
+      // If it's time to show the dialog
+      if (!prefs.getBool('register_seen') &&
+          DateTime.now().isAfter(
+            DateTime.parse(prefs.getString('register_date')),
+          )) {
+          showDialog(
+            context: context,
+            builder: (context)=> PresentationDialog.home(context, (){
+              //TODO
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChangeNotifierProvider.value(
+                      value: UserRepository.instance(),
+                      child: SignInScreen(),
+                    ),
+                  )
+              );
+            }, "Sign in up"),
+          ).then((result){
+            // Then, we'll analize what happened
+            if (!(result ?? false))
+              prefs.setString(
+                'register_date',
+                DateTime.now().add(Duration(days: 14)).toIso8601String(),
+              );
+            else
+              prefs.setBool('register_seen', true);
+          });
+      }
+
       //Settings app shortcuts
       quickActions.setShortcutItems(<ShortcutItem>[
         ShortcutItem(

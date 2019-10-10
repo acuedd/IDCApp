@@ -1,6 +1,7 @@
 import 'package:church_of_christ/data/models/changelog.dart';
 import 'package:church_of_christ/ui/screens/changelog.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
+import 'package:church_of_christ/ui/widgets/dialog_presentation.dart';
 import 'package:church_of_christ/ui/widgets/dialog_round.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
@@ -110,6 +111,30 @@ class _AboutScreenState extends State<AboutScreen> {
           onTap: () async => await FlutterWebBrowser.openWebPage(
             url: Url.authorStore,
             androidToolbarColor: Theme.of(context).primaryColor,
+          ),
+        ),
+        ListCell.icon(
+          icon: Icons.cake,
+          trailing: Icon(Icons.chevron_right),
+          title: FlutterI18n.translate(
+            context,
+            'about.sponsor.title',
+          ),
+          subtitle: FlutterI18n.translate(
+            context,
+            'about.sponsor.subtitle',
+          ),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => PresentationDialog.about(context, ()async{
+              Navigator.pop(context, true);
+              await FlutterWebBrowser.openWebPage(
+                url: Url.apiContactMe,
+                androidToolbarColor: Theme.of(context).primaryColor
+              );
+            },
+            "Contáctame"
+            ),
           ),
         ),
         Separator.divider(indent: 72),

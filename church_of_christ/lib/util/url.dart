@@ -7,7 +7,8 @@ class Url {
       'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
   static const String darkMap =
       'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
-
+  static const String apiContactMe =
+      'https://api.whatsapp.com/send?phone=50230468139&text=Hola%20me%20interesa%20apoyar%20en%20el%20app&source=&data=';
 
   //Share
   // Share details message

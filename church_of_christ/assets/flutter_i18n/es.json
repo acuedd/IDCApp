@@ -196,6 +196,16 @@
     "credits": {
       "title": "Créditos",
       "body": "Usando la API gratuita de r/SpaceX"
+    },
+    "presentation": {
+      "title": "Registrate en la app",
+      "body": "Apoyanos con ideas nuevas o si quieres ser parte de los colaboradores del app, envíame un mail",
+      "body_dialog": "Support this app by check out my Patreon page. Special thanks to all my supporters!",
+      "dismiss": "MÁS TARDE"
+    },
+    "sponsor": {
+      "title": "Conviértete en sponsor",
+      "subtitle": "Escríbeme en whatsapp"
     }
   },
   "settings": {

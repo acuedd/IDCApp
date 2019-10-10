@@ -12,6 +12,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileHeader extends StatefulWidget {
   @override
@@ -161,9 +162,15 @@ class _ProfileHeader extends State<ProfileHeader> {
           child: Text('Cerrar sesión'),
         )
       ],
-      onSelected: (text){
+      onSelected: (text) async{
         print(text);
         if(text == "closeSession"){
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('register_seen', null);
+          prefs.setString(
+            'register_date',
+            null,
+          );
           Provider.of<UserRepository>(myContext).signOut();
         }
       },

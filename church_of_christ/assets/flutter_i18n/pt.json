@@ -102,7 +102,7 @@
         "income": "Recaudación",
         "resume": "Resumen de entradas registradas",
         "counter": "Total tickets:",
-        "contribution": "Contribuciones:",
+        "contribution": "Contribuciones:"
       },
       "socialMedia": {
         "name": "Redes sociales",
@@ -197,6 +197,12 @@
     "credits": {
       "title": "Créditos",
       "body": "Usando la API gratuita de r/SpaceX"
+    },
+    "presentation": {
+      "title": "Registrate en la app",
+      "body": "Apoyanos con ideas nuevas o si quieres ser parte de los colaboradores del app, envíame un mail",
+      "body_dialog": "",
+      "dismiss": "MÁS TARDE",
     }
   },
   "settings": {
