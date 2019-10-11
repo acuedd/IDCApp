@@ -1,4 +1,5 @@
 
+import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
@@ -8,6 +9,7 @@ import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/gradient_back.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -26,6 +28,19 @@ class _ProfileHeader extends State<ProfileHeader> {
   DateTime date = DateTime.now();
   DateTime birth = DateTime.now();
   final dbUser = DbChurch();
+  TextStyle style = TextStyle(fontFamily: 'Lato', fontSize: 15.0);
+  String _dateBirth = "Not set";
+  DateTime _dateBirthRaw ;
+  String _dateBaptism = "Not set";
+  DateTime _dateBaptismRaw;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +98,11 @@ class _ProfileHeader extends State<ProfileHeader> {
                   builder: (context, snapshot){
                     var myUser = snapshot.data;
                     if (myUser != null) {
-                      print(myUser.baptismDate);
                       _switchValue = myUser.baptized;
-                      date = myUser.baptismDate;
-                      birth = myUser.birthday;
+                      _dateBirthRaw = myUser.birthday;
+                      _dateBirth ='${_dateBirthRaw.year}-${_dateBirthRaw.month.toString().padLeft(2,'0')}-${_dateBirthRaw.day.toString().padLeft(2,'0')}';
+                      _dateBaptismRaw = myUser.baptismDate;
+                      _dateBaptism ='${_dateBaptismRaw.year}-${_dateBaptismRaw.month.toString().padLeft(2,'0')}-${_dateBaptismRaw.day.toString().padLeft(2,'0')}';
 
                       return Container(
                         margin: EdgeInsets.only(
@@ -202,75 +218,141 @@ class _ProfileHeader extends State<ProfileHeader> {
   }
 
   Widget _buildDatePicker(BuildContext context, User user) {
-    return GestureDetector(
-      onTap: () {
-        showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-              CupertinoDatePicker(
-                //backgroundColor: isDarkModeEnabled ? Colors.black : Colors.white,
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: date,
-                onDateTimeChanged: (DateTime newDateTime) {
-                  setState((){
-                    date = newDateTime;
-                    user.baptismDate = date;
-                    dbUser.updateBaptismDate(user);
-                  });
-                },
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Column(
+        //mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(FlutterI18n.translate(context, 'acuedd.users.spiritual.baptism_date'), style: TextStyle(
+              color: Colors.grey
+          ),),
+          RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+            elevation: 1.0,
+            onPressed: () {
+              DatePicker.showDatePicker(context,
+                  theme: DatePickerTheme(
+                    containerHeight: 210.0,
+                  ),
+                  showTitleActions: true,
+                  minTime: DateTime(2000, 1, 1),
+                  maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                    _dateBaptism = '${date.year}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';
+                    _dateBaptismRaw = date;
+                    setState(() {
+                      date = _dateBaptismRaw;
+                      user.baptismDate = date;
+                      dbUser.updateBaptismDate(user);
+                    });
+                  }, currentTime: _dateBaptismRaw, locale: LocaleType.en);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 50.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.date_range,
+                              size: 18.0,
+                              //color: Colors.teal,
+                            ),
+                            Text(
+                              (_dateBaptismRaw!=null)?DateFormat.yMMMMd().format(_dateBaptismRaw): '$_dateBaptism',
+                              style: style,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                    "  Change",
+                    style: style,
+                  ),
+                ],
               ),
-            );
-          },
-        );
-      },
-      child: _buildMenu(
-          <Widget>[
-            Text(
-                FlutterI18n.translate(context, 'acuedd.users.spiritual.baptism_date')
             ),
-            Text(
-              DateFormat.yMMMMd().format(date),
-              style: const TextStyle(color: CupertinoColors.inactiveGray),
-            ),
-          ]
+            color: (Provider.of<AppModel>(context).theme == Themes.black)? Theme.of(context).cardColor : Theme.of(context).cardColor,
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildDatePickerBirthday(BuildContext context, User user) {
-    return GestureDetector(
-      onTap: () {
-        showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-              CupertinoDatePicker(
-                //backgroundColor: isDarkModeEnabled ? Colors.black : Colors.white,
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: birth,
-                onDateTimeChanged: (DateTime newDateTime2) {
-                  setState((){
-                    birth = newDateTime2;
-                    user.birthday = birth;
-                    dbUser.updateBirthday(user);
-                  });
-                },
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Column(
+        //mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(FlutterI18n.translate(context, 'acuedd.users.spiritual.birthday'), style: TextStyle(
+              color: Colors.grey
+          ),),
+          RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+            elevation: 1.0,
+            onPressed: () {
+              DatePicker.showDatePicker(context,
+                  theme: DatePickerTheme(
+                    containerHeight: 210.0,
+                  ),
+                  showTitleActions: true,
+                  minTime: DateTime(2000, 1, 1),
+                  maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                    _dateBirth = '${date.year}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';
+                    _dateBirthRaw = date;
+                    setState(() {
+                      birth = _dateBirthRaw;
+                      user.birthday = birth;
+                      dbUser.updateBirthday(user);
+                    });
+                  }, currentTime: _dateBirthRaw, locale: LocaleType.en);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 50.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.date_range,
+                              size: 18.0,
+                              //color: Colors.teal,
+                            ),
+                            Text(
+                              (_dateBirthRaw!=null)?DateFormat.yMMMMd().format(_dateBirthRaw): '$_dateBirth',
+                              style: style,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                    "  Change",
+                    style: style,
+                  ),
+                ],
               ),
-            );
-          },
-        );
-      },
-      child: _buildMenu(
-          <Widget>[
-            Text(
-              FlutterI18n.translate(context, 'acuedd.users.spiritual.birthday')
             ),
-            Text(
-              DateFormat.yMMMMd().format(birth),
-              style: const TextStyle(color: CupertinoColors.inactiveGray),
-            ),
-          ]
+            color: (Provider.of<AppModel>(context).theme == Themes.black)? Theme.of(context).cardColor : Theme.of(context).cardColor,
+          ),
+        ],
       ),
     );
   }

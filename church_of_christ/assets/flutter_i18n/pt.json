@@ -15,7 +15,11 @@
     "delete": "Eliminar",
     "add":"Agregar",
     "regby": "Registrado por",
-    "success": "Information saved success!"
+    "success": "Information saved success!",
+    "register": "Registrate con gmail",
+    "welcome": "Bienvenido \n Esta es tu aplicación \n de la iglesia",
+    "contactme": "Contáctame",
+    "gratitude": "Agradecemos a nuestros sponsors del app"
   },
   "acuedd": {
     "churchs": {
@@ -203,6 +207,10 @@
       "body": "Apoyanos con ideas nuevas o si quieres ser parte de los colaboradores del app, envíame un mail",
       "body_dialog": "",
       "dismiss": "MÁS TARDE",
+    },
+    "sponsor": {
+      "title": "Conviértete en sponsor",
+      "subtitle": "Escríbeme en whatsapp"
     }
   },
   "settings": {

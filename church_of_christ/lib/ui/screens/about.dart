@@ -133,7 +133,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 androidToolbarColor: Theme.of(context).primaryColor
               );
             },
-            "Contáctame"
+            FlutterI18n.translate(context, 'app.contactme')
             ),
           ),
         ),

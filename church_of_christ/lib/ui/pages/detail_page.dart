@@ -1,6 +1,7 @@
 
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:church_of_christ/data/models/event.dart';
@@ -36,6 +37,7 @@ import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatefulWidget {
   final EventModel myEvent;
@@ -374,10 +376,24 @@ class _DetailPage extends State<DetailPage> {
   _getButtonToMaps(){
     return RaisedButton.icon(
       icon: Icon(Icons.location_on),
-      onPressed: () async => await FlutterWebBrowser.openWebPage(
-        url: "google.navigation:q=${widget.myEvent.latitude},${widget.myEvent.longitude}",
-        androidToolbarColor: Theme.of(context).primaryColor,
-      ),
+      onPressed: () async {
+        String url = "geo:${widget.myEvent.latitude},${widget.myEvent.longitude}";
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          // iOS
+          String url = "http://maps.apple.com/?ll=${widget.myEvent.latitude},${widget.myEvent.longitude}";
+          String wazemaps = "https://www.waze.com/ul?ll=${widget.myEvent.latitude},${widget.myEvent.longitude}";
+          if (await canLaunch(wazemaps)) {
+            await launch(wazemaps);
+          } else {
+            if(await canLaunch(url)){
+              await launch(url);
+            }
+            throw 'Could not launch $url';
+          }
+        }
+      },
       label: Text(FlutterI18n.translate(context, 'acuedd.events.basics.openMaps')),
     );
   }

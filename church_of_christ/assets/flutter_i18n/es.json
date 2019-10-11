@@ -6,6 +6,7 @@
       "about": "Información"
     },
     "search": "Buscar",
+    "description": "DESCRIPCION",
     "no_description": "Esta misión actualmente no tiene detalles",
     "profile": "Perfil",
     "save":"Guardar",
@@ -14,7 +15,11 @@
     "delete": "Eliminar",
     "add":"Agregar",
     "regby": "Registrado por",
-    "success": "Information saved success!"
+    "success": "Information saved success!",
+    "register": "Registrate con gmail",
+    "welcome": "Bienvenido \n Esta es tu aplicación \n de la iglesia",
+    "contactme": "Contáctame",
+    "gratitude": "Agradecemos a nuestros sponsors del app"
   },
   "acuedd": {
     "churchs": {

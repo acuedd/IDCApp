@@ -60,7 +60,7 @@ class PresentationDialog extends StatelessWidget{
       onPressed: onPressed,
       textButton: textButton,
       body: RowLayout(children: <Widget>[
-        Text("Agradecemos a nuestros sponsors del app",
+        Text(FlutterI18n.translate(context, 'app.gratitude'),
           style: Theme.of(context).textTheme.title.copyWith(
             fontWeight: FontWeight.normal,
             color: Theme.of(context).textTheme.caption.color,
