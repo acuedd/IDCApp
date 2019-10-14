@@ -211,7 +211,8 @@
     "sponsor": {
       "title": "Conviértete en sponsor",
       "subtitle": "Escríbeme en whatsapp"
-    }
+    },
+    "coomingsoon": "Muy pronto"
   },
   "settings": {
     "headers": {
@@ -224,6 +225,7 @@
       "theme": {
         "dark": "Tema oscuro",
         "black": "Tema negro",
+        "monokai": "Monokai",
         "light": "Tema claro",
         "system": "Tema del sistema"
       }

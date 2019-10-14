@@ -211,7 +211,8 @@
     "sponsor": {
       "title": "Become on sponsor",
       "subtitle": "Chat me on whatsapp"
-    }
+    },
+    "coomingsoon": "Cooming soon"
   },
   "settings": {
     "headers": {
@@ -224,6 +225,7 @@
       "theme": {
         "dark": "Dark theme",
         "black": "Black theme",
+        "monokai": "Monokai",
         "light": "Light theme",
         "system": "System theme"
       }

@@ -3,7 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:church_of_christ/util/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum Themes { light, dark, black, system }
+enum Themes { light, dark, black, monokai, system }
 enum ImageQuality { low, medium, high }
 
 
@@ -17,7 +17,6 @@ class AppModel with ChangeNotifier {
       brightness: Brightness.light,
       primaryColor: lightPrimaryColor,
       accentColor: lightAccentColor,
-      primarySwatch: Colors.blue,
     ),
     ThemeData(
       brightness: Brightness.dark,
@@ -38,6 +37,21 @@ class AppModel with ChangeNotifier {
       cardColor: blackCardColor,
       dividerColor: blackDividerColor,
       dialogBackgroundColor: darkCardColor,
+    ),
+    ThemeData(
+      accentColor: const Color(0xFF66D9EF),
+      brightness: Brightness.dark,
+      canvasColor: const Color(0xFF272822),
+      cardColor: const Color(0xFF272822),
+      cursorColor: const Color(0xFF66D9EF),
+      errorColor: const Color(0xFF90274A),
+      fontFamily: 'OpenSans',
+      highlightColor: const Color(0xFFAE81FF),
+      hintColor: const Color(0xFFAE81FF),
+      indicatorColor: const Color(0xFFAE81FF),
+      primaryColor: const Color(0xFFF92672),
+      primaryColorBrightness: Brightness.dark,
+      toggleableActiveColor: const Color(0xFF065CBE),
     )
   ];
 

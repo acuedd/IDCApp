@@ -111,7 +111,7 @@ class _EventsScreen extends State<EventsScreen>{
             EventModel event = EventModel.fromFirestore(p);
             final dateNow = DateTime.now();
             final difference = dateNow.difference(event.dateTime).inHours;
-            if(difference < 0){
+            if(difference < 24){ //1 day, 24 hour
               _destaque.add(event);
             }
           });

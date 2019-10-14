@@ -260,7 +260,7 @@ class _AddEventScreen extends State<AddEventScreen> {
                               onPressedFabIcon: (){
 
                                 if(widget.eventEditing != null){
-                                  ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 760, maxWidth: 1024).then((File image){
+                                  ImagePicker.pickImage(source: ImageSource.camera,maxHeight: 760, maxWidth: 1024).then((File image){
                                     db.deleteImage(widget.user, widget.eventEditing.filename).whenComplete((){
 
                                       final strFileName = "${DateTime.now().toString()}.jpg";

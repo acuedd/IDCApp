@@ -112,9 +112,21 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  title: FlutterI18n.translate(context, 'acuedd.churchs.add.title'),
                  subtitle: FlutterI18n.translate(context, 'acuedd.churchs.add.subtitle'),
                  trailing: Icon(Icons.chevron_right),
-                 onTap:(){
-
-                 },
+                 onTap: ()=> showDialog(
+                    context: context,
+                      builder: (context) => RoundDialog(
+                        title: FlutterI18n.translate(
+                          context,
+                          'acuedd.churchs.title',
+                        ),
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(FlutterI18n.translate(context, 'about.coomingsoon')),
+                          )
+                        ],
+                      ),
+                    ),
                ),
                ListCell.icon(
                  icon: Icons.person_pin_circle,
@@ -200,6 +212,15 @@ class _SettingsScreenState extends State<SettingsScreen>{
                        RadioCell<Themes>(
                          title: FlutterI18n.translate(
                            context,
+                           'settings.theme.theme.monokai',
+                         ),
+                         groupValue: _themeIndex,
+                         value: Themes.monokai,
+                         onChanged: (value) => _changeTheme(value),
+                       ),
+                       RadioCell<Themes>(
+                         title: FlutterI18n.translate(
+                           context,
                            'settings.theme.theme.light',
                          ),
                          groupValue: _themeIndex,
@@ -239,7 +260,6 @@ class _SettingsScreenState extends State<SettingsScreen>{
 
   void _changeTheme(Themes theme) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     // Saves new settings
     Provider.of<AppModel>(context).theme = theme;
     prefs.setInt('theme', theme.index);
