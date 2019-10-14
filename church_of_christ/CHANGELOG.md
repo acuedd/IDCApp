@@ -1,4 +1,7 @@
-## [2.0.5] - October 13th, 2019
+## [2.0.7] - October 12th, 2019
+* Fixing a select date of baptism and birthday 
+
+## [2.0.5] - October 11th, 2019
 * Adding presentation dialog
 * Adding option in about for display sponsor
 * Adding contact me to whatsapp

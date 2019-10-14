@@ -1,6 +1,20 @@
+## [2.0.8] - October 12th, 2019
+* Release for the iOS devices
+
+## [2.0.7] - October 12th, 2019
+* Fixing a select date of baptism and birthday 
+
+## [2.0.5] - October 11th, 2019
+* Adding presentation dialog
+* Adding option in about for display sponsor
+* Adding contact me to whatsapp
+
+## [2.0.4] - October 9th, 2019
+* Fix in colors of charts in admissions statistics
+* Adding detail list of admissions
+
 ## [2.0.3] - October 4th, 2019
 * Fix in userbox for exceed pixel in screen
-
 
 ## [2.0.2] - September 30th, 2019
 * Various fixes to performance 
