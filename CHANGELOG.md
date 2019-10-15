@@ -1,8 +1,8 @@
-## [2.1.0] - October 12th, 2019
+## [2.1.0] - October 13th, 2019
 * Fixing profile in selector of birtday and baptism date. 
 * Improvement to performance using image picker package
 
-## [2.0.9] - October 13th, 2019
+## [2.0.9] - October 12th, 2019
 * Fixing little performance changes to iOS devices 
 
 ## [2.0.8] - October 12th, 2019
