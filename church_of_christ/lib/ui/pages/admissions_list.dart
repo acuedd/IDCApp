@@ -72,6 +72,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                 myMap["sumTotal"] = 0;
                 Map<String, double> mapCivilStatus = Map();
                 Map<String, double> mapAge = Map();
+                Map<String, double> mapRangeAge = Map();
                 Map<String, double> mapGender = Map();
                 List<RegisterEvent> listAdmissions = [];
                 myListaddmission.forEach((p){
@@ -92,23 +93,132 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                     mapAge[registerEvent.age.toString()] = 1;
                   }
 
+                  if(registerEvent.age > 0 && registerEvent.age <= 10){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("0-10")){
+                      mapRangeAge["0-10"] += 1;
+                    }
+                    else{
+                      mapRangeAge["0-10"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 11 && registerEvent.age <= 20){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("11-20")){
+                      mapRangeAge["11-20"] += 1;
+                    }
+                    else{
+                      mapRangeAge["11-20"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 21 && registerEvent.age <= 30){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("21-30")){
+                      mapRangeAge["21-30"] += 1;
+                    }
+                    else{
+                      mapRangeAge["21-30"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 31 && registerEvent.age <= 40){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("31-40")){
+                      mapRangeAge["31-40"] += 1;
+                    }
+                    else{
+                      mapRangeAge["31-40"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 41 && registerEvent.age <= 50){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("41-50")){
+                      mapRangeAge["41-50"] += 1;
+                    }
+                    else{
+                      mapRangeAge["41-50"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 51 && registerEvent.age <= 60){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("51-60")){
+                      mapRangeAge["51-60"] += 1;
+                    }
+                    else{
+                      mapRangeAge["51-60"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 61 && registerEvent.age <= 70){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("61-70")){
+                      mapRangeAge["61-70"] += 1;
+                    }
+                    else{
+                      mapRangeAge["61-70"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 71 && registerEvent.age <= 80){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("71-80")){
+                      mapRangeAge["71-80"] += 1;
+                    }
+                    else{
+                      mapRangeAge["71-80"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 81 && registerEvent.age <= 90){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("81-90")){
+                      mapRangeAge["81-90"] += 1;
+                    }
+                    else{
+                      mapRangeAge["81-90"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 91 && registerEvent.age <= 100){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("91-100")){
+                      mapRangeAge["91-100"] += 1;
+                    }
+                    else{
+                      mapRangeAge["91-100"] = 1;
+                    }
+                  }
+                  else if(registerEvent.age >= 101 && registerEvent.age <= 110){
+                    //add Map to age
+                    if(mapRangeAge.containsKey("101-110")){
+                      mapRangeAge["101-110"] += 1;
+                    }
+                    else{
+                      mapRangeAge["101-110"] = 1;
+                    }
+                  }
+
                   //add Map to gender
-                  if(mapGender.containsKey(registerEvent.gender)){
-                    mapGender[registerEvent.gender] += 1;
+                  if(registerEvent.gender == "female"){
+                    if(mapGender.containsKey("Femenino")){
+                      mapGender["Femenino"] += 1;
+                    }
+                    else{
+                      mapGender["Femenino"] = 1;
+                    }
                   }
                   else{
-                    mapGender[registerEvent.gender] = 1;
+                    if(mapGender.containsKey("Masculino")){
+                      mapGender["Masculino"] += 1;
+                    }
+                    else{
+                      mapGender["Masculino"] = 1;
+                    }
                   }
 
                   myMap["howMany"] += 1;
                   myMap["sumTotal"] += registerEvent.price;
                   listAdmissions.add(registerEvent);
                 });
+
                 myMap["civilStatus"] = mapCivilStatus;
-                myMap["age"] = mapAge;
+                myMap["age"] = mapRangeAge;
                 myMap["gender"] = mapGender;
-                print("myMap");
-                print(myMap);
 
                 return Column(
                   children: [
@@ -152,6 +262,18 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
 
     print(Theme.of(context).primaryColor);
 
+    List<Color> colorList = [
+      Colors.green,
+      Colors.blue,
+      Colors.yellow,
+      Colors.grey,
+      Colors.cyanAccent,
+      Colors.deepPurple,
+      Colors.red,
+      Colors.blueGrey,
+      Colors.blueAccent,
+    ];
+
     return Column(
           children: <Widget>[
                 HeaderText(text:FlutterI18n.translate(
@@ -160,23 +282,17 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                 )),
                 PieChart(
                   dataMap: civilStatusMap,
-                  legendFontColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                      Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white : Colors.blueGrey[900],
-                  legendFontSize: 14.0,
-                  legendFontWeight: FontWeight.w500,
                   animationDuration: Duration(milliseconds: 800),
                   chartLegendSpacing: 32.0,
                   chartRadius: MediaQuery
                       .of(context)
                       .size
                       .width / 2.7,
+                  colorList: colorList,
                   showChartValuesInPercentage: true,
                   showChartValues: true,
-                  showChartValuesOutside: true,
-                  chartValuesColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                      Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white.withOpacity(0.9) : Colors.blueGrey[900].withOpacity(0.9),
+                  showChartValuesOutside: false,
+                  chartValueBackgroundColor: Colors.grey[200],
                 ),
                 HeaderText(text:FlutterI18n.translate(
                   context,
@@ -184,23 +300,22 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                 )),
                 PieChart(
                   dataMap: ageMap,
-                  legendFontColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                      Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white : Colors.blueGrey[900],
-                  legendFontSize: 14.0,
-                  legendFontWeight: FontWeight.w500,
                   animationDuration: Duration(milliseconds: 800),
                   chartLegendSpacing: 32.0,
-                  chartRadius: MediaQuery
+                  /*chartRadius: MediaQuery
                       .of(context)
                       .size
-                      .width / 2.7,
-                  showChartValuesInPercentage: true,
+                      .width / 1,*/
+                  colorList: colorList,
+                  showChartValuesInPercentage: false,
+                  showLegends: true,
                   showChartValues: true,
                   showChartValuesOutside: true,
-                  chartValuesColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                      Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white.withOpacity(0.9) : Colors.blueGrey[900].withOpacity(0.9),
+                  chartValueBackgroundColor: Colors.grey[200],
+                  chartValueStyle: defaultChartValueStyle.copyWith(
+                    color: Colors.blueGrey[900].withOpacity(0.9),
+                  ),
+                  chartType: ChartType.disc,
                 ),
                 HeaderText(text:FlutterI18n.translate(
                   context,
@@ -208,23 +323,17 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                 )),
                 PieChart(
                   dataMap: genderMap,
-                  legendFontColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                                    Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white : Colors.blueGrey[900],
-                  legendFontSize: 14.0,
-                  legendFontWeight: FontWeight.w500,
                   animationDuration: Duration(milliseconds: 800),
                   chartLegendSpacing: 32.0,
                   chartRadius: MediaQuery
                       .of(context)
                       .size
                       .width / 2.7,
+                  colorList: colorList,
                   showChartValuesInPercentage: true,
                   showChartValues: true,
-                  showChartValuesOutside: true,
-                  chartValuesColor: (Provider.of<AppModel>(context).theme == Themes.black ||
-                      Provider.of<AppModel>(context).theme == Themes.dark )
-                      ? Colors.white.withOpacity(0.9) : Colors.blueGrey[900].withOpacity(0.9),
+                  showChartValuesOutside: false,
+                  chartValueBackgroundColor: Colors.grey[200],
                 ),
           ],
         );

@@ -325,18 +325,20 @@ class DbChurch with ChangeNotifier {
   }
   
   Stream streamSchedule(EventModel eventModel){
-    return _db.collection(SCHEDULE).orderBy("dateTime").where("eventId",isEqualTo: eventModel.id).snapshots();
+    return _db.collection(SCHEDULE).orderBy("dateTime").orderBy("tag").where("eventId",isEqualTo: eventModel.id).snapshots();
   }
   
   Stream streamAdmisionByUser(EventModel eventModel, User user){
     return _db.collection(ADMISSIONS)
         .where("eventid", isEqualTo: eventModel.id)
         .where("userid", isEqualTo: user.uid)
+        .orderBy("price")
         .orderBy("age").snapshots();
   }
 
   Stream streamAdmission(EventModel eventModel){
     return _db.collection(ADMISSIONS)
+        .orderBy("price")
         .orderBy("age")
         .orderBy("nameUserReg")
         .where("eventid", isEqualTo: eventModel.id).snapshots();

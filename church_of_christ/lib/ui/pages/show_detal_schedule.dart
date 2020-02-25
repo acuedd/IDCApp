@@ -173,11 +173,29 @@ class ScheduleWidgetState extends State<ScheduleWidget>{
 
   Widget _getNonSpeakerRow(context, ScheduleModel scheduleModel, Orientation orientation, _time){
     return Expanded(
-      child: Text(
-        '${scheduleModel.title}',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 22.0),
-      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            '${scheduleModel.title}',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 22.0),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 16.0),
+            child: Row(
+              children: <Widget>[
+                if(scheduleModel.nameSpeaker.isNotEmpty)
+                  Text('${scheduleModel.nameSpeaker}',
+                    style: TextStyle(fontSize: 18.0),),
+                Divider(height: 40.0),
+                if(scheduleModel.tag.isNotEmpty)
+                  Text('${scheduleModel.tag}',
+                    style: TextStyle(color: hexToColor(scheduleModel.colorTag)),)
+              ],
+            ),
+          )
+        ],
+      )
     );
   }
 

@@ -76,7 +76,11 @@ class ListAdmission extends StatelessWidget {
         children: <Widget>[
           RowText(
             "${FlutterI18n.translate(context, 'acuedd.events.name')}:",
-            listAdmissions[index].name,
+            capitalize(listAdmissions[index].name),
+          ),
+          RowText(
+            "${FlutterI18n.translate(context, 'acuedd.users.age')}:",
+            listAdmissions[index].age.toString(),
           ),
           RowText(
             "${FlutterI18n.translate(context, 'acuedd.events.church')}:",
@@ -96,6 +100,8 @@ class ListAdmission extends StatelessWidget {
       ),
     );
   }
+
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   Widget build(BuildContext context) {

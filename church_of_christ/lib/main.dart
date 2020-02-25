@@ -35,10 +35,10 @@ class CherryApp extends StatelessWidget {
             '/user': (_) => SignInScreen(),
           },
           localizationsDelegates: [
-            FlutterI18nDelegate(fallbackFile: 'en'),
+            FlutterI18nDelegate(fallbackFile: 'es' ,path: "assets/flutter_i18n"),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            //DefaultCupertinoLocalizations.delegate,
+            DefaultCupertinoLocalizations.delegate,
           ],
         ),
       ),
