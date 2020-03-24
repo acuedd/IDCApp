@@ -75,7 +75,7 @@ class _DetailPage extends State<DetailPage> {
           expandedHeight: MediaQuery.of(context).size.height * 0.3,
           floatingWidget: _haVideo
               ? FloatingActionButton(
-                  heroTag:  "btnVideo${widget.myEvent.title}",
+                  heroTag:  "btnVideo${widget.myEvent.id}",
                   child: Icon(Icons.ondemand_video),
                   tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
                   onPressed: () async => await FlutterWebBrowser.openWebPage(
@@ -84,7 +84,7 @@ class _DetailPage extends State<DetailPage> {
                   ),
                 )
               : FloatingActionButton(
-                  heroTag: "btnCalendar${widget.myEvent.title}",
+                  heroTag: "btnCalendar${widget.myEvent.id}",
                   child: Icon(Icons.event),
                   backgroundColor: Theme.of(context).accentColor,
                   tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
@@ -280,7 +280,12 @@ class _DetailPage extends State<DetailPage> {
       body: RowLayout(children: <Widget>[
         RowText(
           FlutterI18n.translate(context, 'acuedd.events.address'),
-          widget.myEvent.address,
+          "",
+        ),
+        Row(
+          children: <Widget>[
+            Text(widget.myEvent.address)
+          ],
         ),
         Separator.divider(),
         if(widget.myEvent.longitude != 0.0 && widget.myEvent.latitude != 0.0)
