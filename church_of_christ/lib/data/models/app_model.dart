@@ -100,7 +100,7 @@ class AppModel with ChangeNotifier {
     try {
       theme = Themes.values[prefs.getInt('theme')];
     } catch (e) {
-      prefs.setInt('theme', 1);
+      await prefs.setInt('theme', 1);
     }
 
     // Loads image quality

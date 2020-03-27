@@ -3,7 +3,6 @@
 import 'package:church_of_christ/ui/widgets/search_result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 class SearchWidget extends StatelessWidget{
 
@@ -59,18 +58,12 @@ class SearchWidget extends StatelessWidget{
   onSubmitted(query){
     print("from search wid");
     print(query);
-    //onSubmited(query);
-
-    Navigator.of(_context).push(
-        new MaterialPageRoute(builder: (BuildContext context){
-          return SearchView(query);
-        }),
-    );
+    onSubmited(query);
   }
 
   onChangged(query){
     print("from search wid change");
     print(query);
-    onChanged(query);
+    //onChanged(query);
   }
 }

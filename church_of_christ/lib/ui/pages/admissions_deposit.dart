@@ -6,7 +6,6 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/pages/user_info.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 class AdmissionsDeposit extends StatefulWidget{
 
@@ -42,7 +41,7 @@ class _AdmissionDeposit extends State<AdmissionsDeposit>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(FlutterI18n.translate(context, 'acuedd.events.tickets.settlement')),
+        title: Text("Cierre"),
         centerTitle: false,
         actions: <Widget>[
           FlatButton(
@@ -50,7 +49,7 @@ class _AdmissionDeposit extends State<AdmissionsDeposit>{
             onPressed: () {
               save(context);
             },
-            child: Text(FlutterI18n.translate(context, 'app.save')),
+            child: Text("Guardar"),
             shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
           ),
         ],
@@ -76,7 +75,7 @@ class _AdmissionDeposit extends State<AdmissionsDeposit>{
                     style: style,
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
-                      labelText: FlutterI18n.translate(context, 'acuedd.events.tickets.amount'),
+                      labelText: "Monto",
                       //border: OutlineInputBorder()
                     ),
                   ),
@@ -153,7 +152,7 @@ class _AdmissionDeposit extends State<AdmissionsDeposit>{
 
       Scaffold
           .of(_scaffoldContext)
-          .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.tickets.payment_progress')),duration: Duration(minutes: 4),));
+          .showSnackBar(SnackBar(content: Text("Registro de pago en proceso"),duration: Duration(minutes: 4),));
 
       PaymentAddmission paymentAddmission = PaymentAddmission(
         userid: widget.userLogged.uid,
@@ -168,7 +167,7 @@ class _AdmissionDeposit extends State<AdmissionsDeposit>{
             .of(_scaffoldContext)
             .showSnackBar(
             SnackBar(
-              content: Text(FlutterI18n.translate(context, 'app.success')),
+              content: Text("Information saved success!"),
             )
         );
         Navigator.pop(_scaffoldContext);

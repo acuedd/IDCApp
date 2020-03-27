@@ -6,11 +6,11 @@ import 'package:church_of_christ/data/models/settings.dart';
 import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/tabs/churchs.dart';
 import 'package:church_of_christ/ui/tabs/events.dart';
+import 'package:church_of_christ/ui/tabs/music.dart';
 import 'package:church_of_christ/ui/tabs/settings.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
 import 'package:church_of_christ/ui/widgets/dialog_presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,7 +35,7 @@ class _StartScreenState extends State<StartScreen> {
         case 'events':
           setState( ()=> _currentIndex = 0);
           break;
-        case 'churchs':
+        case 'Music':
           setState( ()=> _currentIndex = 1);
           break;
         case 'settings':
@@ -96,15 +96,12 @@ class _StartScreenState extends State<StartScreen> {
       quickActions.setShortcutItems(<ShortcutItem>[
         ShortcutItem(
           type: 'events',
-          localizedTitle: FlutterI18n.translate(
-              context,
-              'acuedd.events.icon'
-          ),
+          localizedTitle: "Eventos",
           icon: 'action_upcoming',
         ),
         ShortcutItem(
           type: 'churchs',
-          localizedTitle: FlutterI18n.translate(context, 'acuedd.churchs.icon'),
+          localizedTitle: "Iglesias",
           icon: 'action_vehicle',
         )
       ]);
@@ -120,7 +117,7 @@ class _StartScreenState extends State<StartScreen> {
       ),
       ChangeNotifierProvider(
         builder: (context)=> UserRepository.instance(),
-        child: ChurchScreen(),
+        child: MusicScreen(),
       ),
       ChangeNotifierProvider(
         builder: (context) => SettingsModel(),
@@ -140,24 +137,15 @@ class _StartScreenState extends State<StartScreen> {
           currentIndex: _currentIndex,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text(FlutterI18n.translate(
-                context,
-                'acuedd.events.icon',
-              )),
+              title: Text("Eventos"),
               icon: Icon(Icons.event),
             ),
             BottomNavigationBarItem(
-              title: Text(FlutterI18n.translate(
-                context,
-                'acuedd.churchs.icon',
-              )),
-              icon: Icon(Icons.home),
+              title: Text("Music"),
+              icon: Icon(Icons.music_note),
             ),
             BottomNavigationBarItem(
-              title: Text(FlutterI18n.translate(
-                context,
-                'settings.headers.general',
-              )),
+              title: Text("General"),
               icon: Icon(Icons.settings),
             ),
           ],

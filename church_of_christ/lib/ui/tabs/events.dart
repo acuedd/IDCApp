@@ -15,7 +15,6 @@ import 'package:church_of_christ/ui/widgets/search_result.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 class EventsScreen extends StatefulWidget{
@@ -67,7 +66,16 @@ class _EventsScreen extends State<EventsScreen>{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  child: SearchWidget(),
+                  child: SearchWidget(
+                    textHint: "Buscar eventos",
+                    onSubmited: (query){
+                      Navigator.of(context).push(
+                        new MaterialPageRoute(builder: (BuildContext context){
+                          return SearchView(query);
+                        }),
+                      );
+                    },
+                  ),
                 ),
                 //_getFiltersDate(),
                 Expanded(
@@ -78,25 +86,6 @@ class _EventsScreen extends State<EventsScreen>{
             )
         ),
       )
-    );
-  }
-
-  Widget _getFiltersDate(){
-    List<String> list = [
-      FlutterI18n.translate(context, 'acuedd.events.search.comingsoon'),
-      FlutterI18n.translate(context, 'acuedd.events.search.now'),
-      FlutterI18n.translate(context, 'acuedd.events.search.previously'),
-      FlutterI18n.translate(context, 'acuedd.events.search.memories'),
-    ];
-    return AnimatedOpacity(
-      opacity: 1,
-      duration: Duration(milliseconds: 300),
-      child: CustomTab(
-        itens: list,
-        tabSelected: (index){
-          //TODO HERE PUT SENT TO FILTER CATEGORY
-        },
-      ),
     );
   }
 

@@ -7,7 +7,6 @@ import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/list_cell.dart';
 import 'package:church_of_christ/util/url.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:package_info/package_info.dart';
@@ -47,24 +46,14 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return BlanckPage(
-      title: FlutterI18n.translate(context, 'app.menu.about'),
+      title: "Información",
       body: ListView(children: <Widget>[
-        HeaderText(text: FlutterI18n.translate(
-            context,
-            'about.headers.about'
-        )),
+        HeaderText(text: "Sobre la app"),
         ListCell.icon(
           icon: Icons.info_outline,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-            context,
-            'about.version.title',
-            {'version': _packageInfo.version},
-          ),
-          subtitle: FlutterI18n.translate(
-            context,
-            'about.version.body'
-          ),
+          title: "Versión ${_packageInfo.version}",
+          subtitle: "Eche un vistazo a los nuevos cambios",
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -79,35 +68,20 @@ class _AboutScreenState extends State<AboutScreen> {
         ListCell.icon(
           icon: Icons.star_border,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-              context,
-              'about.review.title',
-          ),
-          subtitle: FlutterI18n.translate(
-              context,
-              'about.review.body',
-          ),
+          title: "¿Disfrutando de la app?",
+          subtitle: "Deja tu experiencia en la Play Store",
           onTap: () async => await FlutterWebBrowser.openWebPage(
             url: Url.appStore,
             androidToolbarColor: Theme.of(context).primaryColor,
           ),
         ),
 
-        HeaderText(text: FlutterI18n.translate(
-          context,
-          'about.headers.author',
-        )),
+        HeaderText(text: "Autor"),
         ListCell.icon(
           icon: Icons.person_outline,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-            context,
-            'about.author.title',
-          ),
-          subtitle: FlutterI18n.translate(
-            context,
-            'about.author.body',
-          ),
+          title: "Aplicaciones libres bien diseñadas",
+          subtitle: "Aplicaciones libres bien diseñadas",
           onTap: () async => await FlutterWebBrowser.openWebPage(
             url: Url.authorStore,
             androidToolbarColor: Theme.of(context).primaryColor,
@@ -116,14 +90,8 @@ class _AboutScreenState extends State<AboutScreen> {
         ListCell.icon(
           icon: Icons.cake,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-            context,
-            'about.sponsor.title',
-          ),
-          subtitle: FlutterI18n.translate(
-            context,
-            'about.sponsor.subtitle',
-          ),
+          title: "Conviértete en sponsor",
+          subtitle: "Escríbeme en whatsapp",
           onTap: () => showDialog(
             context: context,
             builder: (context) => PresentationDialog.about(context, ()async{
@@ -133,7 +101,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 androidToolbarColor: Theme.of(context).primaryColor
               );
             },
-            FlutterI18n.translate(context, 'app.contactme')
+            "Contáctame"
             ),
           ),
         ),
@@ -141,41 +109,23 @@ class _AboutScreenState extends State<AboutScreen> {
         ListCell.icon(
           icon: Icons.mail_outline,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-            context,
-            'about.email.title',
-          ),
-          subtitle: FlutterI18n.translate(
-            context,
-            'about.email.body',
-          ),
+          title: "Envíame un correo",
+          subtitle: "Reporta fallos o solicita nuevas funciones",
           onTap: () async => await FlutterMailer.send(MailOptions(
             subject: Url.authorEmail['subject'],
             recipients: [Url.authorEmail['address']],
           )),
         ),
-        HeaderText(text:FlutterI18n.translate(
-          context,
-          'about.headers.credits',
-        )),
+        HeaderText(text:"Créditos"),
         ListCell.icon(
           icon: Icons.translate,
           trailing: Icon(Icons.chevron_right),
-          title: FlutterI18n.translate(
-            context,
-            'about.translations.title',
-          ),
-          subtitle: FlutterI18n.translate(
-            context,
-            'about.translations.body',
-          ),
+          title: "Traducciones",
+          subtitle: "¡Gracias a todos los contribuidores!",
           onTap: () => showDialog(
             context: context,
             builder: (context) => RoundDialog(
-              title: FlutterI18n.translate(
-                context,
-                'about.translations.title',
-              ),
+              title: "Traducciones",
               children: _translators
                   .map((translation) => ListCell(
                 title: translation['name'],

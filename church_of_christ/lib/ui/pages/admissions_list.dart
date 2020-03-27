@@ -14,7 +14,6 @@ import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/row_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +53,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
   Widget _getScaffold(){
     return Scaffold(
       body: BlanckPage(
-        title: FlutterI18n.translate(context, 'acuedd.events.statistics'),
+        title: "Estadísticas",
         actions: <Widget>[
           PopupSettins()
         ],
@@ -225,8 +224,8 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                     getResumenWidget(context, myMap),
                     ListCell.icon(
                       icon: Icons.list,
-                      title: FlutterI18n.translate(context, 'acuedd.events.list'),
-                      subtitle: FlutterI18n.translate(context, 'acuedd.events.admissions'),
+                      title: "Listado",
+                      subtitle: "Admisiones",
                       trailing: Icon(Icons.chevron_right),
                       onTap:(){
                         Navigator.of(context).push(
@@ -276,10 +275,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
 
     return Column(
           children: <Widget>[
-                HeaderText(text:FlutterI18n.translate(
-                  context,
-                  'acuedd.events.statisticsCivilStatus',
-                )),
+                HeaderText(text:"Estadísticas de estado civil"),
                 PieChart(
                   dataMap: civilStatusMap,
                   animationDuration: Duration(milliseconds: 800),
@@ -294,10 +290,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                   showChartValuesOutside: false,
                   chartValueBackgroundColor: Colors.grey[200],
                 ),
-                HeaderText(text:FlutterI18n.translate(
-                  context,
-                  'acuedd.events.statisticsAge',
-                )),
+                HeaderText(text:"Estadísticas de edad"),
                 PieChart(
                   dataMap: ageMap,
                   animationDuration: Duration(milliseconds: 800),
@@ -317,10 +310,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                   ),
                   chartType: ChartType.disc,
                 ),
-                HeaderText(text:FlutterI18n.translate(
-                  context,
-                  'acuedd.events.statisticsGender',
-                )),
+                HeaderText(text:"Estadísticas de género"),
                 PieChart(
                   dataMap: genderMap,
                   animationDuration: Duration(milliseconds: 800),
@@ -351,15 +341,15 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
     ).output;
 
     return CardPage.body(
-      title: FlutterI18n.translate(context, 'acuedd.events.tickets.resume'),
+      title: "Resumen de entradas registradas",
       body: RowLayout(
         children: <Widget>[
           RowText(
-            FlutterI18n.translate(context, 'acuedd.events.tickets.counter'),
+            "Total tickets:",
             myMap["howMany"].toString()
           ),
           RowText(
-            FlutterI18n.translate(context, 'acuedd.events.tickets.contribution'),
+            "Contribuciones:",
             fo.symbolOnLeft
           ),
           Container(
@@ -390,7 +380,7 @@ class AdmissionListWidgetState extends State<AdmissionListWidget>{
                   ).output;
 
                   return RowText(
-                          FlutterI18n.translate(context, 'acuedd.events.tickets.income'),
+                          "Recaudación",
                           fo.symbolOnLeft
                   );
                 }

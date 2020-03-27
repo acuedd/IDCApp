@@ -20,7 +20,6 @@ import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:church_of_christ/util/menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:row_collection/row_collection.dart';
@@ -76,19 +75,16 @@ class _SettingsScreenState extends State<SettingsScreen>{
         builder: (context, model, child) => Container(
           child: ListView(
              children: <Widget>[
-               HeaderText(text:FlutterI18n.translate(
-                 context,
-                 'acuedd.users.title',
-               )
+               HeaderText(text:"Usuarios"
                ),
                ListCell.icon(
                  icon: Icons.person,
                  title: (user.status == Status.Authenticated)
                      ? user.user.displayName
-                     : FlutterI18n.translate(context, 'acuedd.users.title'),
+                     : "Usuarios",
                  subtitle: (user.status == Status.Authenticated)
                      ? user.user.email
-                     : FlutterI18n.translate(context, 'acuedd.users.icon'),
+                     : "Inicia sesión o registrate con Google",
                  trailing: Icon(Icons.chevron_right),
                  onTap:(){
                    Navigator.push(
@@ -103,26 +99,20 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  },
                ),
                Separator.divider(indent: 72),
-               HeaderText(text:FlutterI18n.translate(
-                 context,
-                 'acuedd.churchs.title',
-               )),
+               HeaderText(text:"Iglesias"),
                ListCell.icon(
                  icon: Icons.location_on,
-                 title: FlutterI18n.translate(context, 'acuedd.churchs.add.title'),
-                 subtitle: FlutterI18n.translate(context, 'acuedd.churchs.add.subtitle'),
+                 title: "Agrega una congregación",
+                 subtitle: "Registrar tu congregación",
                  trailing: Icon(Icons.chevron_right),
                  onTap: ()=> showDialog(
                     context: context,
                       builder: (context) => RoundDialog(
-                        title: FlutterI18n.translate(
-                          context,
-                          'acuedd.churchs.title',
-                        ),
+                        title: "Iglesias",
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text(FlutterI18n.translate(context, 'about.coomingsoon')),
+                            child: Text("Próximamente"),
                           )
                         ],
                       ),
@@ -130,8 +120,8 @@ class _SettingsScreenState extends State<SettingsScreen>{
                ),
                ListCell.icon(
                  icon: Icons.person_pin_circle,
-                 title: FlutterI18n.translate(context, 'acuedd.speakers.title'), 
-                 subtitle: FlutterI18n.translate(context, 'acuedd.speakers.subtitle'),
+                 title: "Expositores",
+                 subtitle: "Ver a expositores de la iglesia",
                  trailing: Icon(Icons.chevron_right),
                  onTap: (){
                    Navigator.of(context).push(
@@ -142,14 +132,11 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  },
                ),
                Separator.divider(indent: 72),
-               HeaderText(text: FlutterI18n.translate(
-                   context,
-                   'acuedd.events.title'
-               )),
+               HeaderText(text: "Eventos"),
                ListCell.icon(
                  icon: Icons.event_available,
-                 title: FlutterI18n.translate(context, 'acuedd.events.add.title'),
-                 subtitle: FlutterI18n.translate(context, 'acuedd.events.add.subtitle'),
+                 title: "Agrega un eventos",
+                 subtitle:"Registra tu evento",
                  trailing: Icon(Icons.chevron_right),
                  onTap:(){
                    if(user.status == Status.Authenticated){
@@ -174,64 +161,43 @@ class _SettingsScreenState extends State<SettingsScreen>{
                  },
                ),
                Separator.divider(indent: 72),
-               HeaderText(text:FlutterI18n.translate(
-                 context,
-                 'settings.headers.general',
-               )),
+               HeaderText(text:"General"),
                ListCell.icon(
                  icon: Icons.palette,
-                 title: FlutterI18n.translate(context, 'settings.theme.title'),
-                 subtitle: FlutterI18n.translate(context, 'settings.theme.body'),
+                 title: "Apariencia",
+                 subtitle: "Elige entre luz y oscuridad",
                  trailing: Icon(Icons.chevron_right),
                  onTap: () => showDialog(
                    context: context,
                    builder: (context) => RoundDialog(
-                     title: FlutterI18n.translate(
-                       context,
-                       'settings.theme.title',
-                     ),
+                     title: "Apariencia",
                      children: <Widget>[
                        RadioCell<Themes>(
-                         title: FlutterI18n.translate(
-                           context,
-                           'settings.theme.theme.dark',
-                         ),
+                         title: "Tema oscuro",
                          groupValue: _themeIndex,
                          value: Themes.dark,
                          onChanged: (value) => _changeTheme(value),
                        ),
                        RadioCell<Themes>(
-                         title: FlutterI18n.translate(
-                           context,
-                           'settings.theme.theme.black',
-                         ),
+                         title: "Tema negro",
                          groupValue: _themeIndex,
                          value: Themes.black,
                          onChanged: (value) => _changeTheme(value),
                        ),
                        RadioCell<Themes>(
-                         title: FlutterI18n.translate(
-                           context,
-                           'settings.theme.theme.monokai',
-                         ),
+                         title: "Monokai",
                          groupValue: _themeIndex,
                          value: Themes.monokai,
                          onChanged: (value) => _changeTheme(value),
                        ),
                        RadioCell<Themes>(
-                         title: FlutterI18n.translate(
-                           context,
-                           'settings.theme.theme.light',
-                         ),
+                         title: "Tema claro",
                          groupValue: _themeIndex,
                          value: Themes.light,
                          onChanged: (value) => _changeTheme(value),
                        ),
                        RadioCell<Themes>(
-                         title: FlutterI18n.translate(
-                           context,
-                           'settings.theme.theme.system',
-                         ),
+                         title: "Tema del sistema",
                          groupValue: _themeIndex,
                          value: Themes.system,
                          onChanged: (value) => _changeTheme(value),
@@ -242,8 +208,8 @@ class _SettingsScreenState extends State<SettingsScreen>{
                ),
                ListCell.icon(
                  icon: Icons.info,
-                 title: FlutterI18n.translate(context, 'app.menu.about'),
-                 subtitle: FlutterI18n.translate(context, 'about.headers.about'),
+                 title: "Información",
+                 subtitle: "Sobre la app",
                  trailing: Icon(Icons.chevron_right),
                  onTap: (){
                    Navigator.pushNamed(context, '/about');

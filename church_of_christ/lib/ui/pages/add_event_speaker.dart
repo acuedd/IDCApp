@@ -8,7 +8,6 @@ import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
@@ -84,7 +83,7 @@ class _AssignSpeakerEvent extends State<AssignSpeakerEvent>{
   Widget _getBodyBlanckPage(BuildContext context){
     _scaffoldContext = context;
     return BlanckPage(
-        title: FlutterI18n.translate(context, 'acuedd.speakers.title'),
+        title: "Expositores",
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -145,7 +144,7 @@ class _AssignSpeakerEvent extends State<AssignSpeakerEvent>{
             ),
             secondaryActions: <Widget>[
               IconSlideAction(
-                caption: FlutterI18n.translate(context, 'app.delete'),
+                caption: "Eliminar",
                 color: Colors.red,
                 icon: Icons.delete,
                 onTap: (){
@@ -203,7 +202,7 @@ class SpeakerSearchDelegate extends SearchDelegate{
         children: <Widget>[
           Center(
             child: Text(
-                FlutterI18n.translate(context, 'acuedd.events.search.searchMin')
+                "Tu búsqueda debe ser mayor a dos letras."
             ),
           ),
         ],
@@ -294,7 +293,7 @@ class SpeakerSearchDelegate extends SearchDelegate{
               }),
               secondaryActions: <Widget>[
                 IconSlideAction(
-                  caption: FlutterI18n.translate(context, 'app.add'),
+                  caption: "Agregar",
                   icon: Icons.person_add,
                   onTap: (){
                     TalkBoss itemicon = queryResultSet[index].boss;

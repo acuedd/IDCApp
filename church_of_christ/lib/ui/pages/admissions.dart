@@ -6,7 +6,6 @@ import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/my_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 class AdmissionsWidget extends StatefulWidget{
 
@@ -54,7 +53,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(FlutterI18n.translate(context, 'acuedd.events.admissions' )),
+          title: Text("Admisiones"),
           centerTitle: false,
           actions: <Widget>[
             FlatButton(
@@ -62,7 +61,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
               onPressed: () {
                 save(context);
               },
-              child: Text(FlutterI18n.translate(context, 'app.save')),
+              child: Text("Guardar"),
               shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
           ],
@@ -84,7 +83,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                               controller: _textNameController,
                               style: style,
                               decoration: InputDecoration(
-                                labelText: FlutterI18n.translate(context, 'acuedd.events.name'),
+                                labelText: "Nombre",
                                 //border: OutlineInputBorder()
                               ),
                             ),
@@ -95,7 +94,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                               controller: _textChuchController,
                               style: style,
                               decoration: InputDecoration(
-                                labelText: FlutterI18n.translate(context, 'acuedd.events.church'),
+                                labelText: "Iglesia",
                                 //border: OutlineInputBorder()
                               ),
                             ),
@@ -107,7 +106,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                               style: style,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                labelText: FlutterI18n.translate(context, 'acuedd.users.age'),
+                                labelText: "Edad",
                                 //border: OutlineInputBorder()
                               ),
                             ),
@@ -117,7 +116,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(FlutterI18n.translate(context, 'acuedd.users.gender')),
+                                Text("Género"),
                                 MyDropdown(currencyValue: genderValue, onChanged: _onGenderChanged, assetFile: 'assets/data/gender.json',),
                               ],
                             ),
@@ -127,7 +126,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(FlutterI18n.translate(context, 'acuedd.users.civil_status')),
+                                Text("Estado civil"),
                                 MyDropdown(currencyValue: civilStatusValue, onChanged: _onCivilStatusChanged, assetFile: 'assets/data/civilStatus.json',),
                               ],
                             ),
@@ -140,7 +139,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
                               //readOnly: true,
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               decoration: InputDecoration(
-                                labelText: "${FlutterI18n.translate(context, 'acuedd.events.contribution')} - ${widget.eventModel.currency}",
+                                labelText: "Contribución - ${widget.eventModel.currency}",
                                 //border: OutlineInputBorder()
                               ),
                             ),
@@ -174,7 +173,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
 
       Scaffold
           .of(_scaffoldContext)
-          .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.processing')),duration: Duration(minutes: 4),));
+          .showSnackBar(SnackBar(content: Text("Procesando datos"),duration: Duration(minutes: 4),));
 
       RegisterEvent registerEvent = RegisterEvent(
           name: _textNameController.text,
@@ -196,7 +195,7 @@ class _AdmissionsWidget extends State<AdmissionsWidget>{
             .of(_scaffoldContext)
             .showSnackBar(
             SnackBar(
-              content: Text(FlutterI18n.translate(context, 'acuedd.events.saveData')),
+              content: Text("Se ha guardado la información del evento. Ahora vuelve a ingresar para poner el horario"),
             )
         );
         Navigator.pop(_scaffoldContext);

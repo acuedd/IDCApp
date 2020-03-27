@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:church_of_christ/data/classes/abstract/query_model.dart';
 import 'package:church_of_christ/ui/widgets/sliver_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 import 'package:latlong/latlong.dart';
@@ -21,15 +20,9 @@ Future<Null> _onRefresh(BuildContext context, QueryModel model) {
     if (model.loadingFailed)
       Scaffold.of(context).showSnackBar(
         SnackBar(
-          content: Text(FlutterI18n.translate(
-            context,
-            'acuedd.other.loading_error.message',
-          )),
+          content: Text("No se han podido cargar los datos."),
           action: SnackBarAction(
-            label: FlutterI18n.translate(
-              context,
-              'acuedd.other.loading_error.reload',
-            ),
+            label: "RECARGAR",
             onPressed: () => _onRefresh(context, model),
           ),
         ),
@@ -219,7 +212,7 @@ class SliverPage<T extends QueryModel> extends StatelessWidget {
                         .map((string) => PopupMenuItem(
                       value: string,
                       child:
-                      Text(FlutterI18n.translate(context, string)),
+                      Text(string),
                     ))
                         .toList(),
                     onSelected: (text) =>
@@ -273,11 +266,7 @@ class ConnectionError extends StatelessWidget {
           ),
           Column(children: <Widget>[
             RowLayout(children: <Widget>[
-              Text(
-                FlutterI18n.translate(
-                  context,
-                  'spacex.other.loading_error.message',
-                ),
+              Text("No se han podido cargar los datos.",
                 style: TextStyle(fontSize: 17),
               ),
               FlatButton(
@@ -287,11 +276,7 @@ class ConnectionError extends StatelessWidget {
                     color: Theme.of(context).textTheme.caption.color,
                   ),
                 ),
-                child: Text(
-                  FlutterI18n.translate(
-                    context,
-                    'spacex.other.loading_error.reload',
-                  ),
+                child: Text("RECARGAR",
                   style: TextStyle(
                     fontSize: 17,
                     fontFamily: 'ProductSans',

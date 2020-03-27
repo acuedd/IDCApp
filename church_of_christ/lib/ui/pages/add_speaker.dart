@@ -8,7 +8,6 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/widgets/card_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:row_collection/row_collection.dart';
 
 class AddSpeaker extends StatefulWidget{
@@ -58,7 +57,7 @@ class _AddSpeaker extends State<AddSpeaker>{
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          FlutterI18n.translate(context, 'acuedd.speakers.title'),
+          "Expositores",
           style: TextStyle(fontFamily: 'Lato'),
         ),
         centerTitle: false,
@@ -69,7 +68,7 @@ class _AddSpeaker extends State<AddSpeaker>{
             onPressed: () {
               save(context);
             },
-            child: Text(FlutterI18n.translate(context, 'app.save')),
+            child: Text("Guardar"),
             shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
           ),
           if(widget.speakerLoad != null)
@@ -125,7 +124,7 @@ class _AddSpeaker extends State<AddSpeaker>{
         controller: _textNameController,
         style: style,
         decoration: InputDecoration(
-          labelText: FlutterI18n.translate(context, 'acuedd.speakers.name'),
+          labelText: "Nombre",
           //border: OutlineInputBorder()
         ),
       ),
@@ -141,7 +140,7 @@ class _AddSpeaker extends State<AddSpeaker>{
         style: style,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
-          labelText: FlutterI18n.translate(context, 'acuedd.speakers.bio'),
+          labelText: "Biografía",
           //border: OutlineInputBorder()
         ),
       ),
@@ -155,7 +154,7 @@ class _AddSpeaker extends State<AddSpeaker>{
         controller: _textCompanyController,
         style: style,
         decoration: InputDecoration(
-          labelText: FlutterI18n.translate(context, 'acuedd.speakers.company'),
+          labelText: "Asiste en...",
           //border: OutlineInputBorder()
         ),
       ),
@@ -169,7 +168,7 @@ class _AddSpeaker extends State<AddSpeaker>{
         controller: _textTwitterController,
         style: style,
         decoration: InputDecoration(
-          labelText: FlutterI18n.translate(context, 'acuedd.speakers.twitter'),
+          labelText: "Link de twitter",
           //border: OutlineInputBorder()
         ),
       ),
@@ -183,7 +182,7 @@ class _AddSpeaker extends State<AddSpeaker>{
         controller: _textFbController,
         style: style,
         decoration: InputDecoration(
-          labelText: FlutterI18n.translate(context, 'acuedd.speakers.facebook'),
+          labelText: "Link de facebook",
           //border: OutlineInputBorder()
         ),
       ),
@@ -203,7 +202,7 @@ class _AddSpeaker extends State<AddSpeaker>{
 
     Scaffold
         .of(_scaffoldContext)
-        .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.events.processing')),duration: Duration(minutes: 4),));
+        .showSnackBar(SnackBar(content: Text("Procesando datos"),duration: Duration(minutes: 4),));
 
     print("eventediting");
     print(widget.speakerLoad);
@@ -220,7 +219,7 @@ class _AddSpeaker extends State<AddSpeaker>{
       Scaffold.of(_scaffoldContext).removeCurrentSnackBar();
       Scaffold
           .of(_scaffoldContext)
-          .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(context, 'acuedd.speakers.saveData'))));
+          .showSnackBar(SnackBar(content: Text("La información del expositor fue guardada.")));
       const timeOut = const Duration(seconds: 4);
       new Timer(timeOut, (){
         Navigator.pop(_scaffoldContext);
@@ -247,7 +246,7 @@ class _AddSpeaker extends State<AddSpeaker>{
                       .of(_scaffoldContext)
                       .showSnackBar(
                       SnackBar(
-                        content: Text(FlutterI18n.translate(context, 'acuedd.speakers.saveData')),
+                        content: Text("La información del expositor fue guardada."),
                       )
                   );
                   const timeOut = const Duration(seconds: 4);

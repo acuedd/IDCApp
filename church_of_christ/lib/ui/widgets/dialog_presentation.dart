@@ -4,7 +4,6 @@ import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/screens/sign_in_screen.dart';
 import 'package:church_of_christ/ui/widgets/dialog_round.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:row_collection/row_collection.dart';
 
@@ -60,7 +59,7 @@ class PresentationDialog extends StatelessWidget{
       onPressed: onPressed,
       textButton: textButton,
       body: RowLayout(children: <Widget>[
-        Text(FlutterI18n.translate(context, 'app.gratitude'),
+        Text("Agradecemos a nuestros sponsors del app",
           style: Theme.of(context).textTheme.title.copyWith(
             fontWeight: FontWeight.normal,
             color: Theme.of(context).textTheme.caption.color,
@@ -80,13 +79,13 @@ class PresentationDialog extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return RoundDialog(
-      title: FlutterI18n.translate(context, 'about.presentation.title'),
+      title: "Registrate en la app",
       children: <Widget>[
         RowLayout(
           padding: EdgeInsets.symmetric(horizontal: 24),
           children: <Widget>[
             Text(
-              FlutterI18n.translate(context, 'about.presentation.body'),
+              "Apoyanos con ideas nuevas o si quieres ser parte de los colaboradores del app, envíame un mail",
               textAlign: TextAlign.justify,
               style: Theme.of(context).textTheme.subhead.copyWith(
                 color: Theme.of(context).textTheme.caption.color,
@@ -100,7 +99,7 @@ class PresentationDialog extends StatelessWidget{
                 children: <Widget>[
                   FlatButton(
                     child: Text(
-                      FlutterI18n.translate(context, 'about.presentation.dismiss'),
+                      "MÁS TARDE",
                       style: Theme.of(context).textTheme.caption,
                     ),
                     onPressed: ()=> Navigator.pop(context,false),

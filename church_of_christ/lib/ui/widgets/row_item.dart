@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:row_collection/row_collection.dart';
 
 /// Wrapper of the [RowItem.text] widget.
@@ -60,7 +59,7 @@ class RowDialog extends StatelessWidget {
         color: Theme.of(context).textTheme.caption.color,
       ),
       onTap:
-      description == FlutterI18n.translate(context, 'spacex.other.unknown')
+      description == "Desconocido"
           ? null
           : () => Navigator.push(
         context,

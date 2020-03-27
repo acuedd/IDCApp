@@ -10,7 +10,6 @@ import 'package:church_of_christ/ui/widgets/gradient_back.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:intl/intl.dart';
@@ -85,7 +84,7 @@ class _ProfileHeader extends State<ProfileHeader> {
     );
 
     return BlanckPage(
-        title: FlutterI18n.translate(context, 'app.profile'),
+        title: "Perfil",
         actions: <Widget>[
           PopupSettins(context)
         ],
@@ -119,9 +118,7 @@ class _ProfileHeader extends State<ProfileHeader> {
                               children: <Widget>[
                                 _buildMenu(
                                     <Widget>[
-                                      Text(
-                                          FlutterI18n.translate(context, 'acuedd.users.spiritual.baptized')
-                                      ),
+                                      Text("Bautizado"),
                                       CupertinoSwitch(
                                         value: _switchValue,
                                         onChanged: (bool value) {
@@ -227,7 +224,7 @@ class _ProfileHeader extends State<ProfileHeader> {
         //mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(FlutterI18n.translate(context, 'acuedd.users.spiritual.baptism_date'), style: TextStyle(
+          Text("Bautismo", style: TextStyle(
               color: Colors.grey
           ),),
           RaisedButton(
@@ -300,7 +297,7 @@ class _ProfileHeader extends State<ProfileHeader> {
         //mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(FlutterI18n.translate(context, 'acuedd.users.spiritual.birthday'), style: TextStyle(
+          Text("Cumpleaños", style: TextStyle(
               color: Colors.grey
           ),),
           RaisedButton(

@@ -6,7 +6,6 @@ import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class DetailSpeakers extends StatelessWidget{
@@ -49,7 +48,7 @@ class DetailSpeakers extends StatelessWidget{
     _scaffoldContext = context;
 
     return BlanckPage(
-      title: FlutterI18n.translate(context, 'acuedd.speakers.title'),
+      title: "Expositores",
       actions: <Widget>[
         PopupSettins(),
       ],

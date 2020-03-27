@@ -1,5 +1,3 @@
-
-
 import 'package:church_of_christ/data/models/database.dart';
 import 'package:church_of_christ/data/models/event.dart';
 import 'package:church_of_christ/data/models/speakers.dart';
@@ -11,7 +9,6 @@ import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +80,7 @@ class _AssignUserEvent extends State<AssignUserEvent>{
   Widget _getBodyBlanckPage(BuildContext context){
     _scaffoldContext = context;
     return BlanckPage(
-      title: FlutterI18n.translate(context, 'acuedd.events.admissions'),
+      title: "Admisiones",
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
@@ -145,7 +142,7 @@ class _AssignUserEvent extends State<AssignUserEvent>{
             ),
             actions: <Widget>[
               IconSlideAction(
-                caption: FlutterI18n.translate(context, 'acuedd.events.tickets.payment'),
+                caption: "Pago",
                 color: Colors.blueAccent,
                 icon: Icons.payment,
                 onTap: (){
@@ -160,7 +157,7 @@ class _AssignUserEvent extends State<AssignUserEvent>{
                 },
               ),
               IconSlideAction(
-                caption: FlutterI18n.translate(context, 'acuedd.events.tickets.report'),
+                caption: "Reporte",
                 color: Colors.grey,
                 icon: Icons.report,
                 onTap: (){
@@ -173,7 +170,7 @@ class _AssignUserEvent extends State<AssignUserEvent>{
             ],
             secondaryActions: <Widget>[
               IconSlideAction(
-                caption: FlutterI18n.translate(context, 'app.delete'),
+                caption: "Eliminar",
                 color: Colors.red,
                 icon: Icons.delete,
                 onTap: (){
@@ -230,9 +227,7 @@ class UserSearchDelegate extends SearchDelegate{
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: Text(
-                FlutterI18n.translate(context, 'acuedd.events.search.searchMin')
-            ),
+            child: Text("Tu búsqueda debe ser mayor a dos letras."),
           ),
         ],
       );
@@ -339,7 +334,7 @@ class UserSearchDelegate extends SearchDelegate{
             }),
             secondaryActions: <Widget>[
               IconSlideAction(
-                caption: FlutterI18n.translate(context, 'app.add'),
+                caption: "Agregar",
                 icon: Icons.person_add,
                 onTap: (){
                   TalkBoss itemicon = queryResultSet[index].boss;

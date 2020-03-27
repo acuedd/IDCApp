@@ -10,7 +10,6 @@ import 'package:church_of_christ/ui/widgets/custom_page.dart';
 import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +41,7 @@ class _MyEventScreen extends State<MyEventScreen>{
 
     return Scaffold(
           body: BlanckPage(
-            title: FlutterI18n.translate(context, 'acuedd.events.myevents.title'),
+            title: "Mis eventos",
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.search),
@@ -68,7 +67,7 @@ class _MyEventScreen extends State<MyEventScreen>{
           floatingActionButton: FloatingActionButton(
             heroTag: "btnAddEvents",
             child: Icon(Icons.add),
-            tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
+            tooltip: "Buscar",
             onPressed: (){
               ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 760, maxWidth: 1024).then((File image){
                 Navigator.of(context).push(FadeRoute(AddEventScreen(user: widget.myUser,image: image, eventEditing: null,)));
@@ -113,13 +112,13 @@ class ItemEventsSearch extends StatelessWidget {
       ],
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: FlutterI18n.translate(context, 'app.edit'),
+          caption: "Editar",
           //color: Colors.black45,
           icon: Icons.edit,
           onTap: () => _handleTapUp(),
         ),
         IconSlideAction(
-          caption: FlutterI18n.translate(context, 'app.delete'),
+          caption: "Eliminar",
           color: Colors.red,
           icon: Icons.delete,
           onTap: (){
@@ -158,7 +157,7 @@ class ItemEventsSearch extends StatelessWidget {
     db.deleteEvent(myEvent, myUser);
     Scaffold
         .of(_context)
-        .showSnackBar(SnackBar(content: Text(FlutterI18n.translate(_context, 'acuedd.events.deleteData')),));
+        .showSnackBar(SnackBar(content: Text("Se ha elimado el evento"),));
     //Navigator.pop(_scaffoldContext);
   }
 
@@ -284,7 +283,7 @@ class CustomSearchDelegate extends SearchDelegate{
         children: <Widget>[
           Center(
             child: Text(
-              FlutterI18n.translate(context, 'acuedd.events.search.searchMin')
+              "Tu búsqueda debe ser mayor a dos letras."
             ),
           ),
         ],

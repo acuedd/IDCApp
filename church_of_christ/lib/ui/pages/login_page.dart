@@ -4,7 +4,6 @@ import 'package:church_of_christ/data/models/user_repository.dart';
 import 'package:church_of_christ/ui/widgets/button_green.dart';
 import 'package:church_of_christ/ui/widgets/gradient_back.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                       right: 50.0,
                     ),
                     width: screenWidht,
-                    child: Text(FlutterI18n.translate(context, 'app.welcome'),
+                    child: Text("Bienvenido \n Esta es tu aplicación \n de la iglesia",
                       style: TextStyle(
                           fontSize: 37.0,
                           fontFamily: "Lato",
@@ -54,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-              ButtonGreen(text: FlutterI18n.translate(context, 'app.register'),
+              ButtonGreen(text: "Registrate con gmail",
                 onPressed: () async {
                   user.signOut();
                   if (await user.signInWithGoogle()){

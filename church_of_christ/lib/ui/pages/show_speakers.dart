@@ -11,7 +11,6 @@ import 'package:church_of_christ/ui/widgets/popup_settings.dart';
 import 'package:church_of_christ/ui/widgets/speaker_item.dart';
 import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +81,7 @@ class _ShowSpeakers extends State<ShowSpeakers>{
 
     return Scaffold(
         body: BlanckPage(
-              title: FlutterI18n.translate(context, 'acuedd.speakers.title'),
+              title: "Expositores",
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.search),
@@ -115,7 +114,7 @@ class _ShowSpeakers extends State<ShowSpeakers>{
           floatingActionButton: (widget.user != null && widget.user.isAdmin)? FloatingActionButton(
             heroTag: "btnShowSpeak",
             child: Icon(Icons.add),
-            tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.search'),
+            tooltip: "Buscar",
             onPressed: (){
               ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 640, maxHeight: 480).then((File image){
                 Navigator.of(context).push(FadeRoute(AddSpeaker( speakerLoad: null, user: widget.user, image: image
@@ -168,7 +167,7 @@ class SpeakerSearchDelegate extends SearchDelegate{
         children: <Widget>[
           Center(
             child: Text(
-                FlutterI18n.translate(context, 'acuedd.events.search.searchMin')
+                "Tu búsqueda debe ser mayor a dos letras."
             ),
           ),
         ],

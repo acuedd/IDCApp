@@ -30,7 +30,6 @@ import 'package:church_of_christ/util/url.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +76,7 @@ class _DetailPage extends State<DetailPage> {
               ? FloatingActionButton(
                   heroTag:  "btnVideo${widget.myEvent.id}",
                   child: Icon(Icons.ondemand_video),
-                  tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.watch_replay'),
+                  tooltip: "Ver lanzamiento",
                   onPressed: () async => await FlutterWebBrowser.openWebPage(
                     url: widget.myEvent.urlVideo,
                     androidToolbarColor: Theme.of(context).primaryColor,
@@ -87,11 +86,11 @@ class _DetailPage extends State<DetailPage> {
                   heroTag: "btnCalendar${widget.myEvent.id}",
                   child: Icon(Icons.event),
                   backgroundColor: Theme.of(context).accentColor,
-                  tooltip: FlutterI18n.translate(context, 'acuedd.other.tooltip.add_event'),
+                  tooltip: "Añadir evento",
                   onPressed: () => Add2Calendar.addEvent2Cal(Event(
                     title: widget.myEvent.title,
                     description: widget.myEvent.description ??
-                      FlutterI18n.translate(context, 'app.no_description'),
+                      "Esta misión actualmente no tiene detalles",
                     location: widget.myEvent.address,
                     startDate: widget.myEvent.dateTime,
                     endDate: widget.myEvent.dateTime.add(Duration(
@@ -150,7 +149,7 @@ class _DetailPage extends State<DetailPage> {
 
   Widget _getPageBlanck(BuildContext context){
     return BlanckPage(
-      title: widget.myEvent.title,//FlutterI18n.translate(context, 'Profile'),
+      title: widget.myEvent.title,
       actions: <Widget>[
         SharedContent(text: widget.myEvent.title),
         PopupSettins(),
@@ -209,10 +208,7 @@ class _DetailPage extends State<DetailPage> {
 
   Widget _getDescription(BuildContext context){
     return CardPage.body(
-      title: FlutterI18n.translate(
-        context,
-        'acuedd.events.description',
-      ),
+      title: "DESCRIPCION",
       body: RowLayout(children: <Widget>[
         _getDate(),
         if(widget.myEvent.price > 0)
@@ -247,7 +243,7 @@ class _DetailPage extends State<DetailPage> {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Text(FlutterI18n.translate(context, ('acuedd.events.tickets.cost'))+ " " + widget.myEvent.currency.toString() + " " + widget.myEvent.price.toString(),
+          new Text("Costo de entrada"+ " " + widget.myEvent.currency.toString() + " " + widget.myEvent.price.toString(),
             style: new TextStyle(
                 fontSize: 15.0,
                 color: Colors.grey
@@ -276,10 +272,10 @@ class _DetailPage extends State<DetailPage> {
 
   _getLocation(BuildContext context){
     return CardPage.body(
-      title: FlutterI18n.translate(context, 'acuedd.events.location'),
+      title: "LUGAR DE ENCUENTRO",
       body: RowLayout(children: <Widget>[
         RowText(
-          FlutterI18n.translate(context, 'acuedd.events.address'),
+          "Dirección",
           "",
         ),
         Row(
@@ -399,7 +395,7 @@ class _DetailPage extends State<DetailPage> {
           }
         }
       },
-      label: Text(FlutterI18n.translate(context, 'acuedd.events.basics.openMaps')),
+      label: Text("Abrir mapa"),
     );
   }
 
@@ -413,9 +409,7 @@ class _DetailPage extends State<DetailPage> {
                 padding: EdgeInsets.only(left: 30.0),
                 child: RaisedButton.icon(
                   icon: Icon(Icons.schedule),
-                  label: Text(FlutterI18n.translate(
-                      context,
-                      'acuedd.events.schedule')
+                  label: Text("Programa"
                   ),
                   onPressed: (){
                     Navigator.of(context).push(FadeInRoute(
@@ -434,9 +428,7 @@ class _DetailPage extends State<DetailPage> {
                   padding: EdgeInsets.only(right: 30.0),
                   child: RaisedButton.icon(
                     icon: Icon(Icons.person),
-                    label: Text(FlutterI18n.translate(
-                        context,
-                        'acuedd.events.speakers')
+                    label: Text("Expositores"
                     ),
                     onPressed: (){
                       Navigator.of(context).push(FadeInRoute(
@@ -456,7 +448,7 @@ class _DetailPage extends State<DetailPage> {
     if(widget.myUserLogged != null){
       if(widget.myEvent.admissions.contains(widget.myUserLogged.uid)){
         return CardPage.body(
-            title: FlutterI18n.translate(context, 'acuedd.events.tickets.name'),
+            title: "Tickets",
             body: RowLayout(
               children: <Widget>[
                 Stack(
@@ -467,9 +459,7 @@ class _DetailPage extends State<DetailPage> {
                         padding: EdgeInsets.only(left: 10.0),
                         child: RaisedButton.icon(
                           icon: Icon(Icons.recent_actors),
-                          label: Text(FlutterI18n.translate(
-                            context,
-                            'acuedd.events.register')
+                          label: Text("Registro"
                           ),
                           onPressed: (){
                             Navigator.of(context).push(FadeInRoute(
@@ -487,9 +477,7 @@ class _DetailPage extends State<DetailPage> {
                         padding: EdgeInsets.only(right: 10.0),
                         child: RaisedButton.icon(
                           icon: Icon(Icons.pie_chart),
-                          label: Text(FlutterI18n.translate(
-                              context,
-                              'acuedd.events.statistics')
+                          label: Text("Estadísticas"
                           ),
                           onPressed: (){
                             Navigator.of(context).push(FadeInRoute(

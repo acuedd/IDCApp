@@ -4,7 +4,6 @@ import 'package:church_of_christ/data/models/user.dart';
 import 'package:church_of_christ/ui/widgets/header_text.dart';
 import 'package:church_of_christ/ui/widgets/row_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:row_collection/row_collection.dart';
 
@@ -32,17 +31,14 @@ class _AdmissionsDetail extends State<AdmissionsDetail>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(FlutterI18n.translate(context, 'acuedd.events.list' )),
+        title: Text("Listado"),
         centerTitle: false,
       ),
       body: SafeArea(
         child: Container(
           child: Column(
             children: <Widget>[
-              HeaderText(text:FlutterI18n.translate(
-                context,
-                'acuedd.events.registerAdmission',
-              )),
+              HeaderText(text:"Agregar usuario de admisiones"),
               Expanded(
                 child: ListAdmission( widget.listAdmissions, widget.myUserLogged),
               )
@@ -75,24 +71,24 @@ class ListAdmission extends StatelessWidget {
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 25.0, bottom: 25.0),
         children: <Widget>[
           RowText(
-            "${FlutterI18n.translate(context, 'acuedd.events.name')}:",
+            "Nombre:",
             capitalize(listAdmissions[index].name),
           ),
           RowText(
-            "${FlutterI18n.translate(context, 'acuedd.users.age')}:",
+            "Edad:",
             listAdmissions[index].age.toString(),
           ),
           RowText(
-            "${FlutterI18n.translate(context, 'acuedd.events.church')}:",
+            "Iglesia:",
             listAdmissions[index].church,
           ),
           RowText(
-            "${FlutterI18n.translate(context, 'acuedd.events.contribution')}:",
+            "Contribución:",
             fo.symbolOnLeft,
           ),
           if(userlogged == null)
             RowText(
-                "${FlutterI18n.translate(context, 'app.regby')}:",
+                "Registrado por:",
                 "${listAdmissions[index].nameUserReg}"
             )
           //Text(, style: TextStyle(color: Colors.deepPurple))
