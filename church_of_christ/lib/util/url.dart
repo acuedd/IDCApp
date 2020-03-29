@@ -24,7 +24,7 @@ class Url {
       'https://raw.githubusercontent.com/acuedd/chuchofChrist/master/CHANGELOG.md';
   static const String authorStore =
       'https://play.google.com/store/apps/developer?id=acuedd';
-  static const String authorAppStore = "https://apps.apple.com/gt/developer/homeland-s-a/id789757934";
+  static const String authorAppStore = "https://apps.apple.com/gt/developer/edward-guillermo-lopez/id1482988460";
 
   static const String playStore =
       'https://play.google.com/store/apps/details?id=gt.com.acuedd.church_of_christ';

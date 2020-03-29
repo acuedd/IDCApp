@@ -16,7 +16,6 @@ class MusicScreen extends StatefulWidget{
 }
 
 class _MusicScreen extends State<MusicScreen>{
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

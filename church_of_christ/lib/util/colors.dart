@@ -20,3 +20,8 @@ const blackAccentColor = const Color(0xFFFFFFFF);
 const blackBackgroundColor = const Color(0xFF000000);
 const blackCardColor = const Color(0xFF000000);
 const blackDividerColor = const Color(0xFF323232);
+
+const firstColor = Color(0xFFFFBC02D);
+const secondColor = Color(0xFFAF1055);
+const logoTintColor = Color(0xFFFCE3E0);
+

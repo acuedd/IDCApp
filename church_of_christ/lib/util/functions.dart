@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+
+import 'colors.dart';
 
 class Functions{
 
@@ -81,3 +85,48 @@ class FadeRoute extends PageRoute {
   Duration get transitionDuration => const Duration(milliseconds: 250);
 
 }
+
+class GetTextStyle{
+
+  static getSubHeaderTextStyle(BuildContext context){
+    return TextStyle(
+      fontSize: 18,
+      //color: firstColor,
+      color: Theme.of(context).textTheme.caption.color.withOpacity(0.5),
+      fontWeight: FontWeight.w700,
+      fontFamily: "Lato",
+    );
+  }
+
+  static getThirdHeading(BuildContext context){
+    return TextStyle(
+      fontSize: 14,
+      color: firstColor,
+      //color: (Provider.of<AppModel>(context).theme == Themes.black || Provider.of<AppModel>(context).theme == Themes.dark)? firstColor: Theme.of(context).textTheme.caption.color,
+      //color: Theme.of(context).textTheme.caption.color,
+      fontWeight: FontWeight.w700,
+      fontFamily: "Lato",
+    );
+  }
+
+  static getHeadingOneTextStyle(BuildContext context){
+    return TextStyle(
+      fontSize: 20,
+      //color: Colors.black,
+      color: Theme.of(context).textTheme.caption.color,
+      fontFamily: "Lato",
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  static getHeadingMusic(BuildContext context){
+    return TextStyle(
+      //color: Colors.white,
+        color: Theme.of(context).textTheme.caption.color,
+        fontFamily: "Lato",
+        fontWeight: FontWeight.bold,
+        fontSize: 38.0
+    );
+  }
+}
+

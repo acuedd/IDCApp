@@ -1,6 +1,9 @@
+import 'package:church_of_christ/data/models/app_model.dart';
 import 'package:church_of_christ/ui/tabs/churchs.dart';
 import 'package:church_of_christ/ui/widgets/search.dart';
+import 'package:church_of_christ/util/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class musicCollection extends StatefulWidget{
 
@@ -28,63 +31,58 @@ class _musicCollection extends State<musicCollection>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: blueColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(height: 32.0,),
-            SearchWidget(
-              textHint: 'Search Music...',
-            ),
-            SizedBox(height: 32.0,),
-            Text(
-              'Collections',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 38.0
+      //backgroundColor: blueColor,
+      body:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SearchWidget(
+                textHint: 'Search Music...',
               ),
-            ),
-            SizedBox(height: 16.0,),
-            Row(
-              children: <Widget>[
-                ItemCard('assets/images/blue.jpg', 'En tu presencia'),
-                SizedBox(
-                  width: 16.0,
+              SizedBox(height: 32.0,),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Text('Colecciones',
+                    style: GetTextStyle.getHeadingMusic(context),
+                  ),
                 ),
-                ItemCard('assets/images/pink.jpg', 'La campesina'),
-                SizedBox(width: 16.0,),
-                ItemCard('assets/images/orange.jpg', 'En momentos así'),
-                SizedBox(width: 16.0,),
-                ItemCard('assets/images/yellow.jpg', 'Adoremos al Padre'),
-              ],
-            ),
-            SizedBox(height: 32.0,),
-            Row(
-              children: <Widget>[
-                ItemCard('assets/images/orange.jpg', 'En momentos así'),
-                SizedBox(width: 16.0,),
-                ItemCard('assets/images/yellow.jpg', 'Adoremos al Padre'),
-              ],
-            ),
-            SizedBox(height: 32.0,),
-            Text('Recommend',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 38.0
+              SizedBox(height: 16.0,),
+              Container(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'En momentos así'),
+                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'A tu prescencia'),
+                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'Coro campesina'),
+                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'Pinares del Norte'),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 16.0,),
-            SongItem('Efecto Dominó', 'Edy Tercero', martinGarrix),
-            SongItem('Never Be Like You', 'Flume', flume),
-            SongItem('Worry Bout Us', 'Rosie Lowe', rosieLowe),
-            SongItem('In the Name of Love', 'Martin Garrix', martinGarrix),
-            SongItem('In the Name of Love', 'Martin Garrix', martinGarrix),
-
-          ],
-        ),
+              SizedBox(height: 16.0,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text('Recomendados',
+                  style: GetTextStyle.getHeadingMusic(context),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: <Widget>[
+                          SizedBox(height: 16.0,),
+                          SongItem('Efecto Dominó', 'Edy Tercero', martinGarrix),
+                          SongItem('Never Be Like You', 'Flume', flume),
+                          SongItem('Worry Bout Us', 'Rosie Lowe', rosieLowe),
+                          SongItem('In the Name of Love', 'Martin Garrix', martinGarrix),
+                          SongItem('In the Name of Love', 'Martin Garrix', martinGarrix),
+                        ]
+                    )
+                ),
+              ),
+            ],
       ),
     );
   }
@@ -108,7 +106,7 @@ class SongItem extends StatelessWidget{
         );
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 26.0),
+        padding: const EdgeInsets.only(bottom: 15.0),
         child: Row(
           children: <Widget>[
             Stack(
@@ -141,24 +139,18 @@ class SongItem extends StatelessWidget{
               children: <Widget>[
                 Text(
                   title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0
-                  ),
+                  style: GetTextStyle.getHeadingOneTextStyle(context),
                 ),
                 SizedBox(height: 8.0,),
                 Text(artist,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.5), fontSize: 18.0
-                  ),
+                  style: GetTextStyle.getSubHeaderTextStyle(context),
                 )
               ],
             ),
             Spacer(),
             Icon(
-              Icons.more_horiz, 
-              color: Colors.white.withOpacity(0.6),
+              Icons.more_vert,
+              color: Theme.of(context).textTheme.caption.color.withOpacity(0.3),
               size: 32.0,
             )
           ],
@@ -206,57 +198,6 @@ class CustomTextField extends StatelessWidget{
   }
 
 
-}
-
-class ItemCard extends StatelessWidget{
-  final image;
-  final title;
-
-  ItemCard(this.image, this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: 120.0,
-            child: Stack(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.cover,
-                    height: 140.0,
-                    width: double.infinity,
-                  )),
-                Positioned(
-                  right: 16.0,
-                  top: 16.0,
-                  child: Icon(
-                    Icons.bookmark, 
-                    color: Colors.white.withOpacity(0.3),
-                    size: 24.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 12.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 4.0),
-            child: Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 20.0),
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }
 
 class DetailedScreen extends StatelessWidget{
@@ -433,3 +374,53 @@ class DetailedScreen extends StatelessWidget{
     );
   }
 }
+
+class itemCollection extends StatelessWidget{
+  final String imagePath;
+  final title;
+
+  const itemCollection({Key key, @required this.imagePath, @required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Utils.image(imagePath, height: 140.0, width: 180.0,fit: BoxFit.cover,),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 20,
+            right: 20,
+            child: InkWell(
+              onTap: null,
+              child: Material(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                elevation: 4,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: (Provider.of<AppModel>(context).theme == Themes.black || Provider.of<AppModel>(context).theme == Themes.dark)? Colors.white : Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: GetTextStyle.getThirdHeading(context),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
