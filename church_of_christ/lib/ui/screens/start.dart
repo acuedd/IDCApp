@@ -141,7 +141,7 @@ class _StartScreenState extends State<StartScreen> {
               icon: Icon(Icons.event),
             ),
             BottomNavigationBarItem(
-              title: Text("Music"),
+              title: Text("IDC Music"),
               icon: Icon(Icons.music_note),
             ),
             BottomNavigationBarItem(

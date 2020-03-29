@@ -21,13 +21,23 @@ class Utils {
   }
 
   static Image image(String src, {height, width, fit}) {
-    if (src.startsWith('http')) {
-      return Image(image: CachedNetworkImageProvider(src),
-          height: height,
-          width: width,
-          fit: fit);
-    } else {
-      return Image.asset(src, height: height, width: width, fit: fit);
+    try{
+      if(src != '') {
+        if (src.startsWith('http')) {
+          return Image(image: CachedNetworkImageProvider(src),
+              height: height,
+              width: width,
+              fit: fit);
+        }
+        else{
+          return Image.asset(src, height: height, width: width, fit: fit);
+        }
+      }else{
+        return new Image.asset('assets/images/place_holder.jpg');
+      }
+
+    }catch(e){
+      return new Image.asset('assets/images/place_holder.jpg');
     }
   }
 
