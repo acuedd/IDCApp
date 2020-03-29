@@ -52,8 +52,8 @@ class _musicCollection extends State<musicCollection>{
                   child: Row(
                     children: <Widget>[
                       itemCollection(imagePath: 'assets/images/orange.jpg', title: 'En momentos así'),
-                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'A tu prescencia'),
-                      itemCollection(imagePath: 'assets/images/orange.jpg', title: 'Coro campesina'),
+                      itemCollection(imagePath: 'assets/images/pink.jpg', title: 'A tu prescencia'),
+                      itemCollection(imagePath: 'assets/images/blue.jpg', title: 'Coro campesina'),
                       itemCollection(imagePath: 'assets/images/orange.jpg', title: 'Pinares del Norte'),
                     ],
                   ),

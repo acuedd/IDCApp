@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:church_of_christ/data/models/changelog.dart';
 import 'package:church_of_christ/ui/screens/changelog.dart';
 import 'package:church_of_christ/ui/widgets/custom_page.dart';
@@ -70,22 +72,42 @@ class _AboutScreenState extends State<AboutScreen> {
           trailing: Icon(Icons.chevron_right),
           title: "¿Disfrutando de la app?",
           subtitle: "Deja tu experiencia en la Play Store",
-          onTap: () async => await FlutterWebBrowser.openWebPage(
-            url: Url.appStore,
-            androidToolbarColor: Theme.of(context).primaryColor,
-          ),
+          onTap: () async => {
+            if(Platform.isAndroid){
+              await FlutterWebBrowser.openWebPage(
+                url: Url.playStore,
+                androidToolbarColor: Theme.of(context).primaryColor,
+              ),
+            }
+            else{
+              await FlutterWebBrowser.openWebPage(
+                url: Url.appStore,
+                androidToolbarColor: Theme.of(context).primaryColor,
+              ),
+            }
+          }
         ),
 
         HeaderText(text: "Autor"),
         ListCell.icon(
           icon: Icons.person_outline,
           trailing: Icon(Icons.chevron_right),
-          title: "Aplicaciones libres bien diseñadas",
-          subtitle: "Aplicaciones libres bien diseñadas",
-          onTap: () async => await FlutterWebBrowser.openWebPage(
-            url: Url.authorStore,
-            androidToolbarColor: Theme.of(context).primaryColor,
-          ),
+          title: "Aplicaciones libres",
+          subtitle: "Bien diseñadas y hechas con amor",
+          onTap: () async => {
+            if(Platform.isAndroid){
+              await FlutterWebBrowser.openWebPage(
+                url: Url.authorStore,
+                androidToolbarColor: Theme.of(context).primaryColor,
+              ),
+            }
+            else{
+              await FlutterWebBrowser.openWebPage(
+                url: Url.authorAppStore,
+                androidToolbarColor: Theme.of(context).primaryColor,
+              ),
+            }
+          }
         ),
         ListCell.icon(
           icon: Icons.cake,
