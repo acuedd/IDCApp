@@ -12,7 +12,7 @@
 * Adding first attemp of widget player 
 * Adding widget player to Bottom Navigation Bar, above of tab navigator
 
-## [3.2.0] - April 30th, 2021
+## [3.1.2] - April 30th, 2021
 * Fixing info about appstore
 * Adding next version in pubspect
 * Fixing version to iOS
