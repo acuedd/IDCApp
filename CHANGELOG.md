@@ -1,4 +1,4 @@
-## [3.4.1] - May 17th, 2021
+## [3.4.1] - Nov 8th, 2021
 * Adding improvement of user interface.
 * Adding option to share a name of song.
 * Improvement of cache manager of images when connection is limited. 
